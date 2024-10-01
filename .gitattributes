@@ -104,3 +104,4 @@
 *.meta              linguist-generated
 *.prefab            linguist-generated
 *.unity             linguist-generated
+*.dylib filter=lfs diff=lfs merge=lfs -text
