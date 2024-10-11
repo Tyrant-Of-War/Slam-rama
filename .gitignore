@@ -1,4 +1,6 @@
 ### Unity ###
+
+# Ignore Unity-generated folders and files
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -6,14 +8,18 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+
+# Ignore large capture files that may contain sensitive data
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
 
-# Ignore Rider plugin and AssetStoreTools
+# Ignore Rider/Jetbrains plugin
 /[Aa]ssets/Plugins/Editor/JetBrains*
+
+# Ignore Asset Store Tools (optional, uncomment if needed)
 # /[Aa]ssets/AssetStoreTools*
 
-# Visual Studio and IDE cache files
+# Visual Studio and IDE-related files
 .vs/
 .gradle/
 ExportedObj/
@@ -33,16 +39,11 @@ ExportedObj/
 *.opendb
 *.VC.db
 
-# Unity generated meta and crash report files
+# Ignore Unity meta and crash report files
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
 sysinfo.txt
-
-# Packed Addressables and temporary assets
-/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
-/[Aa]ssets/[Ss]treamingAssets/aa.meta
-/[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Builds
 *.apk
@@ -50,13 +51,38 @@ sysinfo.txt
 *.unitypackage
 *.app
 
-# Crashlytics generated files
+# Crashlytics-generated file
 crashlytics-build.properties
 
-# Additional ignored files
-*.mvfrm
-/[Pp]ackage[Cc]ache/
+# Ignore packed Addressables
+/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
+
+# Ignore temporary auto-generated Android assets
+/[Aa]ssets/[Ss]treamingAssets/aa.meta
+/[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Ignore Unity-generated artifact files
+/[Ll]ibrary/ArtifactDB
 /[Ll]ibrary/[Bb]ee/
 /[Ll]ibrary/[Ss]criptAssemblies/
+/[Ll]ibrary/[Ss]ourceAssetDB
 /[Ll]ibrary/SceneVisibilityState.asset
-/L[L]ogs/AssetImportWorker*.log
+/[Ll]ibrary/Search/
+/[Ll]ibrary/ilpp.pid
+
+# Ignore Unity Burst compiler files (*.mvfrm)
+*.mvfrm
+
+# Ignore Shader and Build Logs
+/[Ll]ogs/AssetImportWorker*.log
+/[Ll]ogs/shadercompiler-UnityShaderCompiler*.log
+
+# Ignore additional caches and generated data
+/[Pp]ackage[Cc]ache/
+/[Aa]sset[Ss]tore/
+/[Cc]ache/
+*.bak
+
+# Temporary folders and files created by tools like Rider, Unity Accelerator, or external plugins
+/[Cc]ache/
+[Tt]emp/
