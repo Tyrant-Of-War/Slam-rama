@@ -71,4 +71,21 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# End of https://www.toptal.com/developers/gitignore/api/unity
+# Cache files
+/[Aa]sset[Ss]tore/
+/[Pp]ackages/
+/[Cc]ache/
+
+# Ignore meta files from ignored directories
+/[Ll]ibrary/**/*.meta
+/[Tt]emp/**/*.meta
+/[Oo]bj/**/*.meta
+/[Bb]uild/**/*.meta
+
+# Scene backup files
+*.bak
+
+# Xcode and Android Studio directories
+/[Bb]uild/**/xcuserdata/
+/.gradle/
+/.idea/
