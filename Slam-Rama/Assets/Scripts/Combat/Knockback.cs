@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    Rigidbody playerRB;
+    [SerializeField] PlayerData playerData;
+
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerRB = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    public void RunKnockback(Vector3 direction, int force)
+    public void RunKnockback(Vector3 direction, float multiplier)
     {
         Debug.Log("Force Applied");
 
-        playerRB.AddForce(direction * force, ForceMode.Impulse);
+        rb.AddForce(playerData.damage * multiplier * direction, ForceMode.Impulse);
     }
 }

@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] PlayerData playerData;
+
     // Input and movement variables
     Vector2 stickData;
     Vector3 movementData;
@@ -42,8 +44,6 @@ public class PlayerMovement : MonoBehaviour
     // Movement control flag
     bool ActiveMovement;
 
-    Vector2 direction;
-
     void Start()
     {
         // Initialize components and variables
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // If not dashing, apply normal movement
-        if (ActiveMovement && playerGrounded)
+        if (ActiveMovement && playerGrounded && !playerData.isStunned)
         {
             playerRB.drag = groundDrag;
             speed = groundSpeed;
@@ -105,7 +105,6 @@ public class PlayerMovement : MonoBehaviour
     {
         // Capture input data and calculate movement direction
         stickData = stickInput.Get<Vector2>();
-        direction = stickInput.Get<Vector2>();
         movementData = new Vector3(stickData.x, 0f, stickData.y);
 
         // Enable movement
