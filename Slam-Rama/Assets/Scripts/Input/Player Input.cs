@@ -339,7 +339,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Mouse"",
+                    ""name"": ""Keyboard"",
                     ""id"": ""29ca7552-bd2e-4eae-b051-18612e0888d5"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
@@ -352,7 +352,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""negative"",
                     ""id"": ""6c00faef-d862-4ea7-a645-bc4a22bbe474"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -363,7 +363,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""positive"",
                     ""id"": ""d1e46aa9-b100-466e-a216-1f185e59badd"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

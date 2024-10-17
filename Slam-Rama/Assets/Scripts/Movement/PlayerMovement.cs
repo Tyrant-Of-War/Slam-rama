@@ -70,9 +70,6 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
 
-        // Debug to check input direction magnitude
-        Debug.Log(direction.magnitude);
-
         // If not dashing, apply normal movement
         if (ActiveMovement && playerGrounded)
         {

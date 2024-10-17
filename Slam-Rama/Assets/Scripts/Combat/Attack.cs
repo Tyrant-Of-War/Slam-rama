@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,28 +8,22 @@ public class Attack : MonoBehaviour
 {
     BoxCollider attackHitbox;
 
-    List<Rigidbody> attackTargets = new List<Rigidbody>();
+    List<GameObject> attackTargets = new List<GameObject>();
 
     private void Start()
     {
         attackHitbox = GetComponent<BoxCollider>();
-
-        attackHitbox.enabled = false;
     }
 
     void OnAttack(InputValue inputValue)
     {
-        attackHitbox.enabled = true;
-
-        Debug.Log(attackHitbox.enabled);
-
         if (inputValue.Get<float>() == 1)
         {
-            Invoke("LightAttack", 2f);
+            LightAttack();
         }
         else if (inputValue.Get<float>() == -1)
         {
-            Invoke("HeavyAttack", 2f);
+            HeavyAttack();
         }
     }
 
@@ -36,41 +31,52 @@ public class Attack : MonoBehaviour
     {
         Debug.Log("Light Attack");
 
-        attackTargets.Clear();
+        for (int i = 0; i < attackTargets.Count; i++)
+        {
+            Debug.Log(attackTargets[i].name);
 
-        attackHitbox.enabled = false;
+            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 10);
+
+            attackTargets.RemoveAt(i);
+        }
     }
 
     void HeavyAttack()
     {
         Debug.Log("Heavy Attack");
 
-        attackTargets.Clear();
+        for (int i = 0; i < attackTargets.Count; i++)
+        {
+            Debug.Log(attackTargets[i].name);
 
-        attackHitbox.enabled = false;
+            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 30);
+
+            attackTargets.RemoveAt(i);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !other.isTrigger)
+        if (other.tag == "Player" && !other.isTrigger && other != this.GetComponent<CapsuleCollider>())
         {
             Debug.Log("Collision Entry Detected");
 
-            attackTargets.Add(other.GetComponent<Rigidbody>());
+            attackTargets.Add(other.gameObject);
 
-            Debug.Log(attackTargets.Count);
+            for (int i = 0; i < attackTargets.Count; i++)
+            {
+                Debug.Log(attackTargets[i].name);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" && !other.isTrigger)
+        if (attackTargets.Contains(other.gameObject))
         {
-            Debug.Log("Collision Exit Detected");
+            Debug.Log(other.name + " Has Exited Collision");
 
-            attackTargets.Remove(other.GetComponent<Rigidbody>());
-
-            Debug.Log(attackTargets.Count);
+            attackTargets.Remove(other.gameObject);
         }
     }
 }
