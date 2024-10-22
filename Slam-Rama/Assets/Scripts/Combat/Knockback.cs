@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
-    [SerializeField] PlayerData playerData;
+    public PlayerData playerData;
 
     Rigidbody rb;
 

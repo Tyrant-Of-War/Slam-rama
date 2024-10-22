@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Damage : MonoBehaviour
 {
-    [SerializeField] PlayerData playerData;
+    public PlayerData playerData;
 
     // Used to manage how long the play is stunned
     float stunTimer;

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -13,9 +14,19 @@ public class PlayerData : ScriptableObject
     // Used by the damage script to tell the movement script this player is currently stunned
     public bool isStunned;
 
+    //Used to check player pos for killzone purpose
+    public float playerY;
+
+    // Used by the game manager to set the colour of the player
+    public Material playerMaterial;
+
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {
         damage = 0;
+
+        isStunned = false;
+
+        playerY = 0;
     }
 }
