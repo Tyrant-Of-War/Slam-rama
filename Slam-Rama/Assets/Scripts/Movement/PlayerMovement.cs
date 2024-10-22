@@ -42,6 +42,8 @@ public class PlayerMovement : MonoBehaviour
     // Movement control flag
     bool ActiveMovement;
 
+    Vector2 direction;
+
     void Start()
     {
         // Initialize components and variables
@@ -58,12 +60,25 @@ public class PlayerMovement : MonoBehaviour
         // Ground check via raycast
         playerGrounded = Physics.Raycast(playerRB.transform.position, Vector3.down, out groundHit, (height / 2) + 0.1f, ground);
 
+        // Only rotate if there's movement input
+        if (movementData != Vector3.zero)
+        {
+            // Calculate the target rotation based on movement direction
+            Quaternion targetRotation = Quaternion.LookRotation(movementData);
+
+            // Smoothly rotate the player towards the target rotation
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        }
+
+        // Debug to check input direction magnitude
+        Debug.Log(direction.magnitude);
+
         // If not dashing, apply normal movement
         if (ActiveMovement && playerGrounded)
         {
             playerRB.drag = groundDrag;
             speed = groundSpeed;
-            playerRB.AddRelativeForce(movementData * speed * Time.fixedDeltaTime);
+            playerRB.AddForce(movementData * speed * Time.fixedDeltaTime);
         }
         else if (ActiveMovement && !playerGrounded)
         {
@@ -71,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             speed = airSpeed;
         }
 
-        // Apply gravity
+        // Apply gravity when in the air
         if (!playerGrounded)
         {
             playerRB.AddForce(Vector3.down * gravity * Time.fixedDeltaTime * 100, ForceMode.Force);
@@ -93,6 +108,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Capture input data and calculate movement direction
         stickData = stickInput.Get<Vector2>();
+        direction = stickInput.Get<Vector2>();
         movementData = new Vector3(stickData.x, 0f, stickData.y);
 
         // Enable movement
