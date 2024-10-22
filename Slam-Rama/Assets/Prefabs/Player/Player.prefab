@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 5168923332848398545}
   - component: {fileID: 6026409003079307071}
   - component: {fileID: 5943737662571242067}
+  - component: {fileID: 1390508075863064498}
+  - component: {fileID: 5634185026181663931}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -202,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396178a8c1917904f92de9b0dc4c09ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 243a4fa82c02777488f3e3d7a93b796f, type: 2}
   jumpForce: 30
   speed: 20
   airSpeed: 2000
@@ -225,3 +228,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6441f02a9b351d42b031df8b3f51525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1390508075863064498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190298267786525639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63334c6fe7fcf943856c67f49c84068, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 243a4fa82c02777488f3e3d7a93b796f, type: 2}
+--- !u!114 &5634185026181663931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190298267786525639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3294aa79af855b40a765bef05adc966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 243a4fa82c02777488f3e3d7a93b796f, type: 2}

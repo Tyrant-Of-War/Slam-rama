@@ -1,76 +1,98 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Attack : MonoBehaviour
 {
+    // The attack hitbox
     BoxCollider attackHitbox;
 
-    List<Rigidbody> attackTargets = new List<Rigidbody>();
+    // List of players in the attack hitbox
+    List<GameObject> attackTargets = new List<GameObject>();
 
     private void Start()
     {
+        // Gets the attack hitbox
         attackHitbox = GetComponent<BoxCollider>();
-
-        attackHitbox.enabled = false;
     }
 
     void OnAttack(InputValue inputValue)
     {
-        attackHitbox.enabled = true;
-
-        Debug.Log(attackHitbox.enabled);
-
+        // Checks whether input was for a heavy or light attack
         if (inputValue.Get<float>() == 1)
         {
-            Invoke("LightAttack", 2f);
+            // Calls the light attack function
+            LightAttack();
         }
         else if (inputValue.Get<float>() == -1)
         {
-            Invoke("HeavyAttack", 2f);
+            // Calls the heavy attack function
+            HeavyAttack();
         }
     }
 
     void LightAttack()
     {
-        Debug.Log("Light Attack");
+        //Debug.Log("Light Attack");
 
-        attackTargets.Clear();
+        // Runs through all players in the attack hitbox and calls the knockback function, then removes that player from the list
+        for (int i = 0; i < attackTargets.Count; i++)
+        {
+            //Debug.Log(attackTargets[i].name);
 
-        attackHitbox.enabled = false;
+            // Calls the knockback function and feeds it a direction and multiplier
+            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 0.1f);
+            attackTargets[i].GetComponent<Damage>().damagePlayer(1);
+
+            attackTargets.RemoveAt(i);
+        }
     }
 
     void HeavyAttack()
     {
-        Debug.Log("Heavy Attack");
+        //Debug.Log("Heavy Attack");
 
-        attackTargets.Clear();
+        // Runs through all players in the attack hitbox and calls the knockback function, then removes that player from the list
+        for (int i = 0; i < attackTargets.Count; i++)
+        {
+            //Debug.Log(attackTargets[i].name);
 
-        attackHitbox.enabled = false;
+            // Calls the knockback function and feeds it a direction and multiplier
+            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 1f);
+            attackTargets[i].GetComponent<Damage>().damagePlayer(10);
+
+            attackTargets.RemoveAt(i);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !other.isTrigger)
+        // Checks if the collider is a player, is not a trigger, and is not the current players hitbox
+        if (other.tag == "Player" && !other.isTrigger && other != this.GetComponent<CapsuleCollider>())
         {
-            Debug.Log("Collision Entry Detected");
+            //Debug.Log("Collision Entry Detected");
 
-            attackTargets.Add(other.GetComponent<Rigidbody>());
+            // Adds the collider game object to the target list
+            attackTargets.Add(other.gameObject);
 
-            Debug.Log(attackTargets.Count);
+            //for (int i = 0; i < attackTargets.Count; i++)
+            //{
+            //    Debug.Log(attackTargets[i].name);
+            //}
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player" && !other.isTrigger)
+        // Checks if the exiting player is in the list
+        if (attackTargets.Contains(other.gameObject))
         {
-            Debug.Log("Collision Exit Detected");
+            //Debug.Log(other.name + " Has Exited Collision");
 
-            attackTargets.Remove(other.GetComponent<Rigidbody>());
-
-            Debug.Log(attackTargets.Count);
+            // Removes the player from the list
+            attackTargets.Remove(other.gameObject);
         }
     }
 }
