@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         for (int i = 0; i < playerData.Count; i++)
         {
@@ -88,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         if (winner != null)
         {
-           SceneManager.LoadScene("LoserCards");  
+            SceneManager.LoadScene("LoserCards");
         }
     }
 }
