@@ -20,6 +20,12 @@ public class PlayerData : ScriptableObject
     // Used by the game manager to set the colour of the player
     public Material playerMaterial;
 
+    //Used to set player lives at the start of the round
+    public int lives = 3;
+
+    //Holds players active powerup
+    public List<string> powerUps = new List<string>();
+
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {
