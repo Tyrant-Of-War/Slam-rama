@@ -8,6 +8,7 @@ public class LevelData : ScriptableObject
 {
     [SerializeField] int ID;
 
+    // The height at which the player is killed if they go below
     public int killHeight;
 
     // List of spawn locations for each level

@@ -10,23 +10,15 @@ public class GameManager : MonoBehaviour
     int playerCount;
     [SerializeField] LevelData levelData;
 
-    void Start()
-    {
-
-    }
+    int playersWithLives;
 
     void Update()
     {
-        for (int i = 0; i < playerData.Count; i++)
-        {
-            if (playerData[i].playerY < levelData.killHeight)
-            {
-                PlayerDeathHandler(i);
-            }
-        }
-        CheckRoundEnd();
+
     }
-    public void playerSetup(UnityEngine.InputSystem.PlayerInput input)
+
+    // Is called when a player joins and checks which player it is
+    public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
     {
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
 
@@ -46,26 +38,25 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData data)
+
+    // Assigns the player and level data to the various scripts on each player object
+    private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData)
     {
-        input.GetComponent<Damage>().playerData = data;
-        input.GetComponent<Knockback>().playerData = data;
-        input.GetComponent<MeshRenderer>().material = data.playerMaterial;
+        // Assigns player data to the various scripts
+        input.GetComponent<Damage>().playerData = playerData;
+        input.GetComponent<Knockback>().playerData = playerData;
+        input.GetComponent<Knockout>().playerData = playerData;
+
+        // Assigns the level data to the knockout script
+        input.GetComponent<Knockout>().levelData = levelData;
+
+        // Assigns the correct material to the player
+        input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
     }
 
-    private void PlayerDeathHandler(int playerIndex)
-    {
-        PlayerData currentPlayer = playerData[playerIndex];
-        currentPlayer.lives--;
-
-        if (currentPlayer.lives <= 0)
-        {
-            currentPlayer.lives = 0;
-        }
-    }
     public void CheckRoundEnd()
     {
-        int playersWithLives = 0;
+        playersWithLives = 0;
         PlayerData lastPlayerStanding = null;
 
         foreach (PlayerData player in playerData)
