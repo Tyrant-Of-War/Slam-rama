@@ -20,11 +20,20 @@ public class PlayerData : ScriptableObject
     // Used by the game manager to set the colour of the player
     public Material playerMaterial;
 
-    //Used to set player lives at the start of the round
-    public int lives = 3;
+    // Used to set player lives at the start of the round
+    public int lives;
 
-    //Holds players active powerup
+    // Used to tell if the player is currently invunerable
+    public bool isInvincible;
+
+    // Holds players active powerup
     public List<string> powerUps = new List<string>();
+
+    // The amount of times a player has been knocked out
+    public int falls;
+
+    // The amount of times this player has knocked out another
+    public int knockouts;
 
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
@@ -34,5 +43,9 @@ public class PlayerData : ScriptableObject
         isStunned = false;
 
         playerY = 0;
+
+        lives = 3;
+
+        isInvincible = false;
     }
 }
