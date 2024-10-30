@@ -44,14 +44,16 @@ public class PlayerSelect : MonoBehaviour
         // Assigns player data to the various scripts
         input.GetComponent<Damage>().playerData = playerData;
         input.GetComponent<Knockback>().playerData = playerData;
-        //input.GetComponent<Knockout>().playerData = playerData;
+        input.GetComponent<Knockout>().playerData = playerData;
 
-        //// Assigns the level data to the knockout script
-        //input.GetComponent<Knockout>().levelData = levelData;
+        // Assigns the level data to the knockout script
+        input.GetComponent<Knockout>().levelData = levelData;
 
         // Assigns the correct material to the player
         input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
         input.GetComponent<PlayerMovement>().enabled = false;
+
         input.transform.position = new Vector3(levelData.SpawnLocation[UnityEngine.InputSystem.PlayerInput.all.Count - 1].x, 0);
+        playerData.PlayerObject = input.gameObject;
     }
 }

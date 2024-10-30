@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] PlayerData playerData;
+    [SerializeField] public PlayerData playerData;
 
     // Input and movement variables
     Vector2 stickData;

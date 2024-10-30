@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396178a8c1917904f92de9b0dc4c09ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 243a4fa82c02777488f3e3d7a93b796f, type: 2}
+  playerData: {fileID: 0}
   jumpForce: 30
   speed: 20
   airSpeed: 2000

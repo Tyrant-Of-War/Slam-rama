@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -34,6 +32,8 @@ public class PlayerData : ScriptableObject
 
     // The amount of times this player has knocked out another
     public int knockouts;
+
+    public GameObject PlayerObject;
 
     // Resets values that shouldn't carry through scenes
     private void OnEnable()

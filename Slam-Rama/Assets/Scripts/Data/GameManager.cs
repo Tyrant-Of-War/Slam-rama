@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     {
         // Assigns player data to the various scripts
         input.GetComponent<Damage>().playerData = playerData;
+        input.GetComponent<PlayerMovement>().playerData = playerData;
         input.GetComponent<Knockback>().playerData = playerData;
         input.GetComponent<Knockout>().playerData = playerData;
 
@@ -50,6 +51,7 @@ public class GameManager : MonoBehaviour
 
         // Assigns the correct material to the player
         input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
+        playerData.PlayerObject = input.gameObject;
     }
 
     public void CheckRoundEnd()
