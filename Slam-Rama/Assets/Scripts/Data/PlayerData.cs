@@ -35,6 +35,7 @@ public class PlayerData : ScriptableObject
 
     public GameObject PlayerObject;
 
+    public Playercontrols inputActions;
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {

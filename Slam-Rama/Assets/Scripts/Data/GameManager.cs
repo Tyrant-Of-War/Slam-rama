@@ -10,9 +10,18 @@ public class GameManager : MonoBehaviour
 
     int playersWithLives;
 
-    void FixedUpdate()
+    private void Start()
     {
+        playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
+        if (playerCount != 0)
+        {
+            foreach (UnityEngine.InputSystem.PlayerInput player in UnityEngine.InputSystem.PlayerInput.all)
+            {
+                player.SwitchCurrentActionMap("Player");
+                AssignPlayerData(player, player.gameObject.GetComponent<PlayerMovement>().playerData);
+            }
 
+        }
     }
 
     // Is called when a player joins and checks which player it is
@@ -45,6 +54,8 @@ public class GameManager : MonoBehaviour
         input.GetComponent<PlayerMovement>().playerData = playerData;
         input.GetComponent<Knockback>().playerData = playerData;
         input.GetComponent<Knockout>().playerData = playerData;
+        input.transform.GetChild(0).gameObject.SetActive(false);
+        input.GetComponent<PlayerMovement>().enabled = true;
 
         // Assigns the level data to the knockout script
         input.GetComponent<Knockout>().levelData = levelData;
@@ -52,6 +63,9 @@ public class GameManager : MonoBehaviour
         // Assigns the correct material to the player
         input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
         playerData.PlayerObject = input.gameObject;
+        input.SwitchCurrentActionMap("Player");
+        input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+
     }
 
     public void CheckRoundEnd()
@@ -79,7 +93,7 @@ public class GameManager : MonoBehaviour
     {
         if (winner != null)
         {
-            SceneManager.LoadScene("LoserCards");
+            SceneManager.LoadScene("LoserCards"); // need to change to this scene
         }
     }
 }

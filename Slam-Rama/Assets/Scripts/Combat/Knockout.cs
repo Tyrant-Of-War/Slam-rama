@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Knockout : MonoBehaviour
@@ -5,6 +6,7 @@ public class Knockout : MonoBehaviour
     public PlayerData playerData;
 
     public LevelData levelData;
+    bool once = true;
 
     // Update is called once per frame
     void Update()
@@ -14,14 +16,21 @@ public class Knockout : MonoBehaviour
             playerData.falls++;
             playerData.lives--;
             playerData.PlayerObject.transform.position = new Vector3(0, -2.5f, 0);
-            playerData.PlayerObject.GetComponent<PlayerMovement>().enabled = false;
-            Invoke("respawn", 3);
+            playerData.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            if (once)
+            {
+                once = false;
+                StartCoroutine(respawn());
+
+            }
         }
     }
 
-    void respawn()
+    IEnumerator respawn()
     {
+        yield return new WaitForSeconds(3);
         playerData.PlayerObject.transform.position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
-        playerData.PlayerObject.GetComponent<PlayerMovement>().enabled = true;
+        playerData.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        once = true;
     }
 }
