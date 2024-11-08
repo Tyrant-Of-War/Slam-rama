@@ -15,12 +15,11 @@ public class GameManager : MonoBehaviour
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
         if (playerCount != 0)
         {
-            foreach (UnityEngine.InputSystem.PlayerInput player in UnityEngine.InputSystem.PlayerInput.all)
+            for (int i = 0; i < playerCount; i++)
             {
-                player.SwitchCurrentActionMap("Player");
-                AssignPlayerData(player, player.gameObject.GetComponent<PlayerMovement>().playerData);
+                UnityEngine.InputSystem.PlayerInput.all[i].SwitchCurrentActionMap("Player");
+                AssignPlayerData(UnityEngine.InputSystem.PlayerInput.all[i], UnityEngine.InputSystem.PlayerInput.all[i].gameObject.GetComponent<Damage>().playerData, true);
             }
-
         }
     }
 
@@ -32,37 +31,44 @@ public class GameManager : MonoBehaviour
         switch (playerCount)
         {
             case 1:
-                AssignPlayerData(input, playerData[0]);
+                AssignPlayerData(input, playerData[0], false);
                 break;
             case 2:
-                AssignPlayerData(input, playerData[1]);
+                if (input.GetComponent<Damage>().playerData == null)
+                    AssignPlayerData(input, playerData[1], false);
                 break;
             case 3:
-                AssignPlayerData(input, playerData[2]);
+                if (input.GetComponent<Damage>().playerData == null)
+                    AssignPlayerData(input, playerData[2], false);
                 break;
             case 4:
-                AssignPlayerData(input, playerData[3]);
+                if (input.GetComponent<Damage>().playerData == null)
+                    AssignPlayerData(input, playerData[3], false);
                 break;
         }
     }
 
     // Assigns the player and level data to the various scripts on each player object
-    private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData)
+    private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData, bool Existing)
     {
-        // Assigns player data to the various scripts
-        input.GetComponent<Damage>().playerData = playerData;
         input.GetComponent<PlayerMovement>().playerData = playerData;
-        input.GetComponent<Knockback>().playerData = playerData;
-        input.GetComponent<Knockout>().playerData = playerData;
+        switch (Existing)
+        {
+            case false:
+                input.GetComponent<Damage>().playerData = playerData;
+
+                input.GetComponent<Knockback>().playerData = playerData;
+                input.GetComponent<Knockout>().playerData = playerData;
+                input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
+                playerData.PlayerObject = input.gameObject;
+                break;
+        }
+        // Assigns player data to the various scripts
         input.transform.GetChild(0).gameObject.SetActive(false);
         input.GetComponent<PlayerMovement>().enabled = true;
-
         // Assigns the level data to the knockout script
         input.GetComponent<Knockout>().levelData = levelData;
-
         // Assigns the correct material to the player
-        input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
-        playerData.PlayerObject = input.gameObject;
         input.SwitchCurrentActionMap("Player");
         input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
 
