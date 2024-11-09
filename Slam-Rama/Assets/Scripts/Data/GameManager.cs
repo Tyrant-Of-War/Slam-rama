@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Windows;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,62 +8,75 @@ public class GameManager : MonoBehaviour
     int playerCount;
     [SerializeField] LevelData levelData;
 
-    void Start()
-    {
+    int playersWithLives;
 
-    }
-
-    void Update()
+    private void Start()
     {
-        for (int i = 0; i < playerData.Count; i++)
+        playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
+        if (playerCount != 0)
         {
-            if (playerData[i].playerY < levelData.killHeight)
+            for (int i = 0; i < playerCount; i++)
             {
-                PlayerDeathHandler(i);
+                UnityEngine.InputSystem.PlayerInput.all[i].SwitchCurrentActionMap("Player");
+                AssignPlayerData(UnityEngine.InputSystem.PlayerInput.all[i], UnityEngine.InputSystem.PlayerInput.all[i].gameObject.GetComponent<Damage>().playerData, true);
             }
         }
-        CheckRoundEnd();
     }
-    public void playerSetup(UnityEngine.InputSystem.PlayerInput input)
+
+    // Is called when a player joins and checks which player it is
+    public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
     {
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
 
         switch (playerCount)
         {
             case 1:
-                AssignPlayerData(input, playerData[0]);
+                AssignPlayerData(input, playerData[0], false);
                 break;
             case 2:
-                AssignPlayerData(input, playerData[1]);
+                if (input.GetComponent<Damage>().playerData == null)
+                    AssignPlayerData(input, playerData[1], false);
                 break;
             case 3:
-                AssignPlayerData(input, playerData[2]);
+                if (input.GetComponent<Damage>().playerData == null)
+                    AssignPlayerData(input, playerData[2], false);
                 break;
             case 4:
-                AssignPlayerData(input, playerData[3]);
+                if (input.GetComponent<Damage>().playerData == null)
+                    AssignPlayerData(input, playerData[3], false);
                 break;
         }
     }
-    private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData data)
-    {
-        input.GetComponent<Damage>().playerData = data;
-        input.GetComponent<Knockback>().playerData = data;
-        input.GetComponent<MeshRenderer>().material = data.playerMaterial;
-    }
 
-    private void PlayerDeathHandler(int playerIndex)
+    // Assigns the player and level data to the various scripts on each player object
+    private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData, bool Existing)
     {
-        PlayerData currentPlayer = playerData[playerIndex];
-        currentPlayer.lives--;
-
-        if (currentPlayer.lives <= 0)
+        input.GetComponent<PlayerMovement>().playerData = playerData;
+        switch (Existing)
         {
-            currentPlayer.lives = 0;
+            case false:
+                input.GetComponent<Damage>().playerData = playerData;
+
+                input.GetComponent<Knockback>().playerData = playerData;
+                input.GetComponent<Knockout>().playerData = playerData;
+                input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
+                playerData.PlayerObject = input.gameObject;
+                break;
         }
+        // Assigns player data to the various scripts
+        input.transform.GetChild(0).gameObject.SetActive(false);
+        input.GetComponent<PlayerMovement>().enabled = true;
+        // Assigns the level data to the knockout script
+        input.GetComponent<Knockout>().levelData = levelData;
+        // Assigns the correct material to the player
+        input.SwitchCurrentActionMap("Player");
+        input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+
     }
+
     public void CheckRoundEnd()
     {
-        int playersWithLives = 0;
+        playersWithLives = 0;
         PlayerData lastPlayerStanding = null;
 
         foreach (PlayerData player in playerData)
@@ -88,7 +99,7 @@ public class GameManager : MonoBehaviour
     {
         if (winner != null)
         {
-           SceneManager.LoadScene("LoserCards");  
+            SceneManager.LoadScene("LoserCards"); // need to change to this scene
         }
     }
 }
