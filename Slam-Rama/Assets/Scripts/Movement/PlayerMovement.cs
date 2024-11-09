@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] PlayerData playerData;
+    [SerializeField] public PlayerData playerData;
 
     // Input and movement variables
     Vector2 stickData;
@@ -57,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Gives the players z position to the player dat for checking kill states
+        playerData.playerY = this.transform.position.y;
+
         // Ground check via raycast
         playerGrounded = Physics.Raycast(playerRB.transform.position, Vector3.down, out groundHit, (height / 2) + 0.1f, ground);
 
@@ -87,17 +90,6 @@ public class PlayerMovement : MonoBehaviour
         if (!playerGrounded)
         {
             playerRB.AddForce(Vector3.down * gravity * Time.fixedDeltaTime * 100, ForceMode.Force);
-        }
-
-        // Adjust player position for slope walking when grounded
-        if (playerGrounded && Mathf.Abs(Vector3.Distance(playerRB.position, groundHit.point) - (height / 2)) > 0.05f)
-        {
-            playerRB.transform.SetPositionAndRotation(new Vector3(
-                playerRB.position.x,
-                groundHit.point.y + (height / 2 + 0.05f),
-                playerRB.position.z),
-                playerRB.transform.rotation
-            );
         }
     }
 
@@ -133,4 +125,5 @@ public class PlayerMovement : MonoBehaviour
     {
         playerDash.ExecuteDash(movementData, playerGrounded, stickData.x, stickData.y);
     }
+
 }

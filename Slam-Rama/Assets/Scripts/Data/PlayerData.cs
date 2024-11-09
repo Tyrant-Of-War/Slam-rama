@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +12,41 @@ public class PlayerData : ScriptableObject
     // Used by the damage script to tell the movement script this player is currently stunned
     public bool isStunned;
 
+    //Used to check player pos for killzone purpose
+    public float playerY;
+
+    // Used by the game manager to set the colour of the player
+    public Material playerMaterial;
+
+    // Used to set player lives at the start of the round
+    public int lives;
+
+    // Used to tell if the player is currently invunerable
+    public bool isInvincible;
+
+    // Holds players active powerup
+    public List<string> powerUps = new List<string>();
+
+    // The amount of times a player has been knocked out
+    public int falls;
+
+    // The amount of times this player has knocked out another
+    public int knockouts;
+
+    public GameObject PlayerObject;
+
+    public Playercontrols inputActions;
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {
         damage = 0;
+
+        isStunned = false;
+
+        playerY = 0;
+
+        lives = 3;
+
+        isInvincible = false;
     }
 }
