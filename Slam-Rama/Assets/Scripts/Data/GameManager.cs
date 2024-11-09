@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         {
             case false:
                 input.GetComponent<Damage>().playerData = playerData;
-
+                input.GetComponent<UseItem>().playerData = playerData;
                 input.GetComponent<Knockback>().playerData = playerData;
                 input.GetComponent<Knockout>().playerData = playerData;
                 input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
