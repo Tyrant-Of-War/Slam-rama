@@ -33,6 +33,12 @@ public class PlayerData : ScriptableObject
     // The amount of times this player has knocked out another
     public int knockouts;
 
+    // Tracks the first player who loses all lives
+    public PlayerData firstPlayerOut = null;
+
+    // Tracks the last player standing in each round
+    public PlayerData lastPlayerStanding = null; 
+
     public GameObject PlayerObject;
 
     public Playercontrols inputActions;

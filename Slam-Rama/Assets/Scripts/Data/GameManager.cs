@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<PlayerData> playerData = new List<PlayerData>();
     int playerCount;
     [SerializeField] LevelData levelData;
+    [SerializeField] private RoundData roundData;
 
-    int playersWithLives;
+   
 
     private void Start()
     {
@@ -56,7 +57,6 @@ public class GameManager : MonoBehaviour
         {
             case false:
                 input.GetComponent<Damage>().playerData = playerData;
-
                 input.GetComponent<Knockback>().playerData = playerData;
                 input.GetComponent<Knockout>().playerData = playerData;
                 input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
@@ -73,35 +73,45 @@ public class GameManager : MonoBehaviour
         input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
 
     }
-
     public void CheckRoundEnd()
     {
-        playersWithLives = 0;
-        PlayerData lastPlayerStanding = null;
-
-        foreach (PlayerData player in playerData)
+        // Update the round data based on the current player data
+        roundData.UpdateData(playerData);
+        // Check if the round should end
+        if (roundData.IsRoundOver())
         {
-            if (player.lives > 0)
-            {
-                playersWithLives++;
-                lastPlayerStanding = player;
-            }
-        }
-
-        if (playersWithLives <= 1)
-        {
-            EndRound(lastPlayerStanding);
+            EndRound(roundData.LastPlayerStanding);
         }
     }
-
-
     private void EndRound(PlayerData winner)
     {
         if (winner != null)
         {
-            SceneManager.LoadScene("LoserCards"); // need to change to this scene
+            SceneManager.LoadScene("LoserCards"); 
         }
     }
+
+    public void ApplyPowerUp(LooserCardPowers.PowerUpType powerUp)
+    {
+        switch (powerUp)
+        {
+            case LooserCardPowers.PowerUpType.ItemMagnet:
+
+                // Need to put in item magnet logic
+                break;
+
+            case LooserCardPowers.PowerUpType.AttackRangeBuff:
+                // Need to put in attack range logic
+                break;
+
+            case LooserCardPowers.PowerUpType.RecoveryJump:
+                // Need to put in recovery jUMp logic
+                break;
+        }
+    }
+
 }
 
+
+//roundData.ResetData(); need to use when the player has picked a powerup later in the game. 
 
