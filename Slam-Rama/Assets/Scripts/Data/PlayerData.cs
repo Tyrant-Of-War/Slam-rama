@@ -33,9 +33,14 @@ public class PlayerData : ScriptableObject
     // The amount of times this player has knocked out another
     public int knockouts;
 
+    // Stores the player game object for manager data dependant on which player it is (1,2,3,4)
     public GameObject PlayerObject;
 
+    // The ID of the item the player is currently holding 0 is no item
+    public int itemID;
+
     public Playercontrols inputActions;
+
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {
@@ -48,5 +53,7 @@ public class PlayerData : ScriptableObject
         lives = 3;
 
         isInvincible = false;
+
+        itemID = 0;
     }
 }
