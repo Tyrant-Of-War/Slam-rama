@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -9,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] LevelData levelData;
     [SerializeField] private RoundData roundData;
 
-   
+
 
     private void Start()
     {
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
                 input.GetComponent<UseItem>().playerData = playerData;
                 input.GetComponent<Knockback>().playerData = playerData;
                 input.GetComponent<Knockout>().playerData = playerData;
-                input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
+                input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;
                 playerData.PlayerObject = input.gameObject;
                 break;
         }
@@ -72,7 +73,9 @@ public class GameManager : MonoBehaviour
         // Assigns the correct material to the player
         input.SwitchCurrentActionMap("Player");
         input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-
+        input.GetComponentInChildren<MultiplayerEventSystem>().gameObject.SetActive(false);
+        input.transform.GetChild(0).gameObject.SetActive(true);
+        input.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
     }
     public void CheckRoundEnd()
     {
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour
     {
         if (winner != null)
         {
-            SceneManager.LoadScene("LoserCards"); 
+            SceneManager.LoadScene("LoserCards");
         }
     }
 

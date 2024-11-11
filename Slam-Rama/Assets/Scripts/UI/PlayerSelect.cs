@@ -50,7 +50,7 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponent<Knockout>().levelData = levelData;
 
         // Assigns the correct material to the player
-        input.GetComponent<MeshRenderer>().material = playerData.playerMaterial;
+        input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;
         input.GetComponent<PlayerMovement>().enabled = false;
 
         input.transform.position = new Vector3(levelData.SpawnLocation[UnityEngine.InputSystem.PlayerInput.all.Count - 1].x, 0);

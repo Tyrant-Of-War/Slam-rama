@@ -3,7 +3,7 @@ using UnityEngine.InputSystem.UI;
 public class PlayerUIController : MonoBehaviour
 {
     Playercontrols PlayerID;
-    [SerializeField] GameObject RootCanvas;
+    public GameObject RootCanvas;
     public bool ready = false;
     [SerializeField] GameObject[] HeadArrows;
     [SerializeField] GameObject[] BodyArrows;
