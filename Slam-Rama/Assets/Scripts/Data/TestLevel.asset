@@ -19,3 +19,6 @@ MonoBehaviour:
   - {x: -20.3, y: 5, z: -21.27}
   - {x: -20.3, y: 5, z: 21.88}
   - {x: 21.21, y: 5, z: 21.88}
+  maxPositivePosition: {x: 25, y: 0, z: 25}
+  minNegativePosition: {x: -25, y: 0, z: -25}
+  itemAmount: 5

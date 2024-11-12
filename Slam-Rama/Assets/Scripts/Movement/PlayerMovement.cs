@@ -44,6 +44,10 @@ public class PlayerMovement : MonoBehaviour
     // Movement control flag
     bool ActiveMovement;
 
+    Quaternion targetRotation;
+
+    [SerializeField] Animator animator;
+
     void Start()
     {
         // Initialize components and variables
@@ -64,28 +68,37 @@ public class PlayerMovement : MonoBehaviour
         playerGrounded = Physics.Raycast(playerRB.transform.position, Vector3.down, out groundHit, (height / 2) + 0.1f, ground);
 
         // Only rotate if there's movement input
-        if (movementData != Vector3.zero)
+        if (movementData.magnitude > 0.1f)
         {
             // Calculate the target rotation based on movement direction
-            Quaternion targetRotation = Quaternion.LookRotation(movementData);
+            targetRotation = Quaternion.LookRotation(movementData);
 
             // Smoothly rotate the player towards the target rotation
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
         }
-
+        else
+        {
+            transform.rotation = targetRotation;
+        }
+        playerRB.drag = groundDrag;
         // If not dashing, apply normal movement
         if (ActiveMovement && playerGrounded && !playerData.isStunned)
         {
-            playerRB.drag = groundDrag;
-            speed = groundSpeed;
-            playerRB.AddForce(movementData * speed * Time.fixedDeltaTime);
+            playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
         }
         else if (ActiveMovement && !playerGrounded)
         {
             playerRB.drag = airDrag;
             speed = airSpeed;
         }
-
+        if (movementData.magnitude > 0.1f)
+        {
+            animator.SetBool("Moving", true);
+        }
+        else
+        {
+            animator.SetBool("Moving", false);
+        }
         // Apply gravity when in the air
         if (!playerGrounded)
         {
@@ -118,6 +131,8 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             playerJump.ExecuteJump(playerGrounded);
+            animator.SetBool("jump", true);
+            animator.SetBool("jump", false);
         }
     }
 

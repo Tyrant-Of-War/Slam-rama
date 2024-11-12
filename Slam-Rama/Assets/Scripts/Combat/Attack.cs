@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,10 +10,13 @@ public class Attack : MonoBehaviour
     // List of players in the attack hitbox
     List<GameObject> attackTargets = new List<GameObject>();
 
+    [SerializeField] Animator animator;
+
     private void Start()
     {
         // Gets the attack hitbox
         attackHitbox = GetComponent<BoxCollider>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     void OnAttack(InputValue inputValue)
@@ -38,6 +39,7 @@ public class Attack : MonoBehaviour
         //Debug.Log("Light Attack");
 
         // Runs through all players in the attack hitbox and calls the knockback function, then removes that player from the list
+        animator.SetBool("punch", true);
         for (int i = 0; i < attackTargets.Count; i++)
         {
             //Debug.Log(attackTargets[i].name);
@@ -48,6 +50,7 @@ public class Attack : MonoBehaviour
 
             attackTargets.RemoveAt(i);
         }
+        animator.SetBool("punch", false);
     }
 
     void HeavyAttack()
@@ -55,6 +58,7 @@ public class Attack : MonoBehaviour
         //Debug.Log("Heavy Attack");
 
         // Runs through all players in the attack hitbox and calls the knockback function, then removes that player from the list
+        animator.SetBool("punch", true);
         for (int i = 0; i < attackTargets.Count; i++)
         {
             //Debug.Log(attackTargets[i].name);
@@ -65,6 +69,7 @@ public class Attack : MonoBehaviour
 
             attackTargets.RemoveAt(i);
         }
+        animator.SetBool("punch", false);
     }
 
     private void OnTriggerEnter(Collider other)

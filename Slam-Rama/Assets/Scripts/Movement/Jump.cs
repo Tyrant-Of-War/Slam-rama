@@ -17,6 +17,7 @@ public class Jump
         {
             // Adds upward force to the player
             playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            playerRB.AddRelativeForce(Vector3.forward * jumpForce / 1.5f, ForceMode.Impulse);
         }
     }
 }

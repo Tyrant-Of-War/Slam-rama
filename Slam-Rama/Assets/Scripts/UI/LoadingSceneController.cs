@@ -9,7 +9,7 @@ public class LoadingSceneController : MonoBehaviour
     public Image LoadingBar;
     void Start()
     {
-        asyncOperation = SceneManager.LoadSceneAsync("Movement Test");
+        asyncOperation = SceneManager.LoadSceneAsync("Boxing");
         asyncOperation.allowSceneActivation = false;
         StartCoroutine(WaitAndLoadTutorialLevel());
     }

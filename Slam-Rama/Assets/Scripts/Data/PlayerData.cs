@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
 {
-    [SerializeField] int ID;
+    public int ID;
 
     // Damage accumulated from attacks used for multiplying knockback
     public int damage;
@@ -33,9 +33,19 @@ public class PlayerData : ScriptableObject
     // The amount of times this player has knocked out another
     public int knockouts;
 
+    // Tracks the first player who loses all lives
+    public PlayerData firstPlayerOut = null;
+
+    // Tracks the last player standing in each round
+    public PlayerData lastPlayerStanding = null;
+
     public GameObject PlayerObject;
 
+    // The ID of the item the player is currently holding 0 is no item
+    public int itemID;
+
     public Playercontrols inputActions;
+
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {
@@ -48,5 +58,22 @@ public class PlayerData : ScriptableObject
         lives = 3;
 
         isInvincible = false;
+
+        itemID = 0;
+    }
+
+    private void Awake()
+    {
+        damage = 0;
+
+        isStunned = false;
+
+        playerY = 0;
+
+        lives = 3;
+
+        isInvincible = false;
+
+        itemID = 0;
     }
 }
