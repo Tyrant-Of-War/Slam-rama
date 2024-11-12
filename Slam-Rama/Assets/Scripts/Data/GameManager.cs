@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         input.GetComponent<PlayerMovement>().enabled = true;
         // Assigns the level data to the knockout script
         input.GetComponent<Knockout>().levelData = levelData;
+        input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
         // Assigns the correct material to the player
         input.SwitchCurrentActionMap("Player");
         input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;

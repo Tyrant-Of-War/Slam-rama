@@ -8,20 +8,34 @@ public class Knockout : MonoBehaviour
     public LevelData levelData;
     bool once = true;
 
+    int lives;
+
+    private void Start()
+    {
+        lives = playerData.lives;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (playerData.playerY < levelData.killHeight)
         {
-            playerData.falls++;
-            playerData.lives--;
-            playerData.PlayerObject.transform.position = new Vector3(0, -2.5f, 0);
-            playerData.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            if (once)
+
+            if (once && lives > 0)
             {
+                playerData.falls++;
+                lives--;
+                playerData.damage = 0;
+                playerData.PlayerObject.transform.position = new Vector3(0, -2.5f, 0);
+                playerData.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 once = false;
                 StartCoroutine(respawn());
 
+
+            }
+            else if (lives <= 0)
+            {
+                gameObject.SetActive(false);
             }
         }
     }
