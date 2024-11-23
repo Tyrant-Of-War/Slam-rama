@@ -19,6 +19,9 @@ public class PlayerData : ScriptableObject
     public Material playerMaterial;
 
     // Used to set player lives at the start of the round
+    public int livesMax;
+
+    // The actual lives value that is edited during runtime
     public int lives;
 
     // Used to tell if the player is currently invunerable
@@ -39,12 +42,17 @@ public class PlayerData : ScriptableObject
     // Tracks the last player standing in each round
     public PlayerData lastPlayerStanding = null;
 
+    // The game object of the player that uses all of this data
     public GameObject PlayerObject;
 
     // The ID of the item the player is currently holding 0 is no item
     public int itemID;
 
+    // The input control scheme for the player
     public Playercontrols inputActions;
+
+    // Used to tell if the player is out of the game
+    public bool isDead;
 
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
@@ -55,11 +63,13 @@ public class PlayerData : ScriptableObject
 
         playerY = 0;
 
-        lives = 3;
+        lives = livesMax;
 
         isInvincible = false;
 
         itemID = 0;
+
+        isDead = false;
     }
 
     private void Awake()
@@ -70,10 +80,12 @@ public class PlayerData : ScriptableObject
 
         playerY = 0;
 
-        lives = 3;
+        lives = livesMax;
 
         isInvincible = false;
 
         itemID = 0;
+
+        isDead = false;
     }
 }

@@ -21,6 +21,9 @@ public class LevelData : ScriptableObject
     // The amount of items currently spawned in the level
     public int itemAmount;
 
+    // The height at which items should spawn
+    public int itemHeight;
+
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {

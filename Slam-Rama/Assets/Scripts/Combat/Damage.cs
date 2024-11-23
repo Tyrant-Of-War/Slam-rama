@@ -10,15 +10,24 @@ public class Damage : MonoBehaviour
     // Used to manage how long the play is stunned
     float stunTimer;
 
+    Rigidbody playerRB; 
+
+    private void Start()
+    {
+        playerRB = GetComponent<Rigidbody>();
+    }
+
     private void Update()
     {
         if (playerData.isStunned == true)
         {
-            stunTimer = stunTimer - Time.deltaTime;
-
             if (stunTimer < 0)
             {
                 playerData.isStunned = false;
+            }
+            else
+            {
+                stunTimer = stunTimer - Time.deltaTime;
             }
         }
     }
@@ -27,6 +36,7 @@ public class Damage : MonoBehaviour
     {
         playerData.damage = playerData.damage + damage;
         playerData.isStunned = true;
+        playerRB.velocity = Vector3.zero;
         stunTimer = damage / 10;
     }
 }

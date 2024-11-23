@@ -14,10 +14,10 @@ public class Knockback : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public void RunKnockback(Vector3 direction, float multiplier)
+    public void RunKnockback(Vector3 direction, float knockback)
     {
         Debug.Log("Force Applied");
 
-        rb.AddForce(playerData.damage * multiplier * direction, ForceMode.Impulse);
+        rb.AddForce((playerData.damage * knockback) * direction, ForceMode.Impulse);
     }
 }

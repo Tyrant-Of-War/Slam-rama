@@ -22,3 +22,4 @@ MonoBehaviour:
   maxPositivePosition: {x: 8, y: 0, z: -8}
   minNegativePosition: {x: -8, y: 0, z: 8}
   itemAmount: 0
+  itemHeight: 4

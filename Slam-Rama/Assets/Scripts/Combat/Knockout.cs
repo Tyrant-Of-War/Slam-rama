@@ -6,45 +6,63 @@ public class Knockout : MonoBehaviour
     public PlayerData playerData;
 
     public LevelData levelData;
-    bool once = true;
 
-    int lives;
+    // Used to check if the respawn coroutine has finished
+    bool isDone;
 
     private void Start()
     {
-        lives = playerData.lives;
+        isDone = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerData.playerY < levelData.killHeight)
+        if (isDone)
         {
-
-            if (once && lives > 0)
+            // Checks if the player has gone below the kill height of the level
+            if (playerData.playerY < levelData.killHeight)
             {
-                playerData.falls++;
-                lives--;
-                playerData.damage = 0;
-                playerData.PlayerObject.transform.position = new Vector3(0, -2.5f, 0);
-                playerData.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-                once = false;
-                StartCoroutine(respawn());
+                // Checks if the player has lives to use
+                if (playerData.lives > 0)
+                {
 
+                    // Updates the player data values
+                    playerData.falls++;
+                    playerData.lives--;
+                    playerData.damage = 0;
 
-            }
-            else if (lives <= 0)
-            {
-                gameObject.SetActive(false);
+                    // Moves the player to the bottom of the map and freezes their moving while they are being repspawned
+                    transform.position = new Vector3(0, -2.5f, 0);
+                    GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    isDone = false;
+                    StartCoroutine(respawn());
+
+                }
+                else if (playerData.lives <= 0)
+                {
+                    // Updates player data
+                    playerData.falls++;
+                    playerData.damage = 0;
+                    playerData.isDead = true;
+
+                    // Moves the player to the bottom of the map and freezes their moving until the next round
+                    transform.position = new Vector3(0, -2.5f, 0);
+                    GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
             }
         }
     }
 
     IEnumerator respawn()
     {
+        // Waits for 3 seconds to do what it wants to do
         yield return new WaitForSeconds(3);
-        playerData.PlayerObject.transform.position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
-        playerData.PlayerObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
-        once = true;
+        // Sets the players position to a random one of the level data
+        transform.position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
+        // Unfreezes the player constraints but making sure to keep the rotation frozen
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
+        // Lets update know its done respawning
+        isDone = true;
     }
 }

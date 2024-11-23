@@ -80,7 +80,12 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = targetRotation;
         }
+
+        
+
+        // Why this here?
         playerRB.drag = groundDrag;
+
         // If not dashing, apply normal movement
         if (ActiveMovement && playerGrounded && !playerData.isStunned)
         {
@@ -91,6 +96,8 @@ public class PlayerMovement : MonoBehaviour
             playerRB.drag = airDrag;
             speed = airSpeed;
         }
+
+        // Animates
         if (movementData.magnitude > 0.1f)
         {
             animator.SetBool("Moving", true);
@@ -99,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Moving", false);
         }
+
         // Apply gravity when in the air
         if (!playerGrounded)
         {
@@ -108,9 +116,17 @@ public class PlayerMovement : MonoBehaviour
 
     void OnMovement(InputValue stickInput)
     {
-        // Capture input data and calculate movement direction
-        stickData = stickInput.Get<Vector2>();
-        movementData = new Vector3(stickData.x, 0f, stickData.y);
+        if (!playerData.isStunned && !playerData.isDead) 
+        {
+            // Capture input data and calculate movement direction
+            stickData = stickInput.Get<Vector2>();
+            movementData = new Vector3(stickData.x, 0f, stickData.y);
+        }
+        else
+        {
+            movementData = Vector3.zero;
+        }
+        
 
         // Enable movement
         ActiveMovement = true;
