@@ -54,6 +54,9 @@ public class PlayerData : ScriptableObject
     // Used to tell if the player is out of the game
     public bool isDead;
 
+    // Used to tell if the player is currently attacking
+    public bool isAttacking;
+
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {
@@ -70,7 +73,9 @@ public class PlayerData : ScriptableObject
         itemID = 0;
 
         isDead = false;
-    }
+
+        isAttacking = false;
+}
 
     private void Awake()
     {
@@ -87,5 +92,7 @@ public class PlayerData : ScriptableObject
         itemID = 0;
 
         isDead = false;
+
+        isAttacking = false;
     }
 }

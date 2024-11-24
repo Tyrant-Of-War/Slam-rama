@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LooserCardPowers : MonoBehaviour
 {
+    // IDK
     public enum PowerUpType { ItemMagnet, AttackRangeBuff, RecoveryJump }
     public PowerUpType[] powerUps = { PowerUpType.ItemMagnet, PowerUpType.AttackRangeBuff, PowerUpType.RecoveryJump };
     public GameManager gameManager;

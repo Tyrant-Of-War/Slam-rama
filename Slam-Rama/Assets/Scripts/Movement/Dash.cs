@@ -3,14 +3,25 @@ using UnityEngine;
 
 public class Dash
 {
+    // The players rigid body for applying the dash force
     private Rigidbody playerRB;
+
+    // The cool down timer to stop dash spaming
     private float dashCooldown;
-    private float dashDuration = 0.2f; // Dash duration in seconds
+
+    // The length of the dash
+    private float dashDuration = 0.2f;
+
+    // The speed / power of force that should be applied during the dash
     private float dashSpeed;
-    private MonoBehaviour owner; // Required to start coroutines
 
-    private bool canDash = true; // Dash cooldown flag
+    // Required to start coroutines
+    private MonoBehaviour owner;
 
+    // Dash cooldown flag
+    private bool canDash = true; 
+
+    // Is a class with all dash attributes
     public Dash(Rigidbody rb, float dashCooldown, float dashSpeed, MonoBehaviour owner)
     {
         this.playerRB = rb;
@@ -19,8 +30,10 @@ public class Dash
         this.owner = owner;
     }
 
+    // Is called by the player movement script when dash input is recorded
     public void ExecuteDash(Vector3 movementDirection, bool isGrounded, float stickInputX, float stickInputY)
     {
+        // Checks if the player is not currently on cooldown, is on the ground, and is holding some kind of direction input
         if (canDash && isGrounded && (stickInputX != 0f || stickInputY != 0f))
         {
             // Normalize the movement direction

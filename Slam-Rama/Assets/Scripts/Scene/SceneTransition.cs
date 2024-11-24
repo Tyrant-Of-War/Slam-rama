@@ -4,8 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneTransition : MonoBehaviour
 {
+    // I too stupid to comment this one
     AsyncOperation asyncOperation;
     public bool start = false;
+
     void Start()
     {
         asyncOperation = SceneManager.LoadSceneAsync("Lobby");

@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class Knockout : MonoBehaviour
 {
+    // Used to check the players current y position
     public PlayerData playerData;
 
+    // Used to check the kill hieght of the current level
     public LevelData levelData;
 
     // Used to check if the respawn coroutine has finished
@@ -12,12 +14,14 @@ public class Knockout : MonoBehaviour
 
     private void Start()
     {
+        // Sets default true
         isDone = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Checks if a coroutine is currently going 
         if (isDone)
         {
             // Checks if the player has gone below the kill height of the level

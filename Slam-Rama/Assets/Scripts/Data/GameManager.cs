@@ -19,9 +19,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Gets the current player count from the input system
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
+
+        // Checks if any players exist
         if (playerCount != 0)
         {
+            // Runs through all players and changes all the data that they need changed per scene such as the level data
             for (int i = 0; i < playerCount; i++)
             {
                 UnityEngine.InputSystem.PlayerInput.all[i].SwitchCurrentActionMap("Player");
@@ -66,6 +70,7 @@ public class GameManager : MonoBehaviour
             case false:
 
                 // Assigns the player data to every script that needs it 
+                input.GetComponent<Attack>().playerData = playerData;
                 input.GetComponent<PlayerMovement>().playerData = playerData;
                 input.GetComponent<Damage>().playerData = playerData;
                 input.GetComponent<UseItem>().playerData = playerData;

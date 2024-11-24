@@ -35,6 +35,7 @@ public class ItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Checks if the amount of items spawned is above the item limit set
         if (levelData.itemAmount < itemLimit)
         {
             // Counts down the delay
