@@ -395,6 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6441f02a9b351d42b031df8b3f51525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
   animator: {fileID: 2395685508580088507}
 --- !u!114 &1390508075863064498
 MonoBehaviour:
@@ -461,6 +462,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  powerUps:
+  - {fileID: 3652176024920637812, guid: 1b764c00b8c295643a7ef27baf796428, type: 3}
 --- !u!1001 &2843471361976027986
 PrefabInstance:
   m_ObjectHideFlags: 0

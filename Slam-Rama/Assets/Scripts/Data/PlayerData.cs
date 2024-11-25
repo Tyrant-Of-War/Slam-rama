@@ -60,7 +60,7 @@ public class PlayerData : ScriptableObject
     // Resets values that shouldn't carry through scenes
     private void OnEnable()
     {
-        damage = 0;
+        damage = 1;
 
         isStunned = false;
 
@@ -70,7 +70,7 @@ public class PlayerData : ScriptableObject
 
         isInvincible = false;
 
-        itemID = 0;
+        itemID = 1;
 
         isDead = false;
 
@@ -79,7 +79,7 @@ public class PlayerData : ScriptableObject
 
     private void Awake()
     {
-        damage = 0;
+        damage = 1;
 
         isStunned = false;
 
@@ -89,7 +89,7 @@ public class PlayerData : ScriptableObject
 
         isInvincible = false;
 
-        itemID = 0;
+        itemID = 1;
 
         isDead = false;
 

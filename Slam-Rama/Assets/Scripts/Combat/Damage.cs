@@ -42,7 +42,7 @@ public class Damage : MonoBehaviour
     public void damagePlayer(int damage)
     {
         // Adds the given damage to the player data
-        playerData.damage = playerData.damage + damage;
+        playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
         // Sets the player to stunned
         playerData.isStunned = true;
         // Zeros out the players velocity before knockback is applied
