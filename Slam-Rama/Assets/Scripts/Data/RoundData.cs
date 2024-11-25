@@ -6,10 +6,14 @@ using UnityEngine;
 public class RoundData : ScriptableObject
 {
     //////////////
-    
+
     // Should probably rework this entire thing
 
     //////////////
+
+    public int roundsLeft;
+
+    
 
     [SerializeField] private PlayerData firstPlayerOut;
 

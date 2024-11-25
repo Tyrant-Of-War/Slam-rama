@@ -1,10 +1,15 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class GamemanagerUI : MonoBehaviour
 {
+    [SerializeField] RoundData roundData;
+
+    [SerializeField] TextMeshProUGUI roundText;
+
     // The list of the ready status of all players
     public List<bool> AllReady;
     
@@ -103,6 +108,34 @@ public class GamemanagerUI : MonoBehaviour
         }
     }
     //Settings and such
+
+    public void UpdateRoundAmount()
+    {
+        if (roundText.text == "1")
+        {
+            roundText.text = "3";
+
+            roundData.roundsLeft = 3;
+        }
+        else if (roundText.text == "3")
+        {
+            roundText.text = "5";
+
+            roundData.roundsLeft = 5;
+        }
+        else if (roundText.text == "5")
+        {
+            roundText.text = "7";
+
+            roundData.roundsLeft = 7;
+        }
+        else if (roundText.text == "7")
+        {
+            roundText.text = "1";
+
+            roundData.roundsLeft = 1;
+        }
+    }
 
     public void ToloadNextScene()
     {
