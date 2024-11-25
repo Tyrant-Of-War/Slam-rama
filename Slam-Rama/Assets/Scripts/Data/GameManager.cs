@@ -5,18 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    // A list of all player datas that will be used for assinging
     [SerializeField] List<PlayerData> playerData = new List<PlayerData>();
+
+    // The current count of players in the game
     int playerCount;
+
+    // The level data of the level this game manager occupies
     [SerializeField] LevelData levelData;
-    [SerializeField] private RoundData roundData;
 
-
+    // The round data that the players can configurate
+    [SerializeField] RoundData roundData;
 
     private void Start()
     {
+        // Gets the current player count from the input system
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
+
+        // Checks if any players exist
         if (playerCount != 0)
         {
+            // Runs through all players and changes all the data that they need changed per scene such as the level data
             for (int i = 0; i < playerCount; i++)
             {
                 UnityEngine.InputSystem.PlayerInput.all[i].SwitchCurrentActionMap("Player");
@@ -28,8 +37,10 @@ public class GameManager : MonoBehaviour
     // Is called when a player joins and checks which player it is
     public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
     {
+        // Checks which number player is joining
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
 
+        // Runs the assiging of player data feeding the correct number data to the correct number player
         switch (playerCount)
         {
             case 1:
@@ -53,31 +64,52 @@ public class GameManager : MonoBehaviour
     // Assigns the player and level data to the various scripts on each player object
     private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData, bool Existing)
     {
-        input.GetComponent<PlayerMovement>().playerData = playerData;
+        // Checks if the player was already created or not
         switch (Existing)
         {
             case false:
+
+                // Assigns the player data to every script that needs it 
+                input.GetComponent<Attack>().playerData = playerData;
+                input.GetComponent<PlayerMovement>().playerData = playerData;
                 input.GetComponent<Damage>().playerData = playerData;
                 input.GetComponent<UseItem>().playerData = playerData;
                 input.GetComponent<Knockback>().playerData = playerData;
                 input.GetComponent<Knockout>().playerData = playerData;
-                input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;
+
+                // Gives the player data the object it now belongs to
                 playerData.PlayerObject = input.gameObject;
+
+                // Sets the correct control scheme to the player
+                input.SwitchCurrentActionMap("Player");
+
                 break;
         }
-        // Assigns player data to the various scripts
+
+        // ????
         input.transform.GetChild(0).gameObject.SetActive(false);
+
+        // Enables the player movement (when does it get disabled?)
         input.GetComponent<PlayerMovement>().enabled = true;
-        // Assigns the level data to the knockout script
+
+        // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
         input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
-        // Assigns the correct material to the player
-        input.SwitchCurrentActionMap("Player");
-        input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+
+        // ????
         input.GetComponentInChildren<MultiplayerEventSystem>().gameObject.SetActive(false);
         input.transform.GetChild(0).gameObject.SetActive(true);
+
+        // Enables the animated character models renderer
         input.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+
+        // Assigns the right color for the player
+        input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;
+
+        // Sets the player to not dead
+        playerData.isDead = false;
     }
+
     public void CheckRoundEnd()
     {
         // Update the round data based on the current player data
@@ -88,6 +120,7 @@ public class GameManager : MonoBehaviour
             EndRound(roundData.LastPlayerStanding);
         }
     }
+
     private void EndRound(PlayerData winner)
     {
         if (winner != null)

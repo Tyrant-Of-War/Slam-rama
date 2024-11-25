@@ -80,17 +80,36 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.rotation = targetRotation;
         }
+
+        
+
+        // Why this here?
         playerRB.drag = groundDrag;
-        // If not dashing, apply normal movement
-        if (ActiveMovement && playerGrounded && !playerData.isStunned)
+
+        // Checks if movement is being recorded, if the player is grounded, if the player is not stunned
+        if (ActiveMovement && playerGrounded)
         {
-            playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            // Checks if player is currently attacking or not
+            if (!playerData.isAttacking)
+            {
+                // Applies the movement data
+                playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            }
+            else if (playerData.isAttacking) 
+            {
+                // Applies the movement data halved if they are attacking
+                playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 0.25f, ForceMode.VelocityChange);
+            }
+            
         }
         else if (ActiveMovement && !playerGrounded)
         {
+            // Switches to air drag values if player is not grounded
             playerRB.drag = airDrag;
             speed = airSpeed;
         }
+
+        // Animates
         if (movementData.magnitude > 0.1f)
         {
             animator.SetBool("Moving", true);
@@ -99,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Moving", false);
         }
+
         // Apply gravity when in the air
         if (!playerGrounded)
         {
@@ -106,38 +126,55 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Is called when the player presses WASD or uses the left joystick
     void OnMovement(InputValue stickInput)
     {
-        // Capture input data and calculate movement direction
-        stickData = stickInput.Get<Vector2>();
-        movementData = new Vector3(stickData.x, 0f, stickData.y);
+        // Checks if player is stunned or dead
+        if (!playerData.isStunned && !playerData.isDead) 
+        {
+            // Capture input data and calculate movement direction
+            stickData = stickInput.Get<Vector2>();
+            movementData = new Vector3(stickData.x, 0f, stickData.y);
+        }
+        else // Gives movement zero value if so
+        {
+            movementData = Vector3.zero;
+        }
+        
 
         // Enable movement
         ActiveMovement = true;
     }
 
+    // Is called when movement input is no longer recorded
     void OnOffMovement()
     {
         // Disable movement
         ActiveMovement = false;
     }
 
+    // Is called when space or A is pressed
     void OnJump()
     {
+        // Checks if the player has a rigidbody
         if (playerRB == null)
         {
             Debug.Log("The Player RB is Null!");
         }
-        else
+        else // Calls jump function and animates if so
         {
             playerJump.ExecuteJump(playerGrounded);
+
+            // Needs fixing will test
             animator.SetBool("jump", true);
             animator.SetBool("jump", false);
         }
     }
 
+    // Is called when B or shift is pressed
     void OnDash()
     {
+        // Calls jump function
         playerDash.ExecuteDash(movementData, playerGrounded, stickData.x, stickData.y);
     }
 

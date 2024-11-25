@@ -7,12 +7,13 @@ public class UseItem : MonoBehaviour
     // Player data for checking the held item
     public PlayerData playerData;
 
+    // Is called when the player presses the set use item input
     void OnUse()
     {
         // Checks if the player has an item
         if (playerData.itemID != 0)
         {
-            Debug.Log("Item Used: " +  playerData.itemID);
+            //Debug.Log("Item Used: " +  playerData.itemID);
 
             // Clears the players item slot
             playerData.itemID = 0;

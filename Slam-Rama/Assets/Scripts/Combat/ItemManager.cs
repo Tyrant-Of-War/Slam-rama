@@ -35,6 +35,7 @@ public class ItemManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Checks if the amount of items spawned is above the item limit set
         if (levelData.itemAmount < itemLimit)
         {
             // Counts down the delay
@@ -43,7 +44,7 @@ public class ItemManager : MonoBehaviour
             if (delay < 0)
             {
                 // Instantiates the item at a random x and z position with the level bounds
-                currentItem = Instantiate(item, new Vector3(Random.Range(levelData.minNegativePosition.x, levelData.maxPositivePosition.x), 1f, Random.Range(levelData.minNegativePosition.z, levelData.maxPositivePosition.z)), Quaternion.identity);
+                currentItem = Instantiate(item, new Vector3(Random.Range(levelData.minNegativePosition.x, levelData.maxPositivePosition.x), levelData.itemHeight, Random.Range(levelData.minNegativePosition.z, levelData.maxPositivePosition.z)), Quaternion.identity);
 
                 // Just sets a random ID for now
                 currentItem.GetComponent<PickUp>().itemID = Random.Range(1, 5);

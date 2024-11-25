@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class Knockback : MonoBehaviour
 {
+    // Uses the damage value to proportionally scale force applied
     public PlayerData playerData;
 
+    // Used to apply the knockback
     Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Gets the rigidbody
         rb = GetComponent<Rigidbody>();
     }
 
-    public void RunKnockback(Vector3 direction, float multiplier)
+    // Is called when the attack script of a player finds this player in its list
+    public void RunKnockback(Vector3 direction, float knockback)
     {
-        Debug.Log("Force Applied");
+        //Debug.Log("Force Applied");
 
-        rb.AddForce(playerData.damage * multiplier * direction, ForceMode.Impulse);
+        // Applies force in the fed direction, with the fed knockback amount, multiplied by the damage the player has accrued
+        rb.AddForce((playerData.damage * knockback) * direction, ForceMode.Impulse);
     }
 }

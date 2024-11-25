@@ -5,7 +5,14 @@ using UnityEngine;
 [CreateAssetMenu]
 public class RoundData : ScriptableObject
 {
+    //////////////
+    
+    // Should probably rework this entire thing
+
+    //////////////
+
     [SerializeField] private PlayerData firstPlayerOut;
+
     [SerializeField] private PlayerData lastPlayerStanding;
 
     public PlayerData FirstPlayerOut => firstPlayerOut;
