@@ -86,9 +86,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        // ????
-        input.transform.GetChild(0).gameObject.SetActive(false);
-
         // Enables the player movement (when does it get disabled?)
         input.GetComponent<PlayerMovement>().enabled = true;
 
