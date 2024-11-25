@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Components for Jump and Dash
     Jump playerJump;
-    Dash playerDash;
+    public Dash playerDash;
 
     // Movement control flag
     bool ActiveMovement;
@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
     // Is called when B or shift is pressed
     void OnDash()
     {
-        // Calls jump function
+        // Calls dash function
         playerDash.ExecuteDash(movementData, playerGrounded, stickData.x, stickData.y);
     }
 

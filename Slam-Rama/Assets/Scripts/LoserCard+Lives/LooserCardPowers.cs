@@ -28,4 +28,7 @@ public class LooserCardPowers : MonoBehaviour
         // Apply the powerup the player picked
         gameManager.ApplyPowerUp(chosenPowerUp);
     }
+
+
+
 }

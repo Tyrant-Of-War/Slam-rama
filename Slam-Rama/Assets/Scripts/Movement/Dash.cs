@@ -19,7 +19,10 @@ public class Dash
     private MonoBehaviour owner;
 
     // Dash cooldown flag
-    private bool canDash = true; 
+    private bool canDash = true;
+
+    // Used to tell if the player is dashing
+    public bool isDashing = false;
 
     // Is a class with all dash attributes
     public Dash(Rigidbody rb, float dashCooldown, float dashSpeed, MonoBehaviour owner)
@@ -36,6 +39,9 @@ public class Dash
         // Checks if the player is not currently on cooldown, is on the ground, and is holding some kind of direction input
         if (canDash && isGrounded && (stickInputX != 0f || stickInputY != 0f))
         {
+            // Sets dashing to true
+            isDashing = true;
+
             // Normalize the movement direction
             Vector3 dashDirection = movementDirection.normalized;
 
@@ -53,6 +59,9 @@ public class Dash
 
         // Wait for the duration of the dash
         yield return new WaitForSeconds(dashDuration);
+
+        // Sets the dashing to false
+        isDashing = false;
 
         // Reset the velocity (allow normal movement after dash)
         playerRB.velocity = Vector3.zero;
