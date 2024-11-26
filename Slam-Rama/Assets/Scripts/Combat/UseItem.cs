@@ -7,16 +7,21 @@ public class UseItem : MonoBehaviour
     // Player data for checking the held item
     public PlayerData playerData;
 
+    // The list of all power up prefab
+    [SerializeField] List<GameObject> powerUps = new List<GameObject>();
+
     // Is called when the player presses the set use item input
     void OnUse()
     {
         // Checks if the player has an item
-        if (playerData.itemID != 0)
+        if (playerData.itemID == 1)
         {
-            //Debug.Log("Item Used: " +  playerData.itemID);
-
-            // Clears the players item slot
-            playerData.itemID = 0;
+            Instantiate(powerUps[0], transform.position + transform.forward, Quaternion.identity).GetComponent<Bomb>().direction = transform.forward;
         }
+
+        //Debug.Log("Item Used: " +  playerData.itemID);
+
+        // Clears the players item slot
+        //playerData.itemID = 0;
     }
 }

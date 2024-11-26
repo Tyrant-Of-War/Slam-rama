@@ -25,4 +25,11 @@ public class Knockback : MonoBehaviour
         // Applies force in the fed direction, with the fed knockback amount, multiplied by the damage the player has accrued
         rb.AddForce((playerData.damage * knockback) * direction, ForceMode.Impulse);
     }
+
+    // Called by the bomb powerup
+    public void explodeKnockback(float knockback, Vector3 explosionPosition, float explosionRadius)
+    {
+        // Applies an explosion force with the fed values
+        rb.AddExplosionForce(knockback * playerData.damage, explosionPosition, explosionRadius);
+    }
 }
