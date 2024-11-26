@@ -39,15 +39,30 @@ public class Damage : MonoBehaviour
     }
 
     // Is called when a player is found by the attack script of another player
-    public void damagePlayer(int damage)
+    public void DamagePlayer(int damage)
     {
         // Adds the given damage to the player data
         playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
+
+        if (!playerData.isStunned)
+        {
+            // Sets the player to stunned
+            playerData.isStunned = true;
+            // Zeros out the players velocity before knockback is applied
+            playerRB.velocity = Vector3.zero;
+            // Calculates stun duration based on the damage taken
+            stunTimer = damage / 10;
+        }
+    }
+
+    // Is called by the icicle powerup
+    public void FreezePlayer()
+    {
         // Sets the player to stunned
         playerData.isStunned = true;
         // Zeros out the players velocity before knockback is applied
         playerRB.velocity = Vector3.zero;
         // Calculates stun duration based on the damage taken
-        stunTimer = damage / 10;
+        stunTimer = 3f;
     }
 }

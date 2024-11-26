@@ -14,9 +14,17 @@ public class UseItem : MonoBehaviour
     void OnUse()
     {
         // Checks if the player has an item
-        if (playerData.itemID == 1)
+        if (playerData.itemID == 1) // Bomb
         {
             Instantiate(powerUps[0], transform.position + transform.forward, Quaternion.identity).GetComponent<Bomb>().direction = transform.forward;
+        }
+        else if (playerData.itemID == 2) // Potions
+        {
+            playerData.damage = playerData.damage / 2;
+        }
+        else if (playerData.itemID == 3) // Icicle
+        {
+            Instantiate(powerUps[1], transform.position + transform.forward, Quaternion.LookRotation(transform.forward, transform.up));
         }
 
         //Debug.Log("Item Used: " +  playerData.itemID);

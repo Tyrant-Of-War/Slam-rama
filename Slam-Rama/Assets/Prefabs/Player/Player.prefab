@@ -464,6 +464,7 @@ MonoBehaviour:
   playerData: {fileID: 0}
   powerUps:
   - {fileID: 3652176024920637812, guid: 1b764c00b8c295643a7ef27baf796428, type: 3}
+  - {fileID: 3485460956201975594, guid: c15f4ad0cf7a2474c80caaa6e963d013, type: 3}
 --- !u!1001 &2843471361976027986
 PrefabInstance:
   m_ObjectHideFlags: 0

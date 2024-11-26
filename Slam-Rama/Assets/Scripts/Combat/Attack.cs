@@ -84,7 +84,7 @@ public class Attack : MonoBehaviour
             //Debug.Log(attackTargets[i].name);
 
             // Calls the damage function and feeds it the single point of damage to be applied by a light attack
-            attackTargets[i].GetComponent<Damage>().damagePlayer(1);
+            attackTargets[i].GetComponent<Damage>().DamagePlayer(1);
             // Calls the knockback function and feeds it a direction and multiplier
             attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 0.01f);
         }
@@ -106,7 +106,7 @@ public class Attack : MonoBehaviour
             //Debug.Log(attackTargets[i].name);
 
             // Calls the damage function and feeds it the ten points of damage to be applied by a heavy attack
-            attackTargets[i].GetComponent<Damage>().damagePlayer(5);
+            attackTargets[i].GetComponent<Damage>().DamagePlayer(5);
             // Calls the knockback function and feeds it a direction and multiplier
             attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 1f);
         }
