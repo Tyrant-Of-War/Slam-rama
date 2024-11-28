@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     // The round data that the players can configurate
     [SerializeField] RoundData roundData;
+    int totalDead;
 
     private void Start()
     {
@@ -33,7 +34,24 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    private void LateUpdate()
+    {
+        foreach (PlayerData playerData in playerData)
+        {
+            switch (playerData.isDead)
+            {
+                case true:
+                    totalDead++;
+                    break;
+                case false:
+                    break;
+            }
+            if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1)
+            {
+                ResetRound();
+            }
+        }
+    }
     // Is called when a player joins and checks which player it is
     public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
     {
@@ -79,13 +97,9 @@ public class GameManager : MonoBehaviour
 
                 // Gives the player data the object it now belongs to
                 playerData.PlayerObject = input.gameObject;
-
-                // Sets the correct control scheme to the player
-                input.SwitchCurrentActionMap("Player");
-
                 break;
         }
-
+        input.SwitchCurrentActionMap("Player");
         // Enables the player movement (when does it get disabled?)
         input.GetComponent<PlayerMovement>().enabled = true;
 
@@ -105,6 +119,7 @@ public class GameManager : MonoBehaviour
 
         // Sets the player to not dead
         playerData.isDead = false;
+        input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void CheckRoundEnd()
@@ -142,6 +157,22 @@ public class GameManager : MonoBehaviour
             case LooserCardPowers.PowerUpType.RecoveryJump:
                 // Need to put in recovery jUMp logic
                 break;
+        }
+    }
+    private void ResetRound()
+    {
+        roundData.roundsLeft--;
+        if (roundData.roundsLeft <= 0)
+        {
+            SceneManager.LoadScene("Results");
+        }
+        else
+        {
+            foreach (var player in playerData)
+            {
+                player.ResetData();
+            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

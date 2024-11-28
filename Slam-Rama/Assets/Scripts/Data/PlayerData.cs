@@ -75,9 +75,27 @@ public class PlayerData : ScriptableObject
         isDead = false;
 
         isAttacking = false;
-}
+    }
 
     private void Awake()
+    {
+        damage = 1;
+
+        isStunned = false;
+
+        playerY = 0;
+
+        lives = livesMax;
+
+        isInvincible = false;
+
+        itemID = 1;
+
+        isDead = false;
+
+        isAttacking = false;
+    }
+    public void ResetData()
     {
         damage = 1;
 

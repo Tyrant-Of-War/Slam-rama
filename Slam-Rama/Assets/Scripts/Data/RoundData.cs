@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +12,7 @@ public class RoundData : ScriptableObject
 
     public int roundsLeft;
 
-    
+    public bool RandomRounds;
 
     [SerializeField] private PlayerData firstPlayerOut;
 
