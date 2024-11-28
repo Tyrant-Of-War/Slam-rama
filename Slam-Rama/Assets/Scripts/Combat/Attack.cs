@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+
 
 public class Attack : MonoBehaviour
 {
@@ -18,6 +20,15 @@ public class Attack : MonoBehaviour
 
     // Used to animate the punch
     [SerializeField] Animator animator;
+
+    // Used to tell if the player is currently charging a heavy attack
+    bool isCharging;
+
+    // The power that the player has charged their attack to
+    float chargePower;
+
+    // The particles that get increasingly more intense as the attack is charged
+    [SerializeField] ParticleSystem chargeParticles;
 
     private void Start()
     {
@@ -43,10 +54,62 @@ public class Attack : MonoBehaviour
                 playerData.isAttacking = false;
             }
         }
+
+        // Checks if the player is currently charging
+        if (isCharging)
+        {
+            // Ensures the player stays in attack mode (slower move speed)
+            playerData.isAttacking = true;
+
+            // Plays the punch animation
+            animator.SetTrigger("punch");
+
+            // Checks if the charge power has reached max 
+            if (chargePower < 1)
+            {
+                // Increases the charge power if not
+                chargePower += Time.deltaTime;
+
+                Debug.Log(chargePower);
+            }
+            else // If so
+            {
+                // Caps the charge power at 1 just in case it went over slightly
+                chargePower = 1;
+            }
+
+            var emission = chargeParticles.emission;
+
+            // Sets the particle emission rate to the current charge power multiplied
+            emission.rateOverTime = (chargePower * 30);
+        }
     }
 
-    // Is called when the player presses either attack input
-    void OnAttack(InputValue inputValue)
+    //// Is called when the player presses either attack input
+    //void OnAttack(InputValue inputValue)
+    //{
+    //    // Checks if the player is not stunned or dead
+    //    if (!playerData.isStunned && !playerData.isDead)
+    //    {
+    //        // Plays the punch animation
+    //        animator.SetTrigger("punch");
+
+    //        // Checks whether input was for a heavy or light attack
+    //        if (inputValue.Get<float>() == 1)
+    //        {
+    //            // Calls the light attack function
+    //            LightAttack();
+    //        }
+    //        else if (inputValue.Get<float>() == -1)
+    //        {
+    //            // Calls the heavy attack function
+    //            HeavyAttack();
+    //        }
+    //    }
+    //}
+
+    // Is called when the player presses the light attack input
+    void OnLightAttack()
     {
         // Checks if the player is not stunned or dead
         if (!playerData.isStunned && !playerData.isDead)
@@ -54,17 +117,34 @@ public class Attack : MonoBehaviour
             // Plays the punch animation
             animator.SetTrigger("punch");
 
-            // Checks whether input was for a heavy or light attack
-            if (inputValue.Get<float>() == 1)
-            {
-                // Calls the light attack function
-                LightAttack();
-            }
-            else if (inputValue.Get<float>() == -1)
-            {
-                // Calls the heavy attack function
-                HeavyAttack();
-            }
+            // Calls the light attack function
+            LightAttack();
+        }
+    }
+
+    // Is called when the player presses or releases the heavy attack input
+    void OnHeavyAttack()
+    {
+        // State swtich for charging or not charging
+        if (!isCharging)
+        {
+            // Sets is charging to true so the power can begin increasing
+            isCharging = true;
+
+            chargeParticles.Play();
+        }
+        else if (isCharging)
+        {
+            // Calls the heavy attack function with the charge power accumulated in update
+            HeavyAttack(chargePower);
+
+            // Resets the charge power
+            chargePower = 0;
+
+            // Sets is charging back to false
+            isCharging = false;
+
+            chargeParticles.Stop();
         }
     }
 
@@ -90,7 +170,7 @@ public class Attack : MonoBehaviour
         }
     }
 
-    void HeavyAttack()
+    void HeavyAttack(float power)
     {
         //Debug.Log("Heavy Attack");
 
@@ -106,9 +186,9 @@ public class Attack : MonoBehaviour
             //Debug.Log(attackTargets[i].name);
 
             // Calls the damage function and feeds it the ten points of damage to be applied by a heavy attack
-            attackTargets[i].GetComponent<Damage>().DamagePlayer(5);
+            attackTargets[i].GetComponent<Damage>().DamagePlayer(Mathf.RoundToInt(power * 5f));
             // Calls the knockback function and feeds it a direction and multiplier
-            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 1f);
+            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, power);
         }
     }
 
