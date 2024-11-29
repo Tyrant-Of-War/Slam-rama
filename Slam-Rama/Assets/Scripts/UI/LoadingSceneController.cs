@@ -6,12 +6,31 @@ using UnityEngine.UI;
 public class LoadingSceneController : MonoBehaviour
 {
     AsyncOperation asyncOperation;
-
+    [SerializeField] RoundData roundData;
     // The loading bar UI object
     public Image LoadingBar;
 
     void Start()
     {
+        switch (roundData.roundType)
+        {
+            case RoundData.RoundType.Random:
+
+                break;
+            case RoundData.RoundType.Clock:
+                asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                break;
+            case RoundData.RoundType.Castle:
+                asyncOperation = SceneManager.LoadSceneAsync("Castle");
+                break;
+            case RoundData.RoundType.Witch:
+                asyncOperation = SceneManager.LoadSceneAsync("couldren");
+                break;
+            case RoundData.RoundType.Boxing:
+                asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                break;
+
+        }
         // Loads just the boxing scene for now
         asyncOperation = SceneManager.LoadSceneAsync("Boxing");
         // Halts the destination scene from loading until it has fully loaded

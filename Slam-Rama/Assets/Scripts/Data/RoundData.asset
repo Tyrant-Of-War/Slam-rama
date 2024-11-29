@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f155bd6e58ff1e14198ecdb209c38895, type: 3}
   m_Name: RoundData
   m_EditorClassIdentifier: 
-  roundsLeft: 3
+  roundsLeft: -1
+  RandomRounds: 0
   firstPlayerOut: {fileID: 0}
   lastPlayerStanding: {fileID: 0}

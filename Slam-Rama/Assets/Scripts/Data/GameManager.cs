@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
                 case false:
                     break;
             }
-            if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1)
+            if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
             {
                 ResetRound();
             }
