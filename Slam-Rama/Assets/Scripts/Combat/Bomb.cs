@@ -47,7 +47,7 @@ public class Bomb : MonoBehaviour
             {
                 // Calls the knockback on the players in the radius
                 explodeTargets[i].GetComponent<Knockback>().explodeKnockback(100f, transform.position, 2f);
-                explodeTargets[i].GetComponent<Damage>().damagePlayer(10);
+                explodeTargets[i].GetComponent<Damage>().DamagePlayer(10);
             }
 
             // Clears the list
