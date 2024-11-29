@@ -61,9 +61,6 @@ public class Attack : MonoBehaviour
             // Ensures the player stays in attack mode (slower move speed)
             playerData.isAttacking = true;
 
-            // Plays the punch animation
-            animator.SetTrigger("punch");
-
             // Checks if the charge power has reached max 
             if (chargePower < 1)
             {
@@ -137,6 +134,9 @@ public class Attack : MonoBehaviour
         {
             // Calls the heavy attack function with the charge power accumulated in update
             HeavyAttack(chargePower);
+
+            // Plays the puch animation
+            animator.SetTrigger("punch");
 
             // Resets the charge power
             chargePower = 0;
