@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ItemMagnet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] SphereCollider sphereCollider;
+    [SerializeField] float dragSpeed;
+    Vector3 direction;
+  private void OnTriggerStay(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.CompareTag("Item") && GetComponentInParent<PlayerMovement>().playerData.itemID == 0)
+        {
+            direction = (transform.position - other.transform.position).normalized;
+            other.transform.position += direction * Mathf.Pow(dragSpeed * Time.deltaTime, Vector3.Distance(transform.position, other.transform.position));  
+        }
     }
 }

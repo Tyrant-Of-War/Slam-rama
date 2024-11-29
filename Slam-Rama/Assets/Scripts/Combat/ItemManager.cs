@@ -10,6 +10,9 @@ public class ItemManager : MonoBehaviour
     [SerializeField] float delayMin;
     [SerializeField] float delayMax;
 
+    // List of item meshes
+    [SerializeField] List<Mesh> meshes = new List<Mesh>(); 
+
     // Used to set the delay between item spawns
     float delay;
 
@@ -46,11 +49,17 @@ public class ItemManager : MonoBehaviour
                 // Instantiates the item at a random x and z position with the level bounds
                 currentItem = Instantiate(item, new Vector3(Random.Range(levelData.minNegativePosition.x, levelData.maxPositivePosition.x), levelData.itemHeight, Random.Range(levelData.minNegativePosition.z, levelData.maxPositivePosition.z)), Quaternion.identity);
 
+                // Rotates the object properly
+                currentItem.transform.Rotate(-90, 0, 0);
+
                 // Just sets a random ID for now
-                currentItem.GetComponent<PickUp>().itemID = Random.Range(1, 5);
+                currentItem.GetComponent<PickUp>().itemID = Random.Range(1, 4);
 
                 // Gives the item the level data so the item amount can be updated when it is destroyed
                 currentItem.GetComponent<PickUp>().levelData = levelData;
+
+                // Assigns the correct mesh
+                currentItem.GetComponent<MeshFilter>().mesh = meshes[currentItem.GetComponent<PickUp>().itemID - 1];
 
                 // Increases the amount of items existing in the level data
                 levelData.itemAmount++;

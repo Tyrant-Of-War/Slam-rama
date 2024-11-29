@@ -12,7 +12,7 @@ public class PickUp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !other.isTrigger)
+        if (other.tag == "Player" && !other.isTrigger && other.GetComponent<PlayerMovement>().playerData.itemID == 0)
         {
             // Gives the ID to the player data
             other.GetComponent<PlayerMovement>().playerData.itemID = itemID;
