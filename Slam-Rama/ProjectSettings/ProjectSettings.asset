@@ -861,11 +861,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: Slam-Rama
   metroPackageVersion: 
-  metroCertificatePath: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 80761dd85b61dc01
   metroApplicationDescription: Slam-Rama
   wsaImages: {}
   metroTileShortName: 
