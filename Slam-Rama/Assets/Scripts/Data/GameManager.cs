@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
     // The round data that the players can configurate
     [SerializeField] RoundData roundData;
+    int totalDead;
+    [SerializeField] InGameUI gameUI;
 
     private void Start()
     {
@@ -33,7 +35,24 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    private void LateUpdate()
+    {
+        foreach (PlayerData playerData in playerData)
+        {
+            switch (playerData.isDead)
+            {
+                case true:
+                    totalDead++;
+                    break;
+                case false:
+                    break;
+            }
+            if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
+            {
+                ResetRound();
+            }
+        }
+    }
     // Is called when a player joins and checks which player it is
     public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
     {
@@ -79,21 +98,15 @@ public class GameManager : MonoBehaviour
 
                 // Gives the player data the object it now belongs to
                 playerData.PlayerObject = input.gameObject;
-
-                // Sets the correct control scheme to the player
-                input.SwitchCurrentActionMap("Player");
-
                 break;
         }
-
-        // ????
-        input.transform.GetChild(0).gameObject.SetActive(false);
-
+        input.SwitchCurrentActionMap("Player");
         // Enables the player movement (when does it get disabled?)
         input.GetComponent<PlayerMovement>().enabled = true;
 
         // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
+        input.GetComponent<Knockout>().gameUI = gameUI;
         input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
 
         // ????
@@ -108,6 +121,7 @@ public class GameManager : MonoBehaviour
 
         // Sets the player to not dead
         playerData.isDead = false;
+        input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void CheckRoundEnd()
@@ -145,6 +159,45 @@ public class GameManager : MonoBehaviour
             case LooserCardPowers.PowerUpType.RecoveryJump:
                 // Need to put in recovery jUMp logic
                 break;
+        }
+    }
+    private void ResetRound()
+    {
+        roundData.roundsLeft--;
+        if (roundData.roundsLeft <= 0)
+        {
+            SceneManager.LoadScene("Results");
+        }
+        else
+        {
+            foreach (var player in playerData)
+            {
+                player.ResetData();
+            }
+            if (roundData.RandomRounds)
+            {
+                int scene = Random.Range(0, 4);
+                switch (scene)
+                {
+                    case 1:
+                        SceneManager.LoadSceneAsync("Boxing");
+                        break;
+                    case 2:
+                        SceneManager.LoadSceneAsync("Clock");
+                        break;
+                    case 3:
+                        SceneManager.LoadSceneAsync("Boxing");
+                        break;
+                    case 4:
+                        SceneManager.LoadSceneAsync("Castle");
+                        break;
+
+                }
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 

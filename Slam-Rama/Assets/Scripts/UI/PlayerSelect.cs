@@ -45,6 +45,9 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponent<Damage>().playerData = playerData;
         input.GetComponent<Knockback>().playerData = playerData;
         input.GetComponent<Knockout>().playerData = playerData;
+        input.GetComponent<Attack>().playerData = playerData;
+        input.GetComponent<PlayerMovement>().playerData = playerData;
+        input.GetComponent<UseItem>().playerData = playerData;
 
         // Assigns the level data to the knockout script
         input.GetComponent<Knockout>().levelData = levelData;

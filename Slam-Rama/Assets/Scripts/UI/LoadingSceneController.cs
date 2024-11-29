@@ -6,15 +6,51 @@ using UnityEngine.UI;
 public class LoadingSceneController : MonoBehaviour
 {
     AsyncOperation asyncOperation;
-
+    [SerializeField] RoundData roundData;
     // The loading bar UI object
     public Image LoadingBar;
 
     void Start()
     {
-        // Loads just the boxing scene for now
-        asyncOperation = SceneManager.LoadSceneAsync("Boxing");
-        // Halts the destination scene from loading until it has fully loaded
+        switch (roundData.roundType)
+        {
+            case RoundData.RoundType.Random:
+                roundData.RandomRounds = true;
+                break;
+            case RoundData.RoundType.Clock:
+                asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                break;
+            case RoundData.RoundType.Castle:
+                asyncOperation = SceneManager.LoadSceneAsync("Castle");
+                break;
+            case RoundData.RoundType.Witch:
+                asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                break;
+            case RoundData.RoundType.Boxing:
+                asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                break;
+
+        }
+        if (roundData.RandomRounds)
+        {
+            int scene = Random.Range(0, 4);
+            switch (scene)
+            {
+                case 1:
+                    asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                    break;
+                case 2:
+                    asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                    break;
+                case 3:
+                    asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                    break;
+                case 4:
+                    asyncOperation = SceneManager.LoadSceneAsync("Castle");
+                    break;
+
+            }
+        }
         asyncOperation.allowSceneActivation = false;
         // Starts the coroutine for the laoding screen
         StartCoroutine(WaitAndLoadTutorialLevel());

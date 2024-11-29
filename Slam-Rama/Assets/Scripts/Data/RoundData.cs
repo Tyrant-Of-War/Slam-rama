@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +6,14 @@ using UnityEngine;
 public class RoundData : ScriptableObject
 {
     //////////////
-    
+
     // Should probably rework this entire thing
 
     //////////////
+
+    public int roundsLeft;
+
+    public bool RandomRounds;
 
     [SerializeField] private PlayerData firstPlayerOut;
 
@@ -17,7 +21,16 @@ public class RoundData : ScriptableObject
 
     public PlayerData FirstPlayerOut => firstPlayerOut;
     public PlayerData LastPlayerStanding => lastPlayerStanding;
-
+    [Serializable]
+    public enum RoundType
+    {
+        Boxing = 1,
+        Clock = 2,
+        Castle = 3,
+        Random = 4,
+        Witch = 5,
+    }
+    public RoundType roundType;
     // Resets the tracker data for each new round
     public void ResetData()
     {
@@ -42,6 +55,28 @@ public class RoundData : ScriptableObject
             {
                 firstPlayerOut = player;
             }
+        }
+    }
+    public void SwitchRoundType(int Value)
+    {
+        switch ((RoundType)Value)
+        {
+            case RoundType.Clock:
+                roundType = RoundType.Clock;
+                break;
+            case RoundType.Castle:
+                roundType = RoundType.Castle;
+                break;
+            case RoundType.Random:
+                roundType = RoundType.Random;
+                break;
+            case RoundType.Witch:
+                roundType = RoundType.Witch;
+                break;
+            case RoundType.Boxing:
+                roundType = RoundType.Boxing;
+                break;
+
         }
     }
 
