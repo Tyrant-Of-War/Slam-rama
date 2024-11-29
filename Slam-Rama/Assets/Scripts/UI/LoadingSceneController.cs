@@ -21,7 +21,7 @@ public class LoadingSceneController : MonoBehaviour
                 asyncOperation = SceneManager.LoadSceneAsync("Clock");
                 break;
             case RoundData.RoundType.Castle:
-                asyncOperation = SceneManager.LoadSceneAsync("Castle");
+                asyncOperation = SceneManager.LoadSceneAsync("Clock");
                 break;
             case RoundData.RoundType.Witch:
                 asyncOperation = SceneManager.LoadSceneAsync("Boxing");
@@ -46,7 +46,7 @@ public class LoadingSceneController : MonoBehaviour
                     asyncOperation = SceneManager.LoadSceneAsync("Boxing");
                     break;
                 case 4:
-                    asyncOperation = SceneManager.LoadSceneAsync("Castle");
+                    asyncOperation = SceneManager.LoadSceneAsync("Clock");
                     break;
 
             }

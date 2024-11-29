@@ -17,7 +17,7 @@ public class DashDamage : MonoBehaviour
     {
         if (playerMovement.playerDash.isDashing && other.gameObject.CompareTag("Player") && !other.isTrigger) //if the player is dashing and collides with another object with the player tag...
         {
-            other.gameObject.GetComponent<Damage>().damagePlayer(3); //deal 3 points of damage
+            other.gameObject.GetComponent<Damage>().DamagePlayer(3); //deal 3 points of damage
             other.gameObject.GetComponent<Knockback>().RunKnockback(transform.forward,0.5f); //move them the other way (knockback)
         }
     }

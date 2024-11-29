@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
                         SceneManager.LoadSceneAsync("Boxing");
                         break;
                     case 4:
-                        SceneManager.LoadSceneAsync("Castle");
+                        SceneManager.LoadSceneAsync("Clock");
                         break;
 
                 }

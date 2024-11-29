@@ -70,7 +70,7 @@ public class PlayerData : ScriptableObject
 
         isInvincible = false;
 
-        itemID = 1;
+        itemID = 0;
 
         isDead = false;
 
@@ -89,7 +89,7 @@ public class PlayerData : ScriptableObject
 
         isInvincible = false;
 
-        itemID = 1;
+        itemID = 0;
 
         isDead = false;
 
@@ -107,7 +107,7 @@ public class PlayerData : ScriptableObject
 
         isInvincible = false;
 
-        itemID = 1;
+        itemID = 0;
 
         isDead = false;
 

@@ -11,7 +11,10 @@ public class ItemManager : MonoBehaviour
     [SerializeField] float delayMax;
 
     // List of item meshes
-    [SerializeField] List<Mesh> meshes = new List<Mesh>(); 
+    [SerializeField] List<Mesh> meshes = new List<Mesh>();
+
+    // List of materials for the items
+    [SerializeField] List<Material> materials = new List<Material>();
 
     // Used to set the delay between item spawns
     float delay;
@@ -60,6 +63,9 @@ public class ItemManager : MonoBehaviour
 
                 // Assigns the correct mesh
                 currentItem.GetComponent<MeshFilter>().mesh = meshes[currentItem.GetComponent<PickUp>().itemID - 1];
+
+                // Sets the correct materials
+                //currentItem.GetComponent<MeshRenderer>().materials[0] = materials[currentItem.GetComponent<PickUp>().itemID - 1];
 
                 // Increases the amount of items existing in the level data
                 levelData.itemAmount++;

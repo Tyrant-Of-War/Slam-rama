@@ -30,6 +30,6 @@ public class UseItem : MonoBehaviour
         //Debug.Log("Item Used: " +  playerData.itemID);
 
         // Clears the players item slot
-        //playerData.itemID = 0;
+        playerData.itemID = 0;
     }
 }
