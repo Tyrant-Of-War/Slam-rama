@@ -19,8 +19,18 @@ public class GameManager : MonoBehaviour
     int totalDead;
     [SerializeField] InGameUI gameUI;
 
+    // Is used to stop the reset round being called a bunch of times over and over again
+    bool isResetting;
+
     private void Start()
     {
+
+    }
+
+    private void Awake()
+    {
+        isResetting = false;
+
         // Gets the current player count from the input system
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
 
@@ -35,23 +45,36 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     private void LateUpdate()
     {
-        foreach (PlayerData playerData in playerData)
+        if (!isResetting)
         {
-            switch (playerData.isDead)
+            foreach (PlayerData player in playerData)
             {
-                case true:
-                    totalDead++;
-                    break;
-                case false:
-                    break;
-            }
-            if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
-            {
-                ResetRound();
+                switch (player.isDead)
+                {
+                    case true:
+                        totalDead++;
+                        break;
+                    case false:
+                        break;
+                }
+
+
+                if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
+                {
+                    ResetRound();
+
+                    roundData.roundsLeft--;
+
+                    isResetting = true;
+                }
             }
         }
+        
+
+        totalDead = 0;  
     }
     // Is called when a player joins and checks which player it is
     public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
@@ -83,6 +106,8 @@ public class GameManager : MonoBehaviour
     // Assigns the player and level data to the various scripts on each player object
     private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData, bool Existing)
     {
+        Debug.Log("Assigned player data:" + playerData.ID);
+
         // Checks if the player was already created or not
         switch (Existing)
         {
@@ -163,7 +188,7 @@ public class GameManager : MonoBehaviour
     }
     private void ResetRound()
     {
-        roundData.roundsLeft--;
+
         if (roundData.roundsLeft <= 0)
         {
             SceneManager.LoadScene("Results");

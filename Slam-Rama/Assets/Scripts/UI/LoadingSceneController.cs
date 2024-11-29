@@ -33,7 +33,7 @@ public class LoadingSceneController : MonoBehaviour
         }
         if (roundData.RandomRounds)
         {
-            int scene = Random.Range(0, 4);
+            int scene = Random.Range(1, 5);
             switch (scene)
             {
                 case 1:

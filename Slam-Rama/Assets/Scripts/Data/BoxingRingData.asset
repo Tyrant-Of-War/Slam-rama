@@ -15,10 +15,10 @@ MonoBehaviour:
   ID: 1
   killHeight: -10
   SpawnLocation:
-  - {x: -10, y: 4, z: -1}
-  - {x: 10, y: 4, z: -1}
-  - {x: 0, y: 4, z: 10}
-  - {x: 0, y: 4, z: -10}
+  - {x: -10, y: 6, z: -1}
+  - {x: 10, y: 6, z: -1}
+  - {x: 0, y: 6, z: 10}
+  - {x: 0, y: 6, z: -10}
   maxPositivePosition: {x: 8, y: 0, z: -8}
   minNegativePosition: {x: -8, y: 0, z: 8}
   itemAmount: 0
