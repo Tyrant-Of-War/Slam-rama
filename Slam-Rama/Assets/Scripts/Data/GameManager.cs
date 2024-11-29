@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     // The round data that the players can configurate
     [SerializeField] RoundData roundData;
     int totalDead;
+    [SerializeField] InGameUI gameUI;
 
     private void Start()
     {
@@ -105,6 +106,7 @@ public class GameManager : MonoBehaviour
 
         // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
+        input.GetComponent<Knockout>().gameUI = gameUI;
         input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
 
         // ????
@@ -172,7 +174,30 @@ public class GameManager : MonoBehaviour
             {
                 player.ResetData();
             }
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            if (roundData.RandomRounds)
+            {
+                int scene = Random.Range(0, 4);
+                switch (scene)
+                {
+                    case 1:
+                        SceneManager.LoadSceneAsync("Boxing");
+                        break;
+                    case 2:
+                        SceneManager.LoadSceneAsync("Clock");
+                        break;
+                    case 3:
+                        SceneManager.LoadSceneAsync("Boxing");
+                        break;
+                    case 4:
+                        SceneManager.LoadSceneAsync("Castle");
+                        break;
+
+                }
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 

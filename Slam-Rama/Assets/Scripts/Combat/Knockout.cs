@@ -11,7 +11,7 @@ public class Knockout : MonoBehaviour
 
     // Used to check if the respawn coroutine has finished
     bool isDone;
-
+    public InGameUI gameUI;
     private void Start()
     {
         // Sets default true
@@ -35,6 +35,7 @@ public class Knockout : MonoBehaviour
                     playerData.falls++;
                     playerData.lives--;
                     playerData.damage = 0;
+                    gameUI.ReduceLife(playerData.ID);
 
                     // Moves the player to the bottom of the map and freezes their moving while they are being repspawned
                     transform.position = new Vector3(0, -2.5f, 0);
