@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -22,10 +21,7 @@ public class GameManager : MonoBehaviour
     // Is used to stop the reset round being called a bunch of times over and over again
     bool isResetting;
 
-    private void Start()
-    {
 
-    }
 
     private void Awake()
     {
@@ -62,19 +58,21 @@ public class GameManager : MonoBehaviour
                 }
 
 
-                if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
-                {
-                    ResetRound();
 
-                    roundData.roundsLeft--;
+            }
+            if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
+            {
 
-                    isResetting = true;
-                }
+
+                roundData.roundsLeft--;
+
+                isResetting = true;
+                ResetRound();
             }
         }
-        
 
-        totalDead = 0;  
+
+        totalDead = 0;
     }
     // Is called when a player joins and checks which player it is
     public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
@@ -135,8 +133,8 @@ public class GameManager : MonoBehaviour
         input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
 
         // ????
-        input.GetComponentInChildren<MultiplayerEventSystem>().gameObject.SetActive(false);
-        input.transform.GetChild(0).gameObject.SetActive(true);
+        //input.GetComponentInChildren<MultiplayerEventSystem>().gameObject.SetActive(false);
+        //input.transform.GetChild(0).gameObject.SetActive(true);
 
         // Enables the animated character models renderer
         input.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
@@ -149,24 +147,24 @@ public class GameManager : MonoBehaviour
         input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
-    public void CheckRoundEnd()
-    {
-        // Update the round data based on the current player data
-        roundData.UpdateData(playerData);
-        // Check if the round should end
-        if (roundData.IsRoundOver())
-        {
-            EndRound(roundData.LastPlayerStanding);
-        }
-    }
+    //public void CheckRoundEnd()
+    //{
+    //    // Update the round data based on the current player data
+    //    roundData.UpdateData(playerData);
+    //    // Check if the round should end
+    //    if (roundData.IsRoundOver())
+    //    {
+    //        EndRound(roundData.LastPlayerStanding);
+    //    }
+    //}
 
-    private void EndRound(PlayerData winner)
-    {
-        if (winner != null)
-        {
-            SceneManager.LoadScene("LoserCards");
-        }
-    }
+    //private void EndRound(PlayerData winner)
+    //{
+    //    if (winner != null)
+    //    {
+    //        SceneManager.LoadScene("LoserCards");
+    //    }
+    //}
 
     public void ApplyPowerUp(LooserCardPowers.PowerUpType powerUp)
     {
