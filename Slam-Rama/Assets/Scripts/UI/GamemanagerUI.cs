@@ -12,7 +12,7 @@ public class GamemanagerUI : MonoBehaviour
 
     // The list of the ready status of all players
     public List<bool> AllReady;
-    
+
     // The list of all players joined
     Playercontrols[] Players;
 
@@ -27,11 +27,37 @@ public class GamemanagerUI : MonoBehaviour
     // Unsure??????
     private bool inMenu;
 
-    private void Start()
+    private void Awake()
     {
         inMenu = true;
+        // deletes preexisting players 
+        if (UnityEngine.InputSystem.PlayerInput.all.Count > 0)
+        {
+            switch (UnityEngine.InputSystem.PlayerInput.all.Count)
+            {
+                case 1:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+                case 2:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[1].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+                case 3:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[2].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[1].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+                case 4:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[3].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[2].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[1].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+            }
+        }
+        PlayerSelectCanvas.SetActive(true);
+        GameSettingsCanvas.SetActive(false);
     }
-
 
     private void FixedUpdate()
     {
@@ -91,7 +117,7 @@ public class GamemanagerUI : MonoBehaviour
     {
         // Disables the player canvases and enables the game settings canvas
         PlayerSelectCanvas.SetActive(false);
-        GameSettingsCanvas.SetActive(true); 
+        GameSettingsCanvas.SetActive(true);
 
         // Runs through each player in existance
         foreach (UnityEngine.InputSystem.PlayerInput player in UnityEngine.InputSystem.PlayerInput.all)

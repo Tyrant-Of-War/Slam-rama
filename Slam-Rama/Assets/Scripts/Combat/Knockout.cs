@@ -39,7 +39,8 @@ public class Knockout : MonoBehaviour
 
                     // Moves the player to the bottom of the map and freezes their moving while they are being repspawned
                     transform.position = new Vector3(0, -2.5f, 0);
-                    GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                    GetComponent<PlayerMovement>().enabled = false;
+                    GetComponent<CapsuleCollider>().enabled = false;
                     isDone = false;
                     StartCoroutine(respawn());
 
@@ -63,10 +64,11 @@ public class Knockout : MonoBehaviour
     {
         // Waits for 3 seconds to do what it wants to do
         yield return new WaitForSeconds(3);
-        // Sets the players position to a random one of the level data
-        transform.position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
+        //turn off ridgedbody so transof might work
+        this.GetComponent<Rigidbody>().transform.position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
         // Unfreezes the player constraints but making sure to keep the rotation frozen
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX;
+        GetComponent<PlayerMovement>().enabled = true;
+        GetComponent<CapsuleCollider>().enabled = true;
         // Lets update know its done respawning
         isDone = true;
     }

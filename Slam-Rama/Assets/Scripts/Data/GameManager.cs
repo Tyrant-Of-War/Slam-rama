@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
 
         if (roundData.roundsLeft <= 0)
         {
-            SceneManager.LoadScene("Results");
+            SceneManager.LoadScene("Lobby");
         }
         else
         {

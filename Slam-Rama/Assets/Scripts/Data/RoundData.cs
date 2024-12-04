@@ -21,6 +21,7 @@ public class RoundData : ScriptableObject
 
     public PlayerData FirstPlayerOut => firstPlayerOut;
     public PlayerData LastPlayerStanding => lastPlayerStanding;
+
     [Serializable]
     public enum RoundType
     {
@@ -31,6 +32,13 @@ public class RoundData : ScriptableObject
         Witch = 5,
     }
     public RoundType roundType;
+
+    private void Awake()
+    {
+        roundsLeft = 3; lastPlayerStanding = null;
+        RandomRounds = true;
+        roundType = RoundType.Random;
+    }
     // Resets the tracker data for each new round
     public void ResetData()
     {
