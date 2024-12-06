@@ -34,7 +34,7 @@ public class InGameUI : MonoBehaviour
     {
         foreach (var life in Player1Lives)
         {
-            if (life.active)
+            if (life.activeInHierarchy)
             {
                 CurrentLife = life;
             }
@@ -50,7 +50,7 @@ public class InGameUI : MonoBehaviour
     {
         foreach (var life in Player2Lives)
         {
-            if (life.active)
+            if (life.activeInHierarchy)
             {
                 CurrentLife = life;
             }
@@ -65,7 +65,7 @@ public class InGameUI : MonoBehaviour
     {
         foreach (var life in Player3Lives)
         {
-            if (life.active)
+            if (life.activeInHierarchy)
             {
                 CurrentLife = life;
             }
@@ -80,7 +80,7 @@ public class InGameUI : MonoBehaviour
     {
         foreach (var life in Player4Lives)
         {
-            if (life.active)
+            if (life.activeInHierarchy)
             {
                 CurrentLife = life;
             }

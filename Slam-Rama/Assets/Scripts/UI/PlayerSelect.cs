@@ -41,6 +41,8 @@ public class PlayerSelect : MonoBehaviour
     // Assigns the player and level data to the various scripts on each player object
     private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData)
     {
+        playerData.ResetData();
+
         // Assigns player data to the various scripts
         input.GetComponent<Damage>().playerData = playerData;
         input.GetComponent<Knockback>().playerData = playerData;
@@ -56,9 +58,9 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;
         input.GetComponent<PlayerMovement>().enabled = false;
 
-        input.transform.position = new Vector3(levelData.SpawnLocation[UnityEngine.InputSystem.PlayerInput.all.Count - 1].x, 0);
+        input.GetComponent<Rigidbody>().position = new Vector3(levelData.SpawnLocation[UnityEngine.InputSystem.PlayerInput.all.Count - 1].x, 0);
+        input.GetComponent<Rigidbody>().velocity = Vector3.zero;
         playerData.PlayerObject = input.gameObject;
-        input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
 
 

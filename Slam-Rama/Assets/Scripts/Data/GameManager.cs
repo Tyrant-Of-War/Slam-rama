@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    private void Awake()
+    private void Start()
     {
         isResetting = false;
 
@@ -111,6 +111,9 @@ public class GameManager : MonoBehaviour
         {
             case false:
 
+                // Ensures the new player is getting a clean slate for thier data
+                playerData.ResetData();
+
                 // Assigns the player data to every script that needs it 
                 input.GetComponent<Attack>().playerData = playerData;
                 input.GetComponent<PlayerMovement>().playerData = playerData;
@@ -130,7 +133,13 @@ public class GameManager : MonoBehaviour
         // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
         input.GetComponent<Knockout>().gameUI = gameUI;
+
+        // Ensures collider is enabled
+        input.GetComponent<CapsuleCollider>().enabled = true;
+
+        // Sets the players spawn location
         input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
+        input.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         // ????
         //input.GetComponentInChildren<MultiplayerEventSystem>().gameObject.SetActive(false);
@@ -144,27 +153,9 @@ public class GameManager : MonoBehaviour
 
         // Sets the player to not dead
         playerData.isDead = false;
+
         input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
-
-    //public void CheckRoundEnd()
-    //{
-    //    // Update the round data based on the current player data
-    //    roundData.UpdateData(playerData);
-    //    // Check if the round should end
-    //    if (roundData.IsRoundOver())
-    //    {
-    //        EndRound(roundData.LastPlayerStanding);
-    //    }
-    //}
-
-    //private void EndRound(PlayerData winner)
-    //{
-    //    if (winner != null)
-    //    {
-    //        SceneManager.LoadScene("LoserCards");
-    //    }
-    //}
 
     public void ApplyPowerUp(LooserCardPowers.PowerUpType powerUp)
     {
@@ -189,14 +180,20 @@ public class GameManager : MonoBehaviour
 
         if (roundData.roundsLeft <= 0)
         {
+            foreach (var player in playerData)
+            {
+                player.ResetData();
+            }
+
             SceneManager.LoadScene("Lobby");
         }
         else
         {
             foreach (var player in playerData)
             {
-                player.ResetData();
+                player.ResetRoundData();
             }
+
             if (roundData.RandomRounds)
             {
                 int scene = Random.Range(0, 4);

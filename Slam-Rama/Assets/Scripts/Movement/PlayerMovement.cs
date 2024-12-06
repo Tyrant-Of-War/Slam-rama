@@ -61,9 +61,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Gives the players z position to the player dat for checking kill states
-        playerData.playerY = this.transform.position.y;
-
         // Ground check via raycast
         playerGrounded = Physics.Raycast(playerRB.transform.position, Vector3.down, out groundHit, (height / 2) + 0.1f, ground);
 

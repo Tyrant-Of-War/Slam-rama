@@ -12,9 +12,6 @@ public class PlayerData : ScriptableObject
     // Used by the damage script to tell the movement script this player is currently stunned
     public bool isStunned;
 
-    //Used to check player pos for killzone purpose
-    public float playerY;
-
     // Used by the game manager to set the colour of the player
     public Material playerMaterial;
 
@@ -24,23 +21,11 @@ public class PlayerData : ScriptableObject
     // The actual lives value that is edited during runtime
     public int lives;
 
-    // Used to tell if the player is currently invunerable
-    public bool isInvincible;
-
-    // Holds players active powerup
-    public List<string> powerUps = new List<string>();
-
     // The amount of times a player has been knocked out
     public int falls;
 
     // The amount of times this player has knocked out another
     public int knockouts;
-
-    // Tracks the first player who loses all lives
-    public PlayerData firstPlayerOut = null;
-
-    // Tracks the last player standing in each round
-    public PlayerData lastPlayerStanding = null;
 
     // The game object of the player that uses all of this data
     public GameObject PlayerObject;
@@ -57,57 +42,50 @@ public class PlayerData : ScriptableObject
     // Used to tell if the player is currently attacking
     public bool isAttacking;
 
-    // Resets values that shouldn't carry through scenes
-    private void OnEnable()
-    {
-        damage = 1;
-
-        isStunned = false;
-
-        playerY = 0;
-
-        lives = livesMax;
-
-        isInvincible = false;
-
-        itemID = 0;
-
-        isDead = false;
-
-        isAttacking = false;
-    }
-
-    private void Awake()
-    {
-        damage = 1;
-
-        isStunned = false;
-
-        playerY = 0;
-
-        lives = livesMax;
-
-        isInvincible = false;
-
-        itemID = 0;
-
-        isDead = false;
-
-        isAttacking = false;
-    }
+    // Resets everything
     public void ResetData()
     {
         damage = 1;
 
         isStunned = false;
 
-        playerY = 0;
+        lives = livesMax;
+
+        falls = 0;
+
+        knockouts = 0;
+
+        PlayerObject = null;
+
+        itemID = 0;
+
+        isDead = false;
+
+        isAttacking = false;
+    }
+
+    // Resets stuff between rounds
+    public void ResetRoundData()
+    {
+        damage = 1;
+
+        isStunned = false;
 
         lives = livesMax;
 
-        isInvincible = false;
-
         itemID = 0;
+
+        isDead = false;
+
+        isAttacking = false;
+    }
+
+    // Resets things between lives
+    public void ResetLifeData()
+    {
+        damage = 1;
+
+        isStunned = false;
 
         isDead = false;
 
