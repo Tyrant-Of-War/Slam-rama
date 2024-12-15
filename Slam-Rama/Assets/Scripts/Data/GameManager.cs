@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
                 input.GetComponent<UseItem>().playerData = playerData;
                 input.GetComponent<Knockback>().playerData = playerData;
                 input.GetComponent<Knockout>().playerData = playerData;
+                input.GetComponent<Rumble>().playerData = playerData;
 
                 // Gives the player data the object it now belongs to
                 playerData.PlayerObject = input.gameObject;

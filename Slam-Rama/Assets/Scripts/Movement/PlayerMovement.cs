@@ -156,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
         // Checks if the player has a rigidbody
         if (playerRB == null)
         {
-            Debug.Log("The Player RB is Null!");
+            //Debug.Log("The Player RB is Null!");
         }
         else // Calls jump function and animates if so
         {
