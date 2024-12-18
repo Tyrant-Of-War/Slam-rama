@@ -26,6 +26,10 @@ public class UseItem : MonoBehaviour
         {
             Instantiate(powerUps[1], transform.position + transform.forward, Quaternion.LookRotation(transform.forward, transform.up));
         }
+        else if (playerData.itemID == 4) // Molotov
+        {
+            Instantiate(powerUps[2], transform.position + transform.forward, Quaternion.identity).GetComponent<Molotov>().direction = transform.forward;
+        }
 
         //Debug.Log("Item Used: " +  playerData.itemID);
 

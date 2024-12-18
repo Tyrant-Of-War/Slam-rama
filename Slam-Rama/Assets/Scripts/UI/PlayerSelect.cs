@@ -64,7 +64,10 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponent<Rigidbody>().velocity = Vector3.zero;
         playerData.PlayerObject = input.gameObject;
 
-        playerData.playerController = input.GetDevice<Gamepad>();
+        if (input.GetDevice<Gamepad>() != null)
+        {
+            playerData.playerController = input.GetDevice<Gamepad>();
+        }
     }
 
 

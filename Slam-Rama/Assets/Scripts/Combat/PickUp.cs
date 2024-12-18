@@ -10,6 +10,28 @@ public class PickUp : MonoBehaviour
     // The manager that spawned the item
     public LevelData levelData;
 
+    private void Start()
+    {
+        // Resizes the item based on what it is so it doesn't look dumb
+        if (itemID == 1)
+        {
+            transform.localScale = Vector3.one * 3;
+        }
+        else if (itemID == 2)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else if (itemID == 3)
+        {
+            transform.localScale = Vector3.one * 2;
+        }
+        else if (itemID == 4)
+        {
+            transform.localScale = Vector3.one * 0.75f;
+        }
+        
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player" && !other.isTrigger && other.GetComponent<PlayerMovement>().playerData.itemID == 0)

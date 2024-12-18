@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -56,14 +57,9 @@ public class GameManager : MonoBehaviour
                     case false:
                         break;
                 }
-
-
-
             }
             if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
             {
-
-
                 roundData.roundsLeft--;
 
                 isResetting = true;
@@ -125,6 +121,12 @@ public class GameManager : MonoBehaviour
 
                 // Gives the player data the object it now belongs to
                 playerData.PlayerObject = input.gameObject;
+
+                if (input.GetDevice<Gamepad>() != null)
+                {
+                    playerData.playerController = input.GetDevice<Gamepad>();
+                }
+
                 break;
         }
         input.SwitchCurrentActionMap("Player");

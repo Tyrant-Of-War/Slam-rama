@@ -5425,6 +5425,7 @@ MonoBehaviour:
   powerUps:
   - {fileID: 3652176024920637812, guid: 1b764c00b8c295643a7ef27baf796428, type: 3}
   - {fileID: 3485460956201975594, guid: c15f4ad0cf7a2474c80caaa6e963d013, type: 3}
+  - {fileID: 2475510270043400969, guid: 6efa4a855ccac5148adb2a2c5ba2da7e, type: 3}
 --- !u!114 &5220054069808073294
 MonoBehaviour:
   m_ObjectHideFlags: 0

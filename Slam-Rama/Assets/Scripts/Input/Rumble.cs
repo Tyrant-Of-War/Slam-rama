@@ -12,11 +12,14 @@ public class Rumble : MonoBehaviour
         Debug.Log("----Rumble Details----");
         Debug.Log("Power: " + power + ", Duration: " + duration);
 
-        // Set the controller attached to this player to vibrate with the given power
-        playerData.playerController.SetMotorSpeeds(power, power);
+        if (playerData.playerController != null)
+        {
+            // Set the controller attached to this player to vibrate with the given power
+            playerData.playerController.SetMotorSpeeds(power, power);
 
-        // Invoke the rumble to stop after the set duration passes
-        Invoke("StopRumble", duration);
+            // Invoke the rumble to stop after the set duration passes
+            Invoke("StopRumble", duration);
+        }
     }
 
     private void StopRumble()

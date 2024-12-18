@@ -19,6 +19,8 @@ public class Bomb : MonoBehaviour
     // List of players in the attack hitbox
     List<GameObject> explodeTargets = new List<GameObject>();
 
+    [SerializeField] ParticleSystem explosionParticles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,13 +42,21 @@ public class Bomb : MonoBehaviour
         {
             bombTimer -= Time.deltaTime;
         }
-        else
+        else if (bombTimer < 0 && bombTimer > -500)
         {
+            // Plays the explosion effect
+            explosionParticles.Play();
+
+            // Removes the particle system from the bomb so it can continue to play after the bomb dissapears
+            transform.DetachChildren();
+
+            //explosionParticles = null;
+
             // Runs through each player in the collider radius and applies an explosion force
             for (int i = 0; i < explodeTargets.Count; ++i)
             {
                 // Calls the knockback on the players in the radius
-                explodeTargets[i].GetComponent<Knockback>().explodeKnockback(100f, transform.position, 2f);
+                explodeTargets[i].GetComponent<Knockback>().explodeKnockback(50f, transform.position, 2f);
                 explodeTargets[i].GetComponent<Damage>().DamagePlayer(10);
             }
 
@@ -55,13 +65,20 @@ public class Bomb : MonoBehaviour
 
             // Destroys the bomb
             Destroy(gameObject);
+
+            // Sets bomb timer to way lower just so the above code only runs once
+            bombTimer = -1000;
+        }
+        else
+        {
+            Debug.Log("Bomb has exploded");
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         // Checks if the collider is a player, is not a trigger, and is not the current players hitbox
-        if (other.tag == "Player" && !other.isTrigger && other != GetComponent<CapsuleCollider>())
+        if (other.tag == "Player" && !other.isTrigger)
         {
             //Debug.Log("Collision Entry Detected");
 
