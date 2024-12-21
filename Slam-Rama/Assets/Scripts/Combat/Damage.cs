@@ -2,9 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Damage : MonoBehaviour
 {
+    // Used to tell if the player should be damaged everynow and again from fire
+    public bool isIgnited;
+
+    // Used to delay ticks from the fire
+    float fireDelay;
+
     // For editing the damage value so it can be accessed by other scripts
     public PlayerData playerData;
 
@@ -12,12 +19,18 @@ public class Damage : MonoBehaviour
     float stunTimer;
 
     // Used to stun the player
-    Rigidbody playerRB; 
+    Rigidbody playerRB;
+
+    // The rumble script
+    [SerializeField] Rumble rumble;
 
     private void Start()
     {
         // Gets rigid body
         playerRB = GetComponent<Rigidbody>();
+
+        // Sets the delay ready for if the player becomes ignited
+        fireDelay = 0.5f;
     }
 
     private void Update()
@@ -26,23 +39,41 @@ public class Damage : MonoBehaviour
         if (playerData.isStunned == true)
         {
             // Checks if the stun time has run out, unstuns if so
-            if (stunTimer < 0)
+            if (stunTimer > 0)
             {
-                playerData.isStunned = false;
+                // Counts down stun timer
+                stunTimer = stunTimer - Time.deltaTime;  
             }
             else
             {
-                // Counts down stun timer
-                stunTimer = stunTimer - Time.deltaTime;
+                playerData.isStunned = false;
+            }
+        }
+
+        // Checks if the player lit
+        if (isIgnited)
+        {
+            // Checks if anytime left in the delay does damage and resets if not
+            if (fireDelay > 0)
+            {
+                fireDelay = fireDelay - Time.deltaTime;
+            }
+            else
+            {
+                DamagePlayer(1f);
+
+                fireDelay = 0.5f;
             }
         }
     }
 
     // Is called when a player is found by the attack script of another player
-    public void DamagePlayer(int damage)
+    public void DamagePlayer(float damage)
     {
         // Adds the given damage to the player data
         playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
+
+        rumble.SetRumble(damage / 10, damage / 5);
 
         if (!playerData.isStunned)
         {
@@ -63,6 +94,6 @@ public class Damage : MonoBehaviour
         // Zeros out the players velocity before knockback is applied
         playerRB.velocity = Vector3.zero;
         // Calculates stun duration based on the damage taken
-        stunTimer = 3f;
+        stunTimer = 1.5f;
     }
 }

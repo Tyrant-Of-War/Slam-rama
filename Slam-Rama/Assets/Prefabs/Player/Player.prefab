@@ -5073,6 +5073,7 @@ GameObject:
   - component: {fileID: 5634185026181663931}
   - component: {fileID: -1624519613876813259}
   - component: {fileID: -3607917493966997157}
+  - component: {fileID: 5220054069808073294}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5353,6 +5354,7 @@ MonoBehaviour:
   playerData: {fileID: 0}
   animator: {fileID: 2395685508580088507}
   chargeParticles: {fileID: 9075669539084958858}
+  rumble: {fileID: 5220054069808073294}
 --- !u!114 &1390508075863064498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5366,6 +5368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  rumble: {fileID: 5220054069808073294}
 --- !u!114 &-4208351622783234702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5422,6 +5425,20 @@ MonoBehaviour:
   powerUps:
   - {fileID: 3652176024920637812, guid: 1b764c00b8c295643a7ef27baf796428, type: 3}
   - {fileID: 3485460956201975594, guid: c15f4ad0cf7a2474c80caaa6e963d013, type: 3}
+  - {fileID: 2475510270043400969, guid: 6efa4a855ccac5148adb2a2c5ba2da7e, type: 3}
+--- !u!114 &5220054069808073294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190298267786525639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03120626e2a18b644bbd37923be362e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 0}
 --- !u!1001 &2843471361976027986
 PrefabInstance:
   m_ObjectHideFlags: 0

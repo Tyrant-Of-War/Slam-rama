@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
@@ -42,6 +43,9 @@ public class PlayerData : ScriptableObject
     // Used to tell if the player is currently attacking
     public bool isAttacking;
 
+    // The players controller for rumble purposes
+    public Gamepad playerController;
+
     // Resets everything
     public void ResetData()
     {
@@ -62,6 +66,8 @@ public class PlayerData : ScriptableObject
         isDead = false;
 
         isAttacking = false;
+
+        playerController = null;
     }
 
     // Resets stuff between rounds

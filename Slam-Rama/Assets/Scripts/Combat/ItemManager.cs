@@ -55,8 +55,8 @@ public class ItemManager : MonoBehaviour
                 // Rotates the object properly
                 currentItem.transform.Rotate(-90, 0, 0);
 
-                // Just sets a random ID for now
-                currentItem.GetComponent<PickUp>().itemID = Random.Range(1, 4);
+                // Just sets a random ID 
+                currentItem.GetComponent<PickUp>().itemID = Random.Range(1, 5);
 
                 // Gives the item the level data so the item amount can be updated when it is destroyed
                 currentItem.GetComponent<PickUp>().levelData = levelData;
