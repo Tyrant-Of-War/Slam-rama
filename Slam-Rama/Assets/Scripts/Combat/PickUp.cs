@@ -29,12 +29,22 @@ public class PickUp : MonoBehaviour
         {
             transform.localScale = Vector3.one * 0.75f;
         }
-        
+        else if (itemID == 5)
+        {
+            transform.localScale = Vector3.one * 3;
+
+            transform.Rotate(90, 0, 0);
+        }
+        else if (itemID == 6)
+        {
+            transform.localScale = Vector3.one;
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && !other.isTrigger && other.GetComponent<PlayerMovement>().playerData.itemID == 0)
+        if (other.tag == "Player" && !other.isTrigger && other.GetComponent<PlayerMovement>().playerData.itemID == 0 && other.GetComponent<PlayerMovement>().playerData.isShielded != true)
         {
             // Gives the ID to the player data
             other.GetComponent<PlayerMovement>().playerData.itemID = itemID;

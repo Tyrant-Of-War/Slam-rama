@@ -70,19 +70,49 @@ public class Damage : MonoBehaviour
     // Is called when a player is found by the attack script of another player
     public void DamagePlayer(float damage)
     {
-        // Adds the given damage to the player data
-        playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
-
-        rumble.SetRumble(damage / 10, damage / 5);
-
-        if (!playerData.isStunned)
+        // Checks if player has a sheild or not
+        if (playerData.isShielded == true)
         {
-            // Sets the player to stunned
-            playerData.isStunned = true;
-            // Zeros out the players velocity before knockback is applied
-            playerRB.velocity = Vector3.zero;
-            // Calculates stun duration based on the damage taken
-            stunTimer = damage / 10;
+            // Checks if damage is high enough to break shield
+            if (damage > 3)
+            {
+                // Adds the given damage to the player data
+                playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
+
+                rumble.SetRumble(damage / 10, damage / 5);
+
+                if (!playerData.isStunned)
+                {
+                    // Sets the player to stunned
+                    playerData.isStunned = true;
+                    // Zeros out the players velocity before knockback is applied
+                    playerRB.velocity = Vector3.zero;
+                    // Calculates stun duration based on the damage taken
+                    stunTimer = damage / 10;
+                }
+                
+                // Removes the shield
+                playerData.isShielded = false;
+
+                transform.GetChild(3).gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Adds the given damage to the player data
+            playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
+
+            rumble.SetRumble(damage / 10, damage / 5);
+
+            if (!playerData.isStunned)
+            {
+                // Sets the player to stunned
+                playerData.isStunned = true;
+                // Zeros out the players velocity before knockback is applied
+                playerRB.velocity = Vector3.zero;
+                // Calculates stun duration based on the damage taken
+                stunTimer = damage / 10;
+            }
         }
     }
 

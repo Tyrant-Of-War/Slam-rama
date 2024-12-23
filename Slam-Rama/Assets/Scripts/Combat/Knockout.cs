@@ -123,6 +123,9 @@ public class Knockout : MonoBehaviour
                     // Reset some of the player data ready for when the player respawns
                     playerData.ResetLifeData();
 
+                    // Deactivates shield
+                    transform.GetChild(3).gameObject.SetActive(false);
+
                     // Sets them to the respawning state
                     isRespawning = true;
 

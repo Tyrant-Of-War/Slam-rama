@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5705559020834731476
+--- !u!1 &4517880976038783882
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3982404626977499844}
-  - component: {fileID: 3662409139599558282}
-  - component: {fileID: 3225517395076399075}
-  - component: {fileID: 1440826696584438304}
-  - component: {fileID: 7698535392805495883}
-  - component: {fileID: 6638622178095660208}
+  - component: {fileID: 7754962243337566064}
+  - component: {fileID: 6940593708426099728}
+  - component: {fileID: 415667233456314074}
+  - component: {fileID: 7001503948518653500}
+  - component: {fileID: 1787229048388900353}
   m_Layer: 0
-  m_Name: Item
-  m_TagString: Item
+  m_Name: Oil
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3982404626977499844
+--- !u!4 &7754962243337566064
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705559020834731476}
+  m_GameObject: {fileID: 4517880976038783882}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalRotation: {x: -0.6532815, y: -0.27059805, z: -0.27059805, w: 0.6532815}
+  m_LocalPosition: {x: 3.9223862, y: 0.56, z: 0.64878416}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!33 &3662409139599558282
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &6940593708426099728
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705559020834731476}
-  m_Mesh: {fileID: -1272481795433867914, guid: 4ede66058fb9b554890fd319af1277ea, type: 3}
---- !u!23 &3225517395076399075
+  m_GameObject: {fileID: 4517880976038783882}
+  m_Mesh: {fileID: 2783131832183395012, guid: 3310b017bfa20ca4f8fc3ba937f076a8, type: 3}
+--- !u!23 &415667233456314074
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705559020834731476}
+  m_GameObject: {fileID: 4517880976038783882}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -64,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 324392197758da14d85efc862a4e3f07, type: 2}
   - {fileID: 2100000, guid: 3056da9221ecb934c8cf631956baf95d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -87,13 +86,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1440826696584438304
-SphereCollider:
+--- !u!65 &7001503948518653500
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705559020834731476}
+  m_GameObject: {fileID: 4517880976038783882}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -106,40 +105,18 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Size: {x: 10, y: 4, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7698535392805495883
+--- !u!114 &1787229048388900353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705559020834731476}
+  m_GameObject: {fileID: 4517880976038783882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 923633a95fb0d764ba63f051aa09685f, type: 3}
+  m_Script: {fileID: 11500000, guid: d947b43ee8b0a384c944b43362948737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemID: 0
-  levelData: {fileID: 0}
---- !u!95 &6638622178095660208
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705559020834731476}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fa700f9f212d7614faf4235af67aff27, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  oilDuration: 15
