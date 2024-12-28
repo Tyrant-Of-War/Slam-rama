@@ -9,6 +9,7 @@ public class GamemanagerUI : MonoBehaviour
     [SerializeField] RoundData roundData;
 
     [SerializeField] TextMeshProUGUI roundText;
+    public GameObject PlayerJoinThing;
 
     // The list of the ready status of all players
     public List<bool> AllReady;
@@ -118,12 +119,19 @@ public class GamemanagerUI : MonoBehaviour
         // Disables the player canvases and enables the game settings canvas
         PlayerSelectCanvas.SetActive(false);
         GameSettingsCanvas.SetActive(true);
-
+        PlayerJoinThing.SetActive(false);
         // Runs through each player in existance
         foreach (UnityEngine.InputSystem.PlayerInput player in UnityEngine.InputSystem.PlayerInput.all)
         {
             // Disables their mesh renderer so they are not in the way of the UI
-            player.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+            SkinnedMeshRenderer[] renderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            // Loop through each SkinnedMeshRenderer and disable it
+            foreach (var renderer in renderers)
+            {
+                renderer.enabled = false;
+            }
+            player.gameObject.GetComponent<PlayerCosmeticInput>().enabled = false;
 
             // Checks if this player is player 1 and gives them control if so
             if (player == UnityEngine.InputSystem.PlayerInput.all[0])
