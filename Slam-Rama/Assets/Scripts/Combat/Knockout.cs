@@ -111,8 +111,8 @@ public class Knockout : MonoBehaviour
                     // Updates the player data values
                     playerData.falls++;
                     playerData.lives--;
-                    playerData.damage = 0;
                     gameUI.ReduceLife(playerData.ID);
+                    gameUI.UpdatePlayerDamage();
 
                     // Moves the player to the bottom of the map and freezes their moving while they are being repspawned
                     GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
@@ -137,7 +137,6 @@ public class Knockout : MonoBehaviour
                 {
                     // Updates player data
                     playerData.falls++;
-                    playerData.damage = 1;
                     playerData.isDead = true;
 
                     // Moves the player to the bottom of the map and freezes their moving until the next round

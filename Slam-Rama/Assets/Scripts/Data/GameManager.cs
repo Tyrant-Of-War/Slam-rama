@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
         // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
         input.GetComponent<Knockout>().gameUI = gameUI;
+        input.GetComponent<Damage>().gameUI = gameUI;
 
         // Ensures collider is enabled
         input.GetComponent<CapsuleCollider>().enabled = true;

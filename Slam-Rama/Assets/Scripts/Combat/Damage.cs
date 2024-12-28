@@ -24,6 +24,8 @@ public class Damage : MonoBehaviour
     // The rumble script
     [SerializeField] Rumble rumble;
 
+    public InGameUI gameUI;
+
     private void Start()
     {
         // Gets rigid body
@@ -114,6 +116,9 @@ public class Damage : MonoBehaviour
                 stunTimer = damage / 10;
             }
         }
+
+        // Updates the damage UI
+        gameUI.UpdatePlayerDamage();
     }
 
     // Is called by the icicle powerup
