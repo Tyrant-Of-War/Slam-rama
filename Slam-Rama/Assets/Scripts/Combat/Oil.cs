@@ -13,6 +13,8 @@ public class Oil : MonoBehaviour
     // The list of all players ignited so they can be extinguished when this object is destroyed
     List<PlayerMovement> slipperyPlayers = new List<PlayerMovement>();
 
+    public AudioSource oilSpill;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,9 @@ public class Oil : MonoBehaviour
 
             // Sets the player to the ignited state
             other.GetComponent<PlayerMovement>().isSlippery = true;
+
+            //Plays the oil spill sound
+            oilSpill.Play();
 
             // Adds the player to list of players ignited
             slipperyPlayers.Add(other.GetComponent<PlayerMovement>());

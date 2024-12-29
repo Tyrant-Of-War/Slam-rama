@@ -21,6 +21,10 @@ public class Bomb : MonoBehaviour
 
     [SerializeField] ParticleSystem explosionParticles;
 
+    public AudioSource bombThrow;
+
+    public AudioSource bombExplode;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +36,10 @@ public class Bomb : MonoBehaviour
 
         // Adds a force in the supplied direction
         bombRB.AddForce(((Vector3.up * 2f) + direction) * launchPower, ForceMode.Impulse);
+
+        //Plays the throwing sound effect on the bomb
+        bombThrow.Play();
+
     }
 
     // Update is called once per frame
@@ -46,6 +54,9 @@ public class Bomb : MonoBehaviour
         {
             // Plays the explosion effect
             explosionParticles.Play();
+
+            //Plays the explode sound
+            bombExplode.Play();
 
             // Removes the particle system from the bomb so it can continue to play after the bomb dissapears
             transform.DetachChildren();

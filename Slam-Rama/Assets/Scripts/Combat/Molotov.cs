@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Molotov : MonoBehaviour
 {
@@ -32,6 +33,12 @@ public class Molotov : MonoBehaviour
     // The list of all players ignited so they can be extinguished when this object is destroyed
     List<Damage> ignitedPlayers = new List<Damage>();
 
+    //Loads the throwing sound 
+    public AudioSource mollyThrow;
+
+    //Loads the fire sound effect
+    public AudioSource mollyFire;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +57,9 @@ public class Molotov : MonoBehaviour
 
         // Adds a force in the supplied direction
         moloRB.AddForce(((Vector3.up * 2f) + direction) * launchPower, ForceMode.Impulse);
+
+        //Plays the throwing sound
+        mollyThrow.Play();
     }
 
     // Update is called once per frame
@@ -82,6 +92,7 @@ public class Molotov : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             Explode();
+            mollyFire.Play();
         }
     }
 

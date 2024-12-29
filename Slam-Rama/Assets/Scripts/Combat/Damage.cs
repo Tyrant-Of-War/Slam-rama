@@ -26,6 +26,10 @@ public class Damage : MonoBehaviour
 
     public InGameUI gameUI;
 
+    public AudioSource shieldBlock;
+
+    public AudioSource shieldBreak;
+
     private void Start()
     {
         // Gets rigid body
@@ -78,6 +82,9 @@ public class Damage : MonoBehaviour
             // Checks if damage is high enough to break shield
             if (damage > 3)
             {
+                //plays the sound to show blocking
+                shieldBlock.Play();
+
                 // Adds the given damage to the player data
                 playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
 
@@ -93,10 +100,11 @@ public class Damage : MonoBehaviour
                     stunTimer = damage / 10;
                 }
                 
-                // Removes the shield
+                // Removes the shield and plays the sound 
                 playerData.isShielded = false;
 
                 transform.GetChild(3).gameObject.SetActive(false);
+                shieldBreak.Play();
             }
         }
         else
