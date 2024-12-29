@@ -55,8 +55,8 @@ public class ItemManager : MonoBehaviour
                 // Rotates the object properly
                 currentItem.transform.Rotate(-90, 0, 0);
 
-                // Just sets a random ID for now
-                currentItem.GetComponent<PickUp>().itemID = Random.Range(1, 4);
+                // Just sets a random ID 
+                currentItem.GetComponent<PickUp>().itemID = Random.Range(1, 7);
 
                 // Gives the item the level data so the item amount can be updated when it is destroyed
                 currentItem.GetComponent<PickUp>().levelData = levelData;
@@ -66,6 +66,7 @@ public class ItemManager : MonoBehaviour
 
                 // Sets the correct materials
                 //currentItem.GetComponent<MeshRenderer>().materials[0] = materials[currentItem.GetComponent<PickUp>().itemID - 1];
+                currentItem.GetComponent<MeshRenderer>().material = materials[currentItem.GetComponent<PickUp>().itemID - 1];
 
                 // Increases the amount of items existing in the level data
                 levelData.itemAmount++;

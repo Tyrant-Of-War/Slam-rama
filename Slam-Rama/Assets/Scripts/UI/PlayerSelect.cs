@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
 public class PlayerSelect : MonoBehaviour
@@ -50,6 +51,7 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponent<Attack>().playerData = playerData;
         input.GetComponent<PlayerMovement>().playerData = playerData;
         input.GetComponent<UseItem>().playerData = playerData;
+        input.GetComponent<Rumble>().playerData = playerData;
 
         // Assigns the level data to the knockout script
         input.GetComponent<Knockout>().levelData = levelData;
@@ -61,6 +63,11 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponent<Rigidbody>().position = new Vector3(levelData.SpawnLocation[UnityEngine.InputSystem.PlayerInput.all.Count - 1].x, 0);
         input.GetComponent<Rigidbody>().velocity = Vector3.zero;
         playerData.PlayerObject = input.gameObject;
+
+        if (input.GetDevice<Gamepad>() != null)
+        {
+            playerData.playerController = input.GetDevice<Gamepad>();
+        }
     }
 
 

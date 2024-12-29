@@ -10,6 +10,9 @@ public class UseItem : MonoBehaviour
     // The list of all power up prefab
     [SerializeField] List<GameObject> powerUps = new List<GameObject>();
 
+    // The visual for the shield powerup
+    [SerializeField] GameObject shield;
+
     // Is called when the player presses the set use item input
     void OnUse()
     {
@@ -25,6 +28,20 @@ public class UseItem : MonoBehaviour
         else if (playerData.itemID == 3) // Icicle
         {
             Instantiate(powerUps[1], transform.position + transform.forward, Quaternion.LookRotation(transform.forward, transform.up));
+        }
+        else if (playerData.itemID == 4) // Molotov
+        {
+            Instantiate(powerUps[2], transform.position + transform.forward, Quaternion.identity).GetComponent<Molotov>().direction = transform.forward;
+        }
+        else if (playerData.itemID == 5)
+        {
+            shield.SetActive(true);
+
+            playerData.isShielded = true;
+        }
+        else if (playerData.itemID == 6)
+        {
+            Instantiate(powerUps[3], transform.position, Quaternion.identity);
         }
 
         //Debug.Log("Item Used: " +  playerData.itemID);

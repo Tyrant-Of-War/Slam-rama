@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu]
 public class PlayerData : ScriptableObject
@@ -42,6 +43,12 @@ public class PlayerData : ScriptableObject
     // Used to tell if the player is currently attacking
     public bool isAttacking;
 
+    // The players controller for rumble purposes
+    public Gamepad playerController;
+
+    // Used to tell if the player is currently under the effects of a sheild powerup
+    public bool isShielded;
+
     // Resets everything
     public void ResetData()
     {
@@ -62,6 +69,10 @@ public class PlayerData : ScriptableObject
         isDead = false;
 
         isAttacking = false;
+
+        playerController = null;
+
+        isShielded = false;
     }
 
     // Resets stuff between rounds
@@ -78,6 +89,8 @@ public class PlayerData : ScriptableObject
         isDead = false;
 
         isAttacking = false;
+
+        isShielded = false;
     }
 
     // Resets things between lives
@@ -90,5 +103,7 @@ public class PlayerData : ScriptableObject
         isDead = false;
 
         isAttacking = false;
+
+        isShielded = false;
     }
 }

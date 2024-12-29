@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -56,14 +57,9 @@ public class GameManager : MonoBehaviour
                     case false:
                         break;
                 }
-
-
-
             }
             if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
             {
-
-
                 roundData.roundsLeft--;
 
                 isResetting = true;
@@ -121,9 +117,16 @@ public class GameManager : MonoBehaviour
                 input.GetComponent<UseItem>().playerData = playerData;
                 input.GetComponent<Knockback>().playerData = playerData;
                 input.GetComponent<Knockout>().playerData = playerData;
+                input.GetComponent<Rumble>().playerData = playerData;
 
                 // Gives the player data the object it now belongs to
                 playerData.PlayerObject = input.gameObject;
+
+                if (input.GetDevice<Gamepad>() != null)
+                {
+                    playerData.playerController = input.GetDevice<Gamepad>();
+                }
+
                 break;
         }
         input.SwitchCurrentActionMap("Player");
@@ -133,6 +136,7 @@ public class GameManager : MonoBehaviour
         // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
         input.GetComponent<Knockout>().gameUI = gameUI;
+        input.GetComponent<Damage>().gameUI = gameUI;
 
         // Ensures collider is enabled
         input.GetComponent<CapsuleCollider>().enabled = true;

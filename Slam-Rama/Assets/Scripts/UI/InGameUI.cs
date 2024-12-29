@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class InGameUI : MonoBehaviour
@@ -11,6 +13,12 @@ public class InGameUI : MonoBehaviour
     [SerializeField] GameObject[] Player3Lives;
     [SerializeField] GameObject[] Player4Lives;
     private GameObject CurrentLife;
+
+    [SerializeField] List<PlayerData> playerDatas = new List<PlayerData>();
+
+    [SerializeField] List<TextMeshProUGUI> damageNumbers = new List<TextMeshProUGUI>();
+
+    string playerDamage;
 
     public void ReduceLife(int PlayerNum)
     {
@@ -93,6 +101,25 @@ public class InGameUI : MonoBehaviour
     public void IncreasePlayer4Life()
     {
 
+    }
+
+    public void UpdatePlayerDamage()
+    {
+        for (int i = 0; i < playerDatas.Count; i++)
+        {
+            playerDamage = playerDatas[i].damage.ToString();
+
+            if (playerDamage.Length < 2)
+            {
+                playerDamage = "00" + playerDamage;
+            }
+            else if (playerDamage.Length < 3)
+            {
+                playerDamage = "0" + playerDamage;
+            }
+
+            damageNumbers[i].text = playerDamage;
+        }
     }
 
 }

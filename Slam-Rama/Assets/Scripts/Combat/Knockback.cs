@@ -20,10 +20,14 @@ public class Knockback : MonoBehaviour
     // Is called when the attack script of a player finds this player in its list
     public void RunKnockback(Vector3 direction, float knockback)
     {
-        //Debug.Log("Force Applied");
+        // Checks if player does not have a shield
+        if (!playerData.isShielded)
+        {
+            //Debug.Log("Force Applied");
 
-        // Applies force in the fed direction, with the fed knockback amount, multiplied by the damage the player has accrued
-        rb.AddForce((playerData.damage * knockback) * direction, ForceMode.Impulse);
+            // Applies force in the fed direction, with the fed knockback amount, multiplied by the damage the player has accrued
+            rb.AddForce((playerData.damage * knockback) * direction, ForceMode.Impulse);
+        }
     }
 
     // Called by the bomb powerup

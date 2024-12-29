@@ -54,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Animator animator;
 
+    public bool isSlippery; 
+
     void Start()
     {
         // Initialize components and variables
@@ -93,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         if (ActiveMovement && playerGrounded)
         {
             // Checks if player is currently attacking or not
-            if (!playerData.isAttacking)
+            if ((!playerData.isAttacking && !isSlippery) || (playerData.isAttacking && isSlippery))
             {
                 // Applies the movement data
                 playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
@@ -103,7 +105,12 @@ public class PlayerMovement : MonoBehaviour
                 // Applies the movement data halved if they are attacking
                 playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 0.25f, ForceMode.VelocityChange);
             }
-            
+            else if (isSlippery)
+            {
+                // Applies the movement data halved if they are attacking
+                playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 10f, ForceMode.VelocityChange);
+            }
+
         }
         else if (ActiveMovement && !playerGrounded)
         {
@@ -162,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
         // Checks if the player has a rigidbody
         if (playerRB == null)
         {
-            Debug.Log("The Player RB is Null!");
+            //Debug.Log("The Player RB is Null!");
         }
         else // Calls jump function and animates if so
         {
