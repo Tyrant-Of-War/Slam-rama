@@ -38,73 +38,76 @@ public class PlayerCosmeticInput : MonoBehaviour
 
     public void OnNavigate(InputValue inputValue)
     {
-        Vector2 Direction = inputValue.Get<Vector2>();
-        Direction = Direction.normalized;
-        int horizontalDirection = Direction.x > 0 ? 1 : Direction.x < 0 ? -1 : 0; // weird if statment BS. thanks google
-        int verticleDirection = Direction.y > 0 ? 1 : Direction.y < 0 ? -1 : 0;
-        switch (horizontalDirection)
+        if (this.enabled)
         {
-            case 1:
-                switch (navigationPosition)
-                {
-                    case navigationPos.Head:
-                        Head.Next();
-                        break;
-                    case navigationPos.Body:
-                        Body.Next();
-                        break;
-                    case navigationPos.Colours:
-                        UpdateColour(true);
-                        break;
-                }
-                break;
-            case -1:
-                switch (navigationPosition)
-                {
-                    case navigationPos.Head:
-                        Head.Previous();
-                        break;
-                    case navigationPos.Body:
-                        Body.Previous();
-                        break;
-                    case navigationPos.Colours:
-                        UpdateColour(false);
-                        break;
+            Vector2 Direction = inputValue.Get<Vector2>();
+            Direction = Direction.normalized;
+            int horizontalDirection = Direction.x > 0 ? 1 : Direction.x < 0 ? -1 : 0; // weird if statment BS. thanks google
+            int verticleDirection = Direction.y > 0 ? 1 : Direction.y < 0 ? -1 : 0;
+            switch (horizontalDirection)
+            {
+                case 1:
+                    switch (navigationPosition)
+                    {
+                        case navigationPos.Head:
+                            Head.Next();
+                            break;
+                        case navigationPos.Body:
+                            Body.Next();
+                            break;
+                        case navigationPos.Colours:
+                            UpdateColour(true);
+                            break;
+                    }
+                    break;
+                case -1:
+                    switch (navigationPosition)
+                    {
+                        case navigationPos.Head:
+                            Head.Previous();
+                            break;
+                        case navigationPos.Body:
+                            Body.Previous();
+                            break;
+                        case navigationPos.Colours:
+                            UpdateColour(false);
+                            break;
 
-                }
-                break;
-        }
-        switch (verticleDirection)
-        {
-            case 1:
-                switch (navigationPosition)
-                {
-                    case navigationPos.Head:
-                        navigationPosition = navigationPos.Colours;
-                        break;
-                    case navigationPos.Body:
-                        navigationPosition = navigationPos.Head;
-                        break;
-                    case navigationPos.Colours:
-                        navigationPosition = navigationPos.Body;
-                        break;
-                }
-                break;
-            case -1:
-                switch (navigationPosition)
-                {
-                    case navigationPos.Head:
-                        navigationPosition = navigationPos.Body;
-                        break;
-                    case navigationPos.Body:
-                        navigationPosition = navigationPos.Colours;
-                        break;
-                    case navigationPos.Colours:
-                        navigationPosition = navigationPos.Head;
-                        break;
-                }
-                break;
+                    }
+                    break;
+            }
+            switch (verticleDirection)
+            {
+                case 1:
+                    switch (navigationPosition)
+                    {
+                        case navigationPos.Head:
+                            navigationPosition = navigationPos.Colours;
+                            break;
+                        case navigationPos.Body:
+                            navigationPosition = navigationPos.Head;
+                            break;
+                        case navigationPos.Colours:
+                            navigationPosition = navigationPos.Body;
+                            break;
+                    }
+                    break;
+                case -1:
+                    switch (navigationPosition)
+                    {
+                        case navigationPos.Head:
+                            navigationPosition = navigationPos.Body;
+                            break;
+                        case navigationPos.Body:
+                            navigationPosition = navigationPos.Colours;
+                            break;
+                        case navigationPos.Colours:
+                            navigationPosition = navigationPos.Head;
+                            break;
+                    }
+                    break;
 
+            }
         }
     }
     public void UpdateColour(bool direction)

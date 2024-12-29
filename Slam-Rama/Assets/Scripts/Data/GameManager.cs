@@ -55,13 +55,14 @@ public class GameManager : MonoBehaviour
                         totalDead++;
                         break;
                     case false:
+                        if (player.PlayerObject != null)
+                            roundData.SetLastPlayer(PlayerInput.all[player.ID - 1]);
                         break;
                 }
             }
             if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
             {
                 roundData.roundsLeft--;
-
                 isResetting = true;
                 ResetRound();
             }
@@ -203,31 +204,31 @@ public class GameManager : MonoBehaviour
             {
                 player.ResetRoundData();
             }
+            SceneManager.LoadScene("LoserCards");
+            //if (roundData.RandomRounds)
+            //{
+            //    int scene = Random.Range(1, 5);
+            //    switch (scene)
+            //    {
+            //        case 1:
+            //            SceneManager.LoadSceneAsync("Boxing");
+            //            break;
+            //        case 2:
+            //            SceneManager.LoadSceneAsync("Clock");
+            //            break;
+            //        case 3:
+            //            SceneManager.LoadSceneAsync("Boxing");
+            //            break;
+            //        case 4:
+            //            SceneManager.LoadSceneAsync("Clock");
+            //            break;
 
-            if (roundData.RandomRounds)
-            {
-                int scene = Random.Range(0, 4);
-                switch (scene)
-                {
-                    case 1:
-                        SceneManager.LoadSceneAsync("Boxing");
-                        break;
-                    case 2:
-                        SceneManager.LoadSceneAsync("Clock");
-                        break;
-                    case 3:
-                        SceneManager.LoadSceneAsync("Boxing");
-                        break;
-                    case 4:
-                        SceneManager.LoadSceneAsync("Clock");
-                        break;
-
-                }
-            }
-            else
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
+            //    }
+            //}
+            //else
+            //{
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //}
         }
     }
 

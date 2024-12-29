@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [CreateAssetMenu]
 public class RoundData : ScriptableObject
@@ -10,6 +11,7 @@ public class RoundData : ScriptableObject
     // Should probably rework this entire thing
 
     //////////////
+    ///na Shit works fine :)
 
     public int roundsLeft;
 
@@ -17,10 +19,10 @@ public class RoundData : ScriptableObject
 
     [SerializeField] private PlayerData firstPlayerOut;
 
-    [SerializeField] private PlayerData lastPlayerStanding;
+    [SerializeField] private PlayerInput lastPlayerStanding;
 
     public PlayerData FirstPlayerOut => firstPlayerOut;
-    public PlayerData LastPlayerStanding => lastPlayerStanding;
+    public PlayerInput LastPlayerStanding => lastPlayerStanding;
 
     public AudioSource roundWinner;
 
@@ -34,6 +36,7 @@ public class RoundData : ScriptableObject
         Witch = 5,
     }
     public RoundType roundType;
+    public RoundType PreviousRound;
 
     private void Awake()
     {
@@ -59,8 +62,8 @@ public class RoundData : ScriptableObject
             if (player.lives > 0)
             {
                 playersWithLives++;
-                lastPlayerStanding = player;
                 roundWinner.Play();
+                lastPlayerStanding = PlayerInput.all[player.ID - 1];
             }
             else if (firstPlayerOut == null)
             {
@@ -95,6 +98,10 @@ public class RoundData : ScriptableObject
     public bool IsRoundOver()
     {
         return lastPlayerStanding != null && firstPlayerOut != null;
-        
+
+    }
+    public void SetLastPlayer(PlayerInput player)
+    {
+        lastPlayerStanding = player;
     }
 }

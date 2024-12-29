@@ -40,62 +40,74 @@ public class InGameUI : MonoBehaviour
     }
     public void ReducePlayer1Life()
     {
-        foreach (var life in Player1Lives)
-        {
-            if (life.activeInHierarchy)
-            {
-                CurrentLife = life;
-            }
-        }
         if (CurrentLife != null)
         {
-            CurrentLife.SetActive(false);
+            foreach (var life in Player1Lives)
+            {
+                if (life.activeInHierarchy)
+                {
+                    CurrentLife = life;
+                }
+            }
+            if (CurrentLife != null)
+            {
+                CurrentLife.SetActive(false);
+            }
         }
     }
     public void IncreasePlayer1Life() { }
 
     public void ReducePlayer2Life()
     {
-        foreach (var life in Player2Lives)
-        {
-            if (life.activeInHierarchy)
-            {
-                CurrentLife = life;
-            }
-        }
         if (CurrentLife != null)
         {
-            CurrentLife.SetActive(false);
+            foreach (var life in Player2Lives)
+            {
+                if (life.activeInHierarchy)
+                {
+                    CurrentLife = life;
+                }
+            }
+            if (CurrentLife != null)
+            {
+                CurrentLife.SetActive(false);
+            }
         }
     }
     public void IncreasePlayer2Life() { }
     public void ReducePlayer3Life()
     {
-        foreach (var life in Player3Lives)
-        {
-            if (life.activeInHierarchy)
-            {
-                CurrentLife = life;
-            }
-        }
         if (CurrentLife != null)
         {
-            CurrentLife.SetActive(false);
+            foreach (var life in Player3Lives)
+            {
+                if (life.activeInHierarchy)
+                {
+                    CurrentLife = life;
+                }
+            }
+            if (CurrentLife != null)
+            {
+                CurrentLife.SetActive(false);
+            }
         }
     }
     public void IncreasePlayer3Life() { }
     public void ReducePlayer4Life()
     {
-        foreach (var life in Player4Lives)
-        {
-            if (life.activeInHierarchy)
-            {
-                CurrentLife = life;
-            }
-        }
         if (CurrentLife != null)
         {
-            CurrentLife.SetActive(false);
+            foreach (var life in Player4Lives)
+            {
+                if (life.activeInHierarchy)
+                {
+                    CurrentLife = life;
+                }
+            }
+            if (CurrentLife != null)
+            {
+                CurrentLife.SetActive(false);
+            }
         }
     }
     public void IncreasePlayer4Life()

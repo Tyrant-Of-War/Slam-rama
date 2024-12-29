@@ -58,6 +58,7 @@ public class GamemanagerUI : MonoBehaviour
         }
         PlayerSelectCanvas.SetActive(true);
         GameSettingsCanvas.SetActive(false);
+        UpdateRoundAmount();
     }
 
     private void FixedUpdate()
@@ -125,11 +126,15 @@ public class GamemanagerUI : MonoBehaviour
         {
             // Disables their mesh renderer so they are not in the way of the UI
             SkinnedMeshRenderer[] renderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
-
-            // Loop through each SkinnedMeshRenderer and disable it
+            PlayerCosmeticInput[] playerCosmeticInputs = player.GetComponentsInChildren<PlayerCosmeticInput>();
+            // Loop through each SkinnedMeshRenderer and Controller to disable it
             foreach (var renderer in renderers)
             {
                 renderer.enabled = false;
+            }
+            foreach (var controller in playerCosmeticInputs)
+            {
+                controller.enabled = false;
             }
             player.gameObject.GetComponent<PlayerCosmeticInput>().enabled = false;
 
