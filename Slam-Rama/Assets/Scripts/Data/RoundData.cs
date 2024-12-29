@@ -22,6 +22,8 @@ public class RoundData : ScriptableObject
     public PlayerData FirstPlayerOut => firstPlayerOut;
     public PlayerData LastPlayerStanding => lastPlayerStanding;
 
+    public AudioSource roundWinner;
+
     [Serializable]
     public enum RoundType
     {
@@ -58,6 +60,7 @@ public class RoundData : ScriptableObject
             {
                 playersWithLives++;
                 lastPlayerStanding = player;
+                roundWinner.Play();
             }
             else if (firstPlayerOut == null)
             {
@@ -92,5 +95,6 @@ public class RoundData : ScriptableObject
     public bool IsRoundOver()
     {
         return lastPlayerStanding != null && firstPlayerOut != null;
+        
     }
 }

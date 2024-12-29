@@ -11,6 +11,8 @@ public class PlayerUIController : MonoBehaviour
     // Used to check if this player is ready to enter the game
     public bool ready = false;
 
+    public AudioSource readyUp;
+
     // The various UI elements the player can take control of
     [SerializeField] GameObject[] HeadArrows;
     [SerializeField] GameObject[] BodyArrows;
@@ -41,6 +43,9 @@ public class PlayerUIController : MonoBehaviour
     {
         // Sets ready to the opposite of what it is currently to allow unreadying
         ready = !ready;
+
+        //plays the ready up sound
+        readyUp.Play();
 
         // Disables or enables the UI elements based on the ready up state
         foreach (Transform Child in RootCanvas.transform)

@@ -19,6 +19,12 @@ public class Bomb : MonoBehaviour
     // List of players in the attack hitbox
     List<GameObject> explodeTargets = new List<GameObject>();
 
+    //The audio source for the bomb throw
+    public AudioSource throwSound;
+
+    //The audio source for the bomb boom
+    public AudioSource explosionSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +36,10 @@ public class Bomb : MonoBehaviour
 
         // Adds a force in the supplied direction
         bombRB.AddForce(((Vector3.up * 2f) + direction) * launchPower, ForceMode.Impulse);
+        
+        //Plays the sound for the bomb
+        throwSound.Play();
+
     }
 
     // Update is called once per frame
@@ -49,6 +59,9 @@ public class Bomb : MonoBehaviour
                 explodeTargets[i].GetComponent<Knockback>().explodeKnockback(100f, transform.position, 2f);
                 explodeTargets[i].GetComponent<Damage>().DamagePlayer(10);
             }
+
+            //Plays the explosion sound
+            explosionSound.Play();
 
             // Clears the list
             explodeTargets.Clear();

@@ -89,6 +89,15 @@ public class Knockout : MonoBehaviour
 
     public InGameUI gameUI;
 
+    // Sets the knockout sound
+    public AudioSource knockoutSound;
+
+    // Sets the final knockout sound
+    public AudioSource finalKnockoutAudio;
+
+    // Sets the respawn sound
+    public AudioSource respawnSound;
+
     private void Start()
     {
         // Sets default true
@@ -104,6 +113,9 @@ public class Knockout : MonoBehaviour
             // Checks if the player has gone below the kill height of the level
             if (transform.position.y < levelData.killHeight)
             {
+                //play the knockout sound
+                knockoutSound.Play();
+
                 // Checks if the player has lives to use
                 if (playerData.lives > 0)
                 {
@@ -132,6 +144,9 @@ public class Knockout : MonoBehaviour
                 }
                 else if (playerData.lives <= 0)
                 {
+                    //play the final knockout sound
+                    finalKnockoutAudio.Play();
+
                     // Updates player data
                     playerData.falls++;
                     playerData.damage = 1;
@@ -158,6 +173,9 @@ public class Knockout : MonoBehaviour
                 // Sets the players position to a random one of the spawn locations in level data
                 GetComponent<Rigidbody>().position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+                // Plays the respawning audio 
+                respawnSound.Play();
 
                 // Unfreezes the player movement
                 GetComponent<PlayerMovement>().enabled = true;

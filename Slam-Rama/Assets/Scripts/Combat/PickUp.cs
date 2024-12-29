@@ -7,6 +7,9 @@ public class PickUp : MonoBehaviour
     // The ID of the item
     public int itemID;
 
+    // The audio sound of the item pickup
+    public AudioSource itemPickup;
+
     // The manager that spawned the item
     public LevelData levelData;
 
@@ -19,6 +22,9 @@ public class PickUp : MonoBehaviour
 
             // Updates the amount of items in existance
             levelData.itemAmount--;
+
+            //play the sound
+            itemPickup.Play();
 
             // Destroys the object
             Destroy(gameObject);

@@ -30,6 +30,15 @@ public class Attack : MonoBehaviour
     // The particles that get increasingly more intense as the attack is charged
     [SerializeField] ParticleSystem chargeParticles;
 
+    //sets the sound for the light attack
+    public AudioSource lightAttack;
+
+    //sets the sound for the heavy attack chargeing sound
+    public AudioSource heavyAttackCharge;
+
+    //sets the sound for the heavy attack
+    public AudioSource heavyAttackHit;
+
     private void Start()
     {
         // Gets the attack hitbox
@@ -129,6 +138,9 @@ public class Attack : MonoBehaviour
             isCharging = true;
 
             chargeParticles.Play();
+
+            //play the charging sound effect for the heavy attacks
+            heavyAttackCharge.Play();
         }
         else if (isCharging)
         {
@@ -165,6 +177,10 @@ public class Attack : MonoBehaviour
 
             // Calls the damage function and feeds it the single point of damage to be applied by a light attack
             attackTargets[i].GetComponent<Damage>().DamagePlayer(1);
+
+            //plays the light attack sound
+            lightAttack.Play();
+
             // Calls the knockback function and feeds it a direction and multiplier
             attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 0.01f);
         }
@@ -187,6 +203,8 @@ public class Attack : MonoBehaviour
 
             // Calls the damage function and feeds it the ten points of damage to be applied by a heavy attack
             attackTargets[i].GetComponent<Damage>().DamagePlayer(Mathf.RoundToInt(power * 5f));
+            //plays the heavy attack sound
+            heavyAttackHit.Play();
             // Calls the knockback function and feeds it a direction and multiplier
             attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, power);
         }

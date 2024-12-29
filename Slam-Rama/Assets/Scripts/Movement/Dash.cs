@@ -24,6 +24,9 @@ public class Dash
     // Used to tell if the player is dashing
     public bool isDashing = false;
 
+    //dash noise setter
+    public AudioSource dashNoise;
+
     // Is a class with all dash attributes
     public Dash(Rigidbody rb, float dashCooldown, float dashSpeed, MonoBehaviour owner)
     {

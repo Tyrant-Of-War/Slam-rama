@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Icicle : MonoBehaviour
 {
+
+    //Make the icenoise 
+    public AudioSource iceWind;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +25,9 @@ public class Icicle : MonoBehaviour
         // Checks if the collider is a player, is not a trigger, and is not the current players hitbox
         if (other.tag == "Player" && !other.isTrigger && other != GetComponent<CapsuleCollider>())
         {
+            
+            iceWind.Play();
+            
             //Debug.Log("Collision Entry Detected");
 
             // Adds calls the freeze function on the player found
