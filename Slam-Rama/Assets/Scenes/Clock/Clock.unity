@@ -257,6 +257,8 @@ MonoBehaviour:
   - {fileID: 1779201144}
   - {fileID: 1488747098}
   - {fileID: 1034965814}
+  playerDatas: []
+  damageNumbers: []
 --- !u!1 &117688027
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +931,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.5, z: 0}
-  m_LocalScale: {x: 53.435997, y: 17.046083, z: 53.435997}
+  m_LocalScale: {x: 48.240414, y: 15.388693, z: 48.240414}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2750,15 +2752,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d892a920bac6e6241888d6324b96a299, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8149644
+      value: 0.7357254
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d892a920bac6e6241888d6324b96a299, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8149644
+      value: 0.7357254
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d892a920bac6e6241888d6324b96a299, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8149644
+      value: 0.7357254
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d892a920bac6e6241888d6324b96a299, type: 3}
       propertyPath: m_LocalPosition.x
