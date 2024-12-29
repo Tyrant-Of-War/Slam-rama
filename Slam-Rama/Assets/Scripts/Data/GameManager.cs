@@ -150,7 +150,13 @@ public class GameManager : MonoBehaviour
         //input.transform.GetChild(0).gameObject.SetActive(true);
 
         // Enables the animated character models renderer
-        input.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+        SkinnedMeshRenderer[] renderers = input.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        // Loop through each SkinnedMeshRenderer and disable it
+        foreach (var renderer in renderers)
+        {
+            renderer.enabled = true;
+        }
 
         // Assigns the right color for the player
         input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;

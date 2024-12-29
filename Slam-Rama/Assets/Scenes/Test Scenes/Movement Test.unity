@@ -1035,6 +1035,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 93fb560844dc1b145b054140b02b774c, type: 2}
   levelData: {fileID: 11400000, guid: 715a015eb0c455046a074f83b0c3387b, type: 2}
   roundData: {fileID: 0}
+  gameUI: {fileID: 0}
 --- !u!4 &1157075788
 Transform:
   m_ObjectHideFlags: 0
@@ -1256,6 +1257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayMin: 3
   delayMax: 10
+  meshes: []
+  materials: []
   item: {fileID: 5705559020834731476, guid: 917c0f547906aad4c9b62a1ed560874b, type: 3}
   levelData: {fileID: 11400000, guid: 715a015eb0c455046a074f83b0c3387b, type: 2}
   itemLimit: 5
