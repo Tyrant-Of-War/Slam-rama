@@ -40,7 +40,7 @@ public class InGameUI : MonoBehaviour
     }
     public void ReducePlayer1Life()
     {
-        if (CurrentLife != null)
+        if (CurrentLife = null)
         {
             foreach (var life in Player1Lives)
             {
@@ -59,7 +59,7 @@ public class InGameUI : MonoBehaviour
 
     public void ReducePlayer2Life()
     {
-        if (CurrentLife != null)
+        if (CurrentLife = null)
         {
             foreach (var life in Player2Lives)
             {
@@ -77,7 +77,7 @@ public class InGameUI : MonoBehaviour
     public void IncreasePlayer2Life() { }
     public void ReducePlayer3Life()
     {
-        if (CurrentLife != null)
+        if (CurrentLife = null)
         {
             foreach (var life in Player3Lives)
             {
@@ -95,7 +95,7 @@ public class InGameUI : MonoBehaviour
     public void IncreasePlayer3Life() { }
     public void ReducePlayer4Life()
     {
-        if (CurrentLife != null)
+        if (CurrentLife = null)
         {
             foreach (var life in Player4Lives)
             {
