@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Knockout : MonoBehaviour
@@ -114,8 +113,7 @@ public class Knockout : MonoBehaviour
             if (transform.position.y < levelData.killHeight)
             {
                 //play the knockout sound
-                knockoutSound.Play();
-
+                //////knockoutSound.Play();
                 // Checks if the player has lives to use
                 if (playerData.lives > 0)
                 {
@@ -123,6 +121,7 @@ public class Knockout : MonoBehaviour
                     // Updates the player data values
                     playerData.falls++;
                     playerData.lives--;
+                    playerData.damage = 0;
                     gameUI.ReduceLife(playerData.ID);
                     gameUI.UpdatePlayerDamage();
 
@@ -135,9 +134,6 @@ public class Knockout : MonoBehaviour
                     // Reset some of the player data ready for when the player respawns
                     playerData.ResetLifeData();
 
-                    // Deactivates shield
-                    transform.GetChild(3).gameObject.SetActive(false);
-
                     // Sets them to the respawning state
                     isRespawning = true;
 
@@ -147,13 +143,12 @@ public class Knockout : MonoBehaviour
                 }
                 else if (playerData.lives <= 0)
                 {
-                    //play the final knockout sound
-                    finalKnockoutAudio.Play();
-
                     // Updates player data
                     playerData.falls++;
+                    playerData.damage = 1;
                     playerData.isDead = true;
-
+                    //play the final knockout sound
+                    //////finalKnockoutAudio.Play();
                     // Moves the player to the bottom of the map and freezes their moving until the next round
                     GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -164,7 +159,7 @@ public class Knockout : MonoBehaviour
         }
         else if (isRespawning)
         {
-            if (respawnTimer > 0) 
+            if (respawnTimer > 0)
             {
                 respawnTimer = respawnTimer - Time.deltaTime;
             }
@@ -175,10 +170,8 @@ public class Knockout : MonoBehaviour
                 // Sets the players position to a random one of the spawn locations in level data
                 GetComponent<Rigidbody>().position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
-
                 // Plays the respawning audio 
-                respawnSound.Play();
-
+                //////respawnSound.Play();
                 // Unfreezes the player movement
                 GetComponent<PlayerMovement>().enabled = true;
                 GetComponent<CapsuleCollider>().enabled = true;
@@ -188,6 +181,7 @@ public class Knockout : MonoBehaviour
             }
         }
     }
+
 
     //IEnumerator respawn()
     //{

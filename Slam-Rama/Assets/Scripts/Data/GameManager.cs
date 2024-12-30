@@ -203,32 +203,13 @@ public class GameManager : MonoBehaviour
             foreach (var player in playerData)
             {
                 player.ResetRoundData();
+                player.PlayerObject.GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
+                player.PlayerObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                player.PlayerObject.GetComponent<PlayerMovement>().enabled = false;
+                player.PlayerObject.GetComponent<CapsuleCollider>().enabled = false;
             }
             SceneManager.LoadScene("LoserCards");
-            //if (roundData.RandomRounds)
-            //{
-            //    int scene = Random.Range(1, 5);
-            //    switch (scene)
-            //    {
-            //        case 1:
-            //            SceneManager.LoadSceneAsync("Boxing");
-            //            break;
-            //        case 2:
-            //            SceneManager.LoadSceneAsync("Clock");
-            //            break;
-            //        case 3:
-            //            SceneManager.LoadSceneAsync("Boxing");
-            //            break;
-            //        case 4:
-            //            SceneManager.LoadSceneAsync("Clock");
-            //            break;
 
-            //    }
-            //}
-            //else
-            //{
-            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            //}
         }
     }
 

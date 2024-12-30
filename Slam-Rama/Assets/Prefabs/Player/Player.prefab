@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RootCanvas: {fileID: 0}
   ready: 0
+  readyUp: {fileID: 0}
   HeadArrows: []
   BodyArrows: []
   legArrows: []
@@ -484,7 +485,10 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
+  jumpSound: {fileID: 0}
+  dashNoise: {fileID: 0}
   animator: {fileID: 8997223964410533896}
+  isSlippery: 0
 --- !u!114 &5943737662571242067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +505,9 @@ MonoBehaviour:
   animator: {fileID: 8997223964410533896}
   chargeParticles: {fileID: 0}
   rumble: {fileID: 5220054069808073294}
+  lightAttack: {fileID: 0}
+  heavyAttack: {fileID: 0}
+  heavyAttackCharge: {fileID: 0}
 --- !u!114 &1390508075863064498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,6 +523,9 @@ MonoBehaviour:
   isIgnited: 0
   playerData: {fileID: 0}
   rumble: {fileID: 5220054069808073294}
+  gameUI: {fileID: 0}
+  shieldBlock: {fileID: 0}
+  shieldBreak: {fileID: 0}
 --- !u!114 &-4208351622783234702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,6 +566,9 @@ MonoBehaviour:
   playerData: {fileID: 0}
   levelData: {fileID: 0}
   gameUI: {fileID: 0}
+  knockoutSound: {fileID: 0}
+  finalKnockoutAudio: {fileID: 0}
+  respawnSound: {fileID: 0}
 --- !u!114 &-3607917493966997157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,6 +586,7 @@ MonoBehaviour:
   - {fileID: 3652176024920637812, guid: 1b764c00b8c295643a7ef27baf796428, type: 3}
   - {fileID: 3485460956201975594, guid: c15f4ad0cf7a2474c80caaa6e963d013, type: 3}
   - {fileID: 2475510270043400969, guid: 6efa4a855ccac5148adb2a2c5ba2da7e, type: 3}
+  shield: {fileID: 0}
 --- !u!114 &5220054069808073294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +607,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4190298267786525639}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7f0c5131b3836d4eb3b910fda00f048, type: 3}
   m_Name: 

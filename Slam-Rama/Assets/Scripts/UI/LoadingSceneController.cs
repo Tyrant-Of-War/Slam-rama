@@ -19,15 +19,19 @@ public class LoadingSceneController : MonoBehaviour
                 break;
             case RoundData.RoundType.Clock:
                 asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                roundData.PreviousRound = RoundData.RoundType.Clock;
                 break;
             case RoundData.RoundType.Castle:
                 asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                roundData.PreviousRound = RoundData.RoundType.Castle;
                 break;
             case RoundData.RoundType.Witch:
                 asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                roundData.PreviousRound = RoundData.RoundType.Witch;
                 break;
             case RoundData.RoundType.Boxing:
                 asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                roundData.PreviousRound = RoundData.RoundType.Boxing;
                 break;
 
         }
@@ -38,15 +42,19 @@ public class LoadingSceneController : MonoBehaviour
             {
                 case 1:
                     asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                    roundData.PreviousRound = RoundData.RoundType.Boxing;
                     break;
                 case 2:
                     asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                    roundData.PreviousRound = RoundData.RoundType.Clock;
                     break;
                 case 3:
                     asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                    roundData.PreviousRound = RoundData.RoundType.Castle;
                     break;
                 case 4:
                     asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                    roundData.PreviousRound = RoundData.RoundType.Witch;
                     break;
 
             }

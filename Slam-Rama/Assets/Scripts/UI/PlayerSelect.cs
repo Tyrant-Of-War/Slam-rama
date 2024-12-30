@@ -52,7 +52,7 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponent<PlayerMovement>().playerData = playerData;
         input.GetComponent<UseItem>().playerData = playerData;
         input.GetComponent<Rumble>().playerData = playerData;
-
+        input.GetComponent<PlayerCosmeticInput>().enabled = true;
         // Assigns the level data to the knockout script
         input.GetComponent<Knockout>().levelData = levelData;
 

@@ -28,9 +28,9 @@ public class CardSetup : MonoBehaviour
         }
         for (int i = 0; i < 3; i++)
         {
-            int index = Random.Range(0, avalableIndex.Count);
-            currentCards.Add(Cards[avalableIndex[index]]);
-            avalableIndex.Remove(index);
+            int randomIndex = Random.Range(0, avalableIndex.Count);
+            currentCards.Add(Cards[avalableIndex[randomIndex]]);
+            avalableIndex.RemoveAt(randomIndex);
         }
     }
 }

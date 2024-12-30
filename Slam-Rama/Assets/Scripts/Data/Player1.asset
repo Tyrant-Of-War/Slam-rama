@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player1
   m_EditorClassIdentifier: 
   ID: 1
-  damage: 23
+  damage: 1
   isStunned: 0
   playerMaterial: {fileID: 2100000, guid: a1df0f42d82e90844a50b8bac8d32328, type: 2}
   livesMax: 3
@@ -24,3 +24,4 @@ MonoBehaviour:
   itemID: 0
   isDead: 0
   isAttacking: 0
+  isShielded: 0
