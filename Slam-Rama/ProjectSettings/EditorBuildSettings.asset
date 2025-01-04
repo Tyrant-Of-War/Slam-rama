@@ -14,10 +14,25 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoadingScreen.unity
     guid: 5112c5d048fc5ca468dc6013c4e7d643
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test Scenes/Movement Test.unity
     guid: defb2a34cdbdb8540a34dbc461713353
   - enabled: 1
-    path: Assets/Scenes/Boxing.unity
+    path: Assets/Scenes/Boxing/Boxing.unity
     guid: 7b012e1231fb41a4aa03400b93cb6b7d
+  - enabled: 1
+    path: Assets/Scenes/Clock/Clock.unity
+    guid: fbfd0ebbda897d54ab4d7462bcbcea46
+  - enabled: 1
+    path: Assets/Scenes/Results.unity
+    guid: 9a7521dedfb8deb4fa6fb9565b0b8d6f
+  - enabled: 0
+    path: Assets/Scenes/Castle/Castle.unity
+    guid: c0efd72a2a2c41e4fa487e6575055f93
+  - enabled: 0
+    path: Assets/Scenes/Couldren/couldren.unity
+    guid: 5c91949052431444e9f8988ac14fb2e0
+  - enabled: 1
+    path: Assets/Scenes/LoserCards.unity
+    guid: a2bf3ed6ca133344d93ca72be20a5081
   m_configObjects: {}

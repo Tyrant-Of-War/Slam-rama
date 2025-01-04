@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2395432333153880392
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3208944429999260904}
+  - component: {fileID: 4997573623485122557}
+  m_Layer: 0
+  m_Name: Item Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3208944429999260904
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395432333153880392}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4997573623485122557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2395432333153880392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2dab3881f5ae424c8f17f5175b39eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayMin: 3
+  delayMax: 10
+  meshes:
+  - {fileID: 877145370323557734, guid: 0f093531e5e9a7e4a92c0d61cf1e7477, type: 3}
+  - {fileID: 6121590469811200223, guid: 3a498fb447504724ca054b061e61d8b3, type: 3}
+  - {fileID: 7099264523421432245, guid: 982557ced8e6b4b4885f6d02ec546ea7, type: 3}
+  - {fileID: 5436095794386249845, guid: 6cdb3d3714440f84fac1666e7bee3607, type: 3}
+  - {fileID: -1272481795433867914, guid: 4ede66058fb9b554890fd319af1277ea, type: 3}
+  - {fileID: 2783131832183395012, guid: 3310b017bfa20ca4f8fc3ba937f076a8, type: 3}
+  materials:
+  - {fileID: 2100000, guid: 2c3739c7e6df0bb41a32a47c92d82879, type: 2}
+  - {fileID: 2100000, guid: 009cae1c9ba1fd54e84e2e20e30f78fb, type: 2}
+  - {fileID: 2100000, guid: c7c3a6c86c6833042ababedaa1b5e705, type: 2}
+  - {fileID: 2100000, guid: de840f0842ea8a3499c8acb10154ab8a, type: 2}
+  - {fileID: 2100000, guid: 02d1d3bcb1637fa4fb129b17047be62c, type: 2}
+  - {fileID: 2100000, guid: 324392197758da14d85efc862a4e3f07, type: 2}
+  item: {fileID: 5705559020834731476, guid: 917c0f547906aad4c9b62a1ed560874b, type: 3}
+  levelData: {fileID: 0}
+  itemLimit: 5

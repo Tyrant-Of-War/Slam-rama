@@ -1,7 +1,9 @@
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+
 
 public class Attack : MonoBehaviour
 {
@@ -18,6 +20,22 @@ public class Attack : MonoBehaviour
 
     // Used to animate the punch
     [SerializeField] Animator animator;
+
+    // Used to tell if the player is currently charging a heavy attack
+    bool isCharging;
+
+    // The power that the player has charged their attack to
+    float chargePower;
+
+    // The particles that get increasingly more intense as the attack is charged
+    [SerializeField] ParticleSystem chargeParticles;
+
+    // The rumble script
+    [SerializeField] Rumble rumble;
+
+    public AudioSource lightAttack;
+    public AudioSource heavyAttack;
+    public AudioSource heavyAttackCharge;
 
     private void Start()
     {
@@ -43,10 +61,51 @@ public class Attack : MonoBehaviour
                 playerData.isAttacking = false;
             }
         }
+
+        // Checks if the player is currently charging
+        if (isCharging)
+        {
+            // Ensures the player stays in attack mode (slower move speed)
+            playerData.isAttacking = true;
+
+            // Checks if the charge power has reached max 
+            if (chargePower < 1)
+            {
+                // Increases the charge power if not
+                chargePower += Time.deltaTime;
+
+                // Checks if charge power reaches 0.5 and caps the rumble at 0.5 if so
+                if (chargePower < 0.5f)
+                {
+                    // Sets rumble based on the current charge progress
+                    rumble.SetRumble(chargePower, 0.1f);
+                }
+                else
+                {
+                    // Sets rumble based on the current charge progress
+                    rumble.SetRumble(0.5f, 0.1f);
+                }
+
+                //Debug.Log(chargePower);
+            }
+            else // If so
+            {
+                // Caps the charge power at 1 just in case it went over slightly
+                chargePower = 1;
+
+                // Sets rumble based on the current charge progress
+                rumble.SetRumble(0.5f, 0.1f);
+            }
+
+            var emission = chargeParticles.emission;
+
+            // Sets the particle emission rate to the current charge power multiplied
+            emission.rateOverTime = (chargePower * 30);
+        }
     }
 
-    // Is called when the player presses either attack input
-    void OnAttack(InputValue inputValue)
+    // Is called when the player presses the light attack input
+    void OnLightAttack()
     {
         // Checks if the player is not stunned or dead
         if (!playerData.isStunned && !playerData.isDead)
@@ -54,17 +113,42 @@ public class Attack : MonoBehaviour
             // Plays the punch animation
             animator.SetTrigger("punch");
 
-            // Checks whether input was for a heavy or light attack
-            if (inputValue.Get<float>() == 1)
-            {
-                // Calls the light attack function
-                LightAttack();
-            }
-            else if (inputValue.Get<float>() == -1)
-            {
-                // Calls the heavy attack function
-                HeavyAttack();
-            }
+            // Calls the light attack function
+            LightAttack();
+        }
+    }
+
+    // Is called when the player presses or releases the heavy attack input
+    void OnHeavyAttack()
+    {
+        // State swtich for charging or not charging
+        if (!isCharging)
+        {
+            // Sets is charging to true so the power can begin increasing
+            isCharging = true;
+
+            // Plays the particles
+            chargeParticles.Play();
+
+            //Plays charging noise 
+            heavyAttackCharge.Play();
+        }
+        else if (isCharging)
+        {
+            // Calls the heavy attack function with the charge power accumulated in update
+            HeavyAttack(chargePower);
+
+            // Plays the puch animation
+            animator.SetTrigger("punch");
+
+            // Resets the charge power
+            chargePower = 0;
+
+            // Sets is charging back to false
+            isCharging = false;
+
+            // Stops the particles from running
+            chargeParticles.Stop();
         }
     }
 
@@ -78,19 +162,26 @@ public class Attack : MonoBehaviour
         // Sets the is attacking timer to 1f
         attackTimer = 0.5f;
 
+        // Small rumble for attacking
+        rumble.SetRumble(0.1f, 0.25f);
+
         // Runs through all players in the attack hitbox and calls the knockback and damage functions
         for (int i = 0; i < attackTargets.Count; i++)
         {
             //Debug.Log(attackTargets[i].name);
 
             // Calls the damage function and feeds it the single point of damage to be applied by a light attack
-            attackTargets[i].GetComponent<Damage>().damagePlayer(1);
+            attackTargets[i].GetComponent<Damage>().DamagePlayer(1);
+
+            //Plays the light attack sound
+            lightAttack.Play();
+
             // Calls the knockback function and feeds it a direction and multiplier
             attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 0.01f);
         }
     }
 
-    void HeavyAttack()
+    void HeavyAttack(float power)
     {
         //Debug.Log("Heavy Attack");
 
@@ -106,9 +197,13 @@ public class Attack : MonoBehaviour
             //Debug.Log(attackTargets[i].name);
 
             // Calls the damage function and feeds it the ten points of damage to be applied by a heavy attack
-            attackTargets[i].GetComponent<Damage>().damagePlayer(10);
+            attackTargets[i].GetComponent<Damage>().DamagePlayer(Mathf.RoundToInt(power * 5f));
+
+            //Plays the heavy attack sound
+            heavyAttack.Play();
+
             // Calls the knockback function and feeds it a direction and multiplier
-            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 1f);
+            attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, power);
         }
     }
 

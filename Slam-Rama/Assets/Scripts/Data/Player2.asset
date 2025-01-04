@@ -15,16 +15,12 @@ MonoBehaviour:
   ID: 2
   damage: 0
   isStunned: 0
-  playerY: 0
   playerMaterial: {fileID: 2100000, guid: 8048e823b0defc64ab26d3183efd36a0, type: 2}
   livesMax: 3
-  lives: 3
-  isInvincible: 0
-  powerUps: []
+  lives: 2
   falls: 0
   knockouts: 0
-  firstPlayerOut: {fileID: 0}
-  lastPlayerStanding: {fileID: 0}
   PlayerObject: {fileID: 0}
   itemID: 0
   isDead: 0
+  isAttacking: 0

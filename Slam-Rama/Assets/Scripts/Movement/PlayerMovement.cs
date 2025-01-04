@@ -39,14 +39,22 @@ public class PlayerMovement : MonoBehaviour
 
     // Components for Jump and Dash
     Jump playerJump;
-    Dash playerDash;
+    public Dash playerDash;
 
     // Movement control flag
     bool ActiveMovement;
 
+    //Sound for the jump
+    public AudioSource jumpSound;
+
+    //dash noise setter
+    public AudioSource dashNoise;
+
     Quaternion targetRotation;
 
     [SerializeField] Animator animator;
+
+    public bool isSlippery; 
 
     void Start()
     {
@@ -61,9 +69,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Gives the players z position to the player dat for checking kill states
-        playerData.playerY = this.transform.position.y;
-
         // Ground check via raycast
         playerGrounded = Physics.Raycast(playerRB.transform.position, Vector3.down, out groundHit, (height / 2) + 0.1f, ground);
 
@@ -90,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
         if (ActiveMovement && playerGrounded)
         {
             // Checks if player is currently attacking or not
-            if (!playerData.isAttacking)
+            if ((!playerData.isAttacking && !isSlippery) || (playerData.isAttacking && isSlippery))
             {
                 // Applies the movement data
                 playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
@@ -100,7 +105,12 @@ public class PlayerMovement : MonoBehaviour
                 // Applies the movement data halved if they are attacking
                 playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 0.25f, ForceMode.VelocityChange);
             }
-            
+            else if (isSlippery)
+            {
+                // Applies the movement data halved if they are attacking
+                playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 10f, ForceMode.VelocityChange);
+            }
+
         }
         else if (ActiveMovement && !playerGrounded)
         {
@@ -159,11 +169,13 @@ public class PlayerMovement : MonoBehaviour
         // Checks if the player has a rigidbody
         if (playerRB == null)
         {
-            Debug.Log("The Player RB is Null!");
+            //Debug.Log("The Player RB is Null!");
         }
         else // Calls jump function and animates if so
         {
             playerJump.ExecuteJump(playerGrounded);
+            //plays the jump sound
+            jumpSound.Play();
 
             // Needs fixing will test
             animator.SetBool("jump", true);
@@ -174,8 +186,10 @@ public class PlayerMovement : MonoBehaviour
     // Is called when B or shift is pressed
     void OnDash()
     {
-        // Calls jump function
+        // Calls dash function
         playerDash.ExecuteDash(movementData, playerGrounded, stickData.x, stickData.y);
+        // plays the dash noise
+        dashNoise.Play();
     }
 
 }

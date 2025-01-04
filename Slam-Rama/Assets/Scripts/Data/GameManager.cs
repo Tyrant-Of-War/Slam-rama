@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.UI;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -16,9 +16,18 @@ public class GameManager : MonoBehaviour
 
     // The round data that the players can configurate
     [SerializeField] RoundData roundData;
+    int totalDead;
+    [SerializeField] InGameUI gameUI;
+
+    // Is used to stop the reset round being called a bunch of times over and over again
+    bool isResetting;
+
+
 
     private void Start()
     {
+        isResetting = false;
+
         // Gets the current player count from the input system
         playerCount = UnityEngine.InputSystem.PlayerInput.all.Count;
 
@@ -34,6 +43,34 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (!isResetting)
+        {
+            foreach (PlayerData player in playerData)
+            {
+                switch (player.isDead)
+                {
+                    case true:
+                        totalDead++;
+                        break;
+                    case false:
+                        if (player.PlayerObject != null)
+                            roundData.SetLastPlayer(PlayerInput.all[player.ID - 1]);
+                        break;
+                }
+            }
+            if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
+            {
+                roundData.roundsLeft--;
+                isResetting = true;
+                ResetRound();
+            }
+        }
+
+
+        totalDead = 0;
+    }
     // Is called when a player joins and checks which player it is
     public void PlayerSetup(UnityEngine.InputSystem.PlayerInput input)
     {
@@ -64,10 +101,15 @@ public class GameManager : MonoBehaviour
     // Assigns the player and level data to the various scripts on each player object
     private void AssignPlayerData(UnityEngine.InputSystem.PlayerInput input, PlayerData playerData, bool Existing)
     {
+        Debug.Log("Assigned player data:" + playerData.ID);
+
         // Checks if the player was already created or not
         switch (Existing)
         {
             case false:
+
+                // Ensures the new player is getting a clean slate for thier data
+                playerData.ResetData();
 
                 // Assigns the player data to every script that needs it 
                 input.GetComponent<Attack>().playerData = playerData;
@@ -76,57 +118,54 @@ public class GameManager : MonoBehaviour
                 input.GetComponent<UseItem>().playerData = playerData;
                 input.GetComponent<Knockback>().playerData = playerData;
                 input.GetComponent<Knockout>().playerData = playerData;
+                input.GetComponent<Rumble>().playerData = playerData;
 
                 // Gives the player data the object it now belongs to
                 playerData.PlayerObject = input.gameObject;
 
-                // Sets the correct control scheme to the player
-                input.SwitchCurrentActionMap("Player");
+                if (input.GetDevice<Gamepad>() != null)
+                {
+                    playerData.playerController = input.GetDevice<Gamepad>();
+                }
 
                 break;
         }
-
-        // ????
-        input.transform.GetChild(0).gameObject.SetActive(false);
-
+        input.SwitchCurrentActionMap("Player");
         // Enables the player movement (when does it get disabled?)
         input.GetComponent<PlayerMovement>().enabled = true;
 
         // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
+        input.GetComponent<Knockout>().gameUI = gameUI;
+        input.GetComponent<Damage>().gameUI = gameUI;
+
+        // Ensures collider is enabled
+        input.GetComponent<CapsuleCollider>().enabled = true;
+
+        // Sets the players spawn location
         input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
+        input.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         // ????
-        input.GetComponentInChildren<MultiplayerEventSystem>().gameObject.SetActive(false);
-        input.transform.GetChild(0).gameObject.SetActive(true);
+        //input.GetComponentInChildren<MultiplayerEventSystem>().gameObject.SetActive(false);
+        //input.transform.GetChild(0).gameObject.SetActive(true);
 
         // Enables the animated character models renderer
-        input.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+        SkinnedMeshRenderer[] renderers = input.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+        // Loop through each SkinnedMeshRenderer and disable it
+        foreach (var renderer in renderers)
+        {
+            renderer.enabled = true;
+        }
 
         // Assigns the right color for the player
         input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;
 
         // Sets the player to not dead
         playerData.isDead = false;
-    }
 
-    public void CheckRoundEnd()
-    {
-        // Update the round data based on the current player data
-        roundData.UpdateData(playerData);
-        // Check if the round should end
-        if (roundData.IsRoundOver())
-        {
-            EndRound(roundData.LastPlayerStanding);
-        }
-    }
-
-    private void EndRound(PlayerData winner)
-    {
-        if (winner != null)
-        {
-            SceneManager.LoadScene("LoserCards");
-        }
+        input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     public void ApplyPowerUp(LooserCardPowers.PowerUpType powerUp)
@@ -145,6 +184,51 @@ public class GameManager : MonoBehaviour
             case LooserCardPowers.PowerUpType.RecoveryJump:
                 // Need to put in recovery jUMp logic
                 break;
+        }
+    }
+    private void ResetRound()
+    {
+
+        if (roundData.roundsLeft <= 0)
+        {
+            foreach (var player in playerData)
+            {
+                player.ResetData();
+            }
+
+            SceneManager.LoadScene("Lobby");
+        }
+        else
+        {
+            foreach (var player in playerData)
+            {
+                player.ResetRoundData();
+            }
+            SceneManager.LoadScene("LoserCards");
+            //if (roundData.RandomRounds)
+            //{
+            //    int scene = Random.Range(1, 5);
+            //    switch (scene)
+            //    {
+            //        case 1:
+            //            SceneManager.LoadSceneAsync("Boxing");
+            //            break;
+            //        case 2:
+            //            SceneManager.LoadSceneAsync("Clock");
+            //            break;
+            //        case 3:
+            //            SceneManager.LoadSceneAsync("Boxing");
+            //            break;
+            //        case 4:
+            //            SceneManager.LoadSceneAsync("Clock");
+            //            break;
+
+            //    }
+            //}
+            //else
+            //{
+            //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //}
         }
     }
 

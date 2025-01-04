@@ -1,13 +1,19 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class GamemanagerUI : MonoBehaviour
 {
+    [SerializeField] RoundData roundData;
+
+    [SerializeField] TextMeshProUGUI roundText;
+    public GameObject PlayerJoinThing;
+
     // The list of the ready status of all players
     public List<bool> AllReady;
-    
+
     // The list of all players joined
     Playercontrols[] Players;
 
@@ -22,11 +28,38 @@ public class GamemanagerUI : MonoBehaviour
     // Unsure??????
     private bool inMenu;
 
-    private void Start()
+    private void Awake()
     {
         inMenu = true;
+        // deletes preexisting players 
+        if (UnityEngine.InputSystem.PlayerInput.all.Count > 0)
+        {
+            switch (UnityEngine.InputSystem.PlayerInput.all.Count)
+            {
+                case 1:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+                case 2:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[1].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+                case 3:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[2].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[1].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+                case 4:
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[3].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[2].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[1].gameObject);
+                    Destroy(UnityEngine.InputSystem.PlayerInput.all[0].gameObject);
+                    break;
+            }
+        }
+        PlayerSelectCanvas.SetActive(true);
+        GameSettingsCanvas.SetActive(false);
+        UpdateRoundAmount();
     }
-
 
     private void FixedUpdate()
     {
@@ -86,13 +119,24 @@ public class GamemanagerUI : MonoBehaviour
     {
         // Disables the player canvases and enables the game settings canvas
         PlayerSelectCanvas.SetActive(false);
-        GameSettingsCanvas.SetActive(true); 
-
+        GameSettingsCanvas.SetActive(true);
+        PlayerJoinThing.SetActive(false);
         // Runs through each player in existance
         foreach (UnityEngine.InputSystem.PlayerInput player in UnityEngine.InputSystem.PlayerInput.all)
         {
             // Disables their mesh renderer so they are not in the way of the UI
-            player.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
+            SkinnedMeshRenderer[] renderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
+            PlayerCosmeticInput[] playerCosmeticInputs = player.GetComponentsInChildren<PlayerCosmeticInput>();
+            // Loop through each SkinnedMeshRenderer and Controller to disable it
+            foreach (var renderer in renderers)
+            {
+                renderer.enabled = false;
+            }
+            foreach (var controller in playerCosmeticInputs)
+            {
+                controller.enabled = false;
+            }
+            player.gameObject.GetComponent<PlayerCosmeticInput>().enabled = false;
 
             // Checks if this player is player 1 and gives them control if so
             if (player == UnityEngine.InputSystem.PlayerInput.all[0])
@@ -103,6 +147,34 @@ public class GamemanagerUI : MonoBehaviour
         }
     }
     //Settings and such
+
+    public void UpdateRoundAmount()
+    {
+        if (roundText.text == "1")
+        {
+            roundText.text = "3";
+
+            roundData.roundsLeft = 3;
+        }
+        else if (roundText.text == "3")
+        {
+            roundText.text = "5";
+
+            roundData.roundsLeft = 5;
+        }
+        else if (roundText.text == "5")
+        {
+            roundText.text = "7";
+
+            roundData.roundsLeft = 7;
+        }
+        else if (roundText.text == "7")
+        {
+            roundText.text = "1";
+
+            roundData.roundsLeft = 1;
+        }
+    }
 
     public void ToloadNextScene()
     {

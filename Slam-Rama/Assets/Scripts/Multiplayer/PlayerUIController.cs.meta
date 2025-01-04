@@ -3,7 +3,9 @@ guid: 37599a2bab163274eaf90c7fb7eb1d6f
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - RootCanvas: {instanceID: 0}
+  - readyUp: {fileID: 3865287861530275268, guid: fbf4b75c2c9a700479d39eebe02651bb, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
