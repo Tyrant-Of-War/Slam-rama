@@ -1026,10 +1026,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11500000, guid: 5f6d84b388e28b445839216826f7dbdf, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1315980850}
+        m_TargetAssemblyTypeName: LooserCardPowers, Assembly-CSharp
+        m_MethodName: GrantPowerUp
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1242,14 +1242,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11500000, guid: ee79dfa4d10ea7a41946fcc8a89895fb, type: 3}
-        m_TargetAssemblyTypeName: LoserCardsUiManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1315980850}
+        m_TargetAssemblyTypeName: LooserCardPowers, Assembly-CSharp
+        m_MethodName: GrantPowerUp
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1463,14 +1463,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11500000, guid: 21564f5e54f5f2640a557d2a8124714d, type: 3}
-        m_TargetAssemblyTypeName: LoserCardsUiManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1315980850}
+        m_TargetAssemblyTypeName: LooserCardPowers, Assembly-CSharp
+        m_MethodName: GrantPowerUp
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1569,6 +1569,7 @@ GameObject:
   - component: {fileID: 1315980847}
   - component: {fileID: 1315980849}
   - component: {fileID: 1315980848}
+  - component: {fileID: 1315980850}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1718,6 +1719,20 @@ MonoBehaviour:
   - {fileID: 2112776164}
   - {fileID: 1643859252}
   currentCards: []
+--- !u!114 &1315980850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315980842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e5b9edc180fe304cb93a1dc1a9ed8da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offeredPowerUps: 
+  gameManager: {fileID: 0}
 --- !u!1 &1332902943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,6 +1976,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1315980850}
+        m_TargetAssemblyTypeName: LooserCardPowers, Assembly-CSharp
+        m_MethodName: GrantPowerUp
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1643859255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,14 +2212,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11500000, guid: 6f2f9877b25c2b14d986306851343d1b, type: 3}
-        m_TargetAssemblyTypeName: LoserCardsUiManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1315980850}
+        m_TargetAssemblyTypeName: LooserCardPowers, Assembly-CSharp
+        m_MethodName: GrantPowerUp
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2329,14 +2356,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 11500000, guid: 806c12fdc4c52d94b8e58e193dc8c940, type: 3}
-        m_TargetAssemblyTypeName: LoserCardsUiManager, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 1315980850}
+        m_TargetAssemblyTypeName: LooserCardPowers, Assembly-CSharp
+        m_MethodName: GrantPowerUp
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
