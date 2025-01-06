@@ -1,29 +1,34 @@
 using System.Collections.Generic; // Required for List<T>
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static LooserCardPowers;
 
 public class LoserCardsUiManager : MonoBehaviour
 {
     RoundData.RoundType PreviousRound;
-    RoundData.RoundType RoundSetting;
     public GameObject Canvas;
     [SerializeField] GameObject[] BGGraphic;
     [SerializeField] RoundData RoundData;
     public CardSetup Cards;
+
     public enum PowerUp
     {
-        LongArms = 1,
-        DamageBuff = 2,
-        DashDamage = 3,
-        Magnetism = 4,
-        RecoveryJump = 5,
+        Magnetism = 1,
+        LongArms = 2,
+        RecoveryJump = 3,
+        DamageBuff = 4,
+        DashDamage = 5,
         Powerups = 6
     };
-    PowerUp SelectedPowerUp;
-    private List<PlayerInput> playerInputs = new List<PlayerInput>(); // Changed to List<PlayerInput>
+
+    List<PlayerInput> playerInputs = new List<PlayerInput>(); // Changed to List<PlayerInput
+    List<PlayerData> playerDatas = new List<PlayerData>();
+
+
     private void Start()
     {
         PreviousRound = RoundData.PreviousRound;
@@ -35,6 +40,12 @@ public class LoserCardsUiManager : MonoBehaviour
             if (input != RoundData.LastPlayerStanding)
             {
                 playerInputs.Add(input);
+
+                playerDatas.Add(input.gameObject.GetComponent<UseItem>().playerData);
+            }
+            else
+            {
+                input.GetComponent<UseItem>().playerData.loserCardID = 64;
             }
         }
 
@@ -69,16 +80,12 @@ public class LoserCardsUiManager : MonoBehaviour
         }
     }
 
-    public void EnableSpecificUI()
-    {
-        // Implementation for enabling specific UI
-    }
-
     public void NextPlayer()
     {
         if (playerInputs.Count > 0)
         {
             playerInputs.RemoveAt(0); // Remove the first player
+            playerDatas.RemoveAt(0);
             if (playerInputs.Count > 1)
             {
                 playerInputs[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().playerRoot = Canvas;
@@ -96,19 +103,24 @@ public class LoserCardsUiManager : MonoBehaviour
     {
         switch ((PowerUp)powerUp)
         {
-            case PowerUp.LongArms:
-                // Apply Power Up
-                break;
-            case PowerUp.DamageBuff:
-                // Apply Power Up
-                break;
-            case PowerUp.DashDamage:
-                break;
             case PowerUp.Magnetism:
+                playerDatas[0].loserCardID = (int)PowerUp.Magnetism;
+                break;
+            case PowerUp.LongArms:
+                playerDatas[0].loserCardID = (int)PowerUp.LongArms;
                 break;
             case PowerUp.RecoveryJump:
+                playerDatas[0].loserCardID = (int)PowerUp.RecoveryJump;
+                break;
+            case PowerUp.DamageBuff:
+                playerDatas[0].loserCardID = (int)PowerUp.DamageBuff;
+                break;
+            case PowerUp.DashDamage:
+                playerDatas[0].loserCardID = (int)PowerUp.DashDamage;
                 break;
             case PowerUp.Powerups:
+                playerDatas[0].loserCardID = (int)PowerUp.Powerups;
+                playerDatas[0].itemID = Random.Range(1, 7);
                 break;
         }
         NextPlayer();

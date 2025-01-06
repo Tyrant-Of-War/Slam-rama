@@ -17,10 +17,12 @@ MonoBehaviour:
   isStunned: 0
   playerMaterial: {fileID: 2100000, guid: 8fbd1be6d6699044dadc0866a6b26911, type: 2}
   livesMax: 3
-  lives: 3
-  falls: 0
+  lives: 2
+  falls: 1
   knockouts: 0
   PlayerObject: {fileID: 0}
   itemID: 0
   isDead: 0
   isAttacking: 0
+  isShielded: 0
+  loserCardID: 3

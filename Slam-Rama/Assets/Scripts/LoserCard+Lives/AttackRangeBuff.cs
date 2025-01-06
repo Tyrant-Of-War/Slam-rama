@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class AttackRangeBuff : MonoBehaviour
 {
@@ -11,12 +12,31 @@ public class AttackRangeBuff : MonoBehaviour
     private void Start()
     {
         attackCollider = GetComponent<BoxCollider>(); //get the attack collider
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+    }
+
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+    {
+        if (GetComponentInParent<PlayerMovement>().playerData.loserCardID == 2)
+        {
+            IncreaseAttackRange();
+        }
+        else
+        {
+            DecreaseAttackRange();
+        }
     }
 
     public void IncreaseAttackRange()
     {
-
         attackCollider.size = new Vector3(attackCollider.size.x, attackCollider.size.y, attackCollider.size.z * 2); // Double the size 
         attackCollider.center = new Vector3(attackCollider.center.x, attackCollider.center.y, attackCollider.center.z * 2); // Adjust the center 
+    }
+
+    public void DecreaseAttackRange()
+    {
+        attackCollider.size = new Vector3(attackCollider.size.x, attackCollider.size.y, attackCollider.size.z / 2); // half the size 
+        attackCollider.center = new Vector3(attackCollider.center.x, attackCollider.center.y, attackCollider.center.z / 2); // Adjust the center 
     }
 }

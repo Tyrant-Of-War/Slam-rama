@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Components for Jump and Dash
     Jump playerJump;
+    RecoveryJump recoveryJump;
     public Dash playerDash;
 
     // Movement control flag
@@ -54,7 +56,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Animator animator;
 
-    public bool isSlippery; 
+    public bool isSlippery;
+
+    public LevelData levelData;
 
     void Start()
     {
@@ -65,6 +69,10 @@ public class PlayerMovement : MonoBehaviour
         // Initialize the Jump and Dash components
         playerJump = new Jump(playerRB, jumpForce);
         playerDash = new Dash(playerRB, dashCooldown, speed * 5, this);  // Pass 'this' for coroutine use
+        recoveryJump = new RecoveryJump(playerRB, jumpForce);
+
+        playerJump.jumpSound = jumpSound;
+        recoveryJump.jumpSound = jumpSound;
     }
 
     void FixedUpdate()
@@ -183,13 +191,14 @@ public class PlayerMovement : MonoBehaviour
         }
         else // Calls jump function and animates if so
         {
-            playerJump.ExecuteJump(playerGrounded);
-            //plays the jump sound
-            PlayerSoundManager.Instance.PlaySound(jumpSound);
-
-            // Needs fixing will test
-            animator.SetBool("jump", true);
-            animator.SetBool("jump", false);
+            if (Mathf.Abs(transform.position.y - levelData.killHeight) > 8)
+            {
+                if (playerJump.ExecuteJump(playerGrounded)) { animator.SetTrigger("jump"); };
+            }
+            else if (playerData.loserCardID == 3)
+            {
+                if (recoveryJump.ExecuteJump()) { animator.SetTrigger("jump"); };
+            }
         }
     }
 

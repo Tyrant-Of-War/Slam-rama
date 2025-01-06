@@ -55,6 +55,7 @@ public class PlayerSelect : MonoBehaviour
         input.GetComponent<PlayerCosmeticInput>().enabled = true;
         // Assigns the level data to the knockout script
         input.GetComponent<Knockout>().levelData = levelData;
+        input.GetComponent<PlayerMovement>().levelData = levelData;
 
         // Assigns the correct material to the player
         input.GetComponentInChildren<SkinnedMeshRenderer>().material = playerData.playerMaterial;

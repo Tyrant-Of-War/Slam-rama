@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Damage : MonoBehaviour
 {
@@ -25,11 +26,15 @@ public class Damage : MonoBehaviour
     // The rumble script
     [SerializeField] Rumble rumble;
 
+    [SerializeField] GameObject shield;
+
     public InGameUI gameUI;
 
     public AudioClip shieldBlock;
 
     public AudioClip shieldBreak;
+
+    float damageBuffMultiplier;
 
     private void Start()
     {
@@ -38,6 +43,20 @@ public class Damage : MonoBehaviour
 
         // Sets the delay ready for if the player becomes ignited
         fireDelay = 0.5f;
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+    }
+
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+    {
+        if (playerData.loserCardID == 4)
+        {
+            damageBuffMultiplier = 1.5f;
+        }
+        else
+        {
+            damageBuffMultiplier = 1f;
+        }
     }
 
     private void Update()
@@ -103,7 +122,8 @@ public class Damage : MonoBehaviour
                 // Removes the shield and plays the sound 
                 playerData.isShielded = false;
 
-                transform.GetChild(3).gameObject.SetActive(false);
+                shield.SetActive(false);
+
                 PlayerSoundManager.Instance.PlaySound(shieldBreak);
             }
             else

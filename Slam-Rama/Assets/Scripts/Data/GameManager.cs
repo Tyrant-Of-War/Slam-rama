@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
                         break;
                 }
             }
+
             if (totalDead == UnityEngine.InputSystem.PlayerInput.all.Count - 1 && totalDead != 0)
             {
                 roundData.roundsLeft--;
@@ -136,6 +137,7 @@ public class GameManager : MonoBehaviour
 
         // Assigns the level data to the scripts that use it
         input.GetComponent<Knockout>().levelData = levelData;
+        input.GetComponent<PlayerMovement>().levelData = levelData;
         input.GetComponent<Knockout>().gameUI = gameUI;
         input.GetComponent<Damage>().gameUI = gameUI;
 
@@ -168,24 +170,6 @@ public class GameManager : MonoBehaviour
         input.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
 
-    public void ApplyPowerUp(LooserCardPowers.PowerUpType powerUp)
-    {
-        switch (powerUp)
-        {
-            case LooserCardPowers.PowerUpType.ItemMagnet:
-
-                // Need to put in item magnet logic
-                break;
-
-            case LooserCardPowers.PowerUpType.AttackRangeBuff:
-                // Need to put in attack range logic
-                break;
-
-            case LooserCardPowers.PowerUpType.RecoveryJump:
-                // Need to put in recovery jUMp logic
-                break;
-        }
-    }
     private void ResetRound()
     {
 
@@ -203,10 +187,13 @@ public class GameManager : MonoBehaviour
             foreach (var player in playerData)
             {
                 player.ResetRoundData();
-                player.PlayerObject.GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
-                player.PlayerObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                player.PlayerObject.GetComponent<PlayerMovement>().enabled = false;
-                player.PlayerObject.GetComponent<CapsuleCollider>().enabled = false;
+                if (player.PlayerObject != null)
+                {
+                    player.PlayerObject.GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
+                    player.PlayerObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    player.PlayerObject.GetComponent<PlayerMovement>().enabled = false;
+                    player.PlayerObject.GetComponent<CapsuleCollider>().enabled = false;
+                }
             }
             SceneManager.LoadScene("LoserCards");
 

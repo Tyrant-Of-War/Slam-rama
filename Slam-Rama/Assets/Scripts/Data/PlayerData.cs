@@ -49,6 +49,9 @@ public class PlayerData : ScriptableObject
     // Used to tell if the player is currently under the effects of a sheild powerup
     public bool isShielded;
 
+    // Used to read the current loser card the player has (64 is defualt / no card)
+    public int loserCardID;
+
     // Resets everything
     public void ResetData()
     {
@@ -73,6 +76,8 @@ public class PlayerData : ScriptableObject
         playerController = null;
 
         isShielded = false;
+
+        loserCardID = 64;
     }
 
     // Resets stuff between rounds
@@ -91,6 +96,8 @@ public class PlayerData : ScriptableObject
         isAttacking = false;
 
         isShielded = false;
+
+        loserCardID = 64;
     }
 
     // Resets things between lives

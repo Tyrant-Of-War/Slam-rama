@@ -14,7 +14,7 @@ public class DamageBuff : MonoBehaviour
     }
 
     // Activates a temporary damage multiplier
-    public void ActivateMultiplier(float newMultiplier, float duration)
+    public void ActivateMultiplier(float newMultiplier)
     {
         multiplier = newMultiplier;
     }

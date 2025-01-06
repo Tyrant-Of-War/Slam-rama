@@ -6,8 +6,13 @@ public class RecoveryJump : MonoBehaviour
 {
     private Rigidbody playerRB;
     private float jumpForce;
-    private int maxJumps = 2;
-    private int currentJumps = 0;
+
+    bool hasJumped = false;
+
+    public AudioClip jumpSound;
+
+    // 
+    float cooldown;
 
     public RecoveryJump(Rigidbody rb, float jumpForce)
     {
@@ -15,25 +20,21 @@ public class RecoveryJump : MonoBehaviour
         this.jumpForce = jumpForce;
     }
 
-    // Resets the jump count
-    public void JumpManager(bool isGrounded)
-    {
-        if (currentJumps < maxJumps)
-        {
-            currentJumps++;
-        }
-        if (isGrounded)
-        {
-            currentJumps = 0;
-        }
-    }
     //Allows for two jumps
-    public void ExecuteJump()
+    public bool ExecuteJump()
     {
-        if (currentJumps < maxJumps)
+        //plays the jump sound
+        PlayerSoundManager.Instance.PlaySound(jumpSound);
+
+        if (!hasJumped)
         {
-            playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            currentJumps++;
+            playerRB.AddForce(Vector3.up * jumpForce * 5, ForceMode.Impulse);
+
+            hasJumped = true;
+
+            return true;
         }
+
+        return false;
     }
 }

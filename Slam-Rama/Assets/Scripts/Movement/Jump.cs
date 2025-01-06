@@ -18,7 +18,7 @@ public class Jump
     }
 
     // Is called by player movement when jump input is detected
-    public void ExecuteJump(bool isGrounded)
+    public bool ExecuteJump(bool isGrounded)
     {
         // Checks if the player is on the ground
         if (isGrounded)
@@ -28,6 +28,10 @@ public class Jump
             //playerRB.AddRelativeForce(Vector3.forward * jumpForce / 1.5f, ForceMode.Impulse);
             //Plays the sound
             PlayerSoundManager.Instance.PlaySound(jumpSound);
+
+            return true;
         }
+
+        return false;
     }
 }
