@@ -17,13 +17,13 @@ public class Knockout : MonoBehaviour
     public InGameUI gameUI;
 
     // Sets the knockout sound
-    public AudioSource knockoutSound;
+    public AudioClip knockoutSound;
 
     // Sets the final knockout sound
-    public AudioSource finalKnockoutAudio;
+    public AudioClip finalKnockoutAudio;
 
     // Sets the respawn sound
-    public AudioSource respawnSound;
+    public AudioClip respawnSound;
 
     private void Start()
     {
@@ -41,7 +41,7 @@ public class Knockout : MonoBehaviour
             if (transform.position.y < levelData.killHeight)
             {
                 //play the knockout sound
-                knockoutSound.Play();
+                PlayerSoundManager.Instance.PlaySound(knockoutSound);
                 // Checks if the player has lives to use
                 if (playerData.lives > 0)
                 {
@@ -76,7 +76,7 @@ public class Knockout : MonoBehaviour
                     playerData.damage = 1;
                     playerData.isDead = true;
                     //play the final knockout sound
-                    finalKnockoutAudio.Play();
+                    PlayerSoundManager.Instance.PlaySound(finalKnockoutAudio);
                     // Moves the player to the bottom of the map and freezes their moving until the next round
                     GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -99,7 +99,7 @@ public class Knockout : MonoBehaviour
                 GetComponent<Rigidbody>().position = levelData.SpawnLocation[Random.Range(0, levelData.SpawnLocation.Count)];
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
                 // Plays the respawning audio 
-                respawnSound.Play();
+                PlayerSoundManager.Instance.PlaySound(respawnSound);
                 // Unfreezes the player movement
                 GetComponent<PlayerMovement>().enabled = true;
                 GetComponent<CapsuleCollider>().enabled = true;

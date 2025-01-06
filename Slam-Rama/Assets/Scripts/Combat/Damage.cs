@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,9 +27,9 @@ public class Damage : MonoBehaviour
 
     public InGameUI gameUI;
 
-    public AudioSource shieldBlock;
+    public AudioClip shieldBlock;
 
-    public AudioSource shieldBreak;
+    public AudioClip shieldBreak;
 
     private void Start()
     {
@@ -83,7 +84,6 @@ public class Damage : MonoBehaviour
             if (damage > 3)
             {
                 //plays the sound to show blocking
-                shieldBlock.Play();
 
                 // Adds the given damage to the player data
                 playerData.damage += Mathf.RoundToInt((Mathf.Pow(playerData.damage, 2f) / 5000) + damage);
@@ -104,7 +104,11 @@ public class Damage : MonoBehaviour
                 playerData.isShielded = false;
 
                 transform.GetChild(3).gameObject.SetActive(false);
-                shieldBreak.Play();
+                PlayerSoundManager.Instance.PlaySound(shieldBreak);
+            }
+            else
+            {
+                PlayerSoundManager.Instance.PlaySound(shieldBlock);
             }
         }
         else

@@ -244,7 +244,6 @@ Transform:
   - {fileID: 8662308468722781475}
   - {fileID: 6755868766671386527}
   - {fileID: 1448706624473409019}
-  - {fileID: 4473548539779677393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6063931945194853249
@@ -486,8 +485,8 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
-  jumpSound: {fileID: 0}
-  dashNoise: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: 69c7575e0e0bdf44ea4a1f0507807299, type: 3}
+  dashNoise: {fileID: 8300000, guid: f27a1d47b275c27459e3367d555c72cc, type: 3}
   animator: {fileID: 8997223964410533896}
   isSlippery: 0
 --- !u!114 &5943737662571242067
@@ -506,9 +505,9 @@ MonoBehaviour:
   animator: {fileID: 8997223964410533896}
   chargeParticles: {fileID: 1435605877930500509}
   rumble: {fileID: 5220054069808073294}
-  lightAttack: {fileID: 0}
-  heavyAttack: {fileID: 0}
-  heavyAttackCharge: {fileID: 0}
+  lightAttack: {fileID: 8300000, guid: c1fdc080adb365248aa9fcd4435816cf, type: 3}
+  heavyAttack: {fileID: 8300000, guid: 246d568ddde33074086e14ba763d88e6, type: 3}
+  heavyAttackCharge: {fileID: 8300000, guid: 0de90fb78a0ebcc4a95b8df3f566563a, type: 3}
 --- !u!114 &1390508075863064498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,8 +524,8 @@ MonoBehaviour:
   playerData: {fileID: 0}
   rumble: {fileID: 5220054069808073294}
   gameUI: {fileID: 0}
-  shieldBlock: {fileID: 0}
-  shieldBreak: {fileID: 0}
+  shieldBlock: {fileID: 8300000, guid: 01b5f5b571a98814594cfdeb12e8c8b8, type: 3}
+  shieldBreak: {fileID: 8300000, guid: e0a44c6ca5cbdc5439804b1e27865395, type: 3}
 --- !u!114 &-4208351622783234702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,9 +566,9 @@ MonoBehaviour:
   playerData: {fileID: 0}
   levelData: {fileID: 0}
   gameUI: {fileID: 0}
-  knockoutSound: {fileID: 0}
-  finalKnockoutAudio: {fileID: 0}
-  respawnSound: {fileID: 0}
+  knockoutSound: {fileID: 8300000, guid: 2c45b71e28d4dad4bb3bb41bf1dd0fd4, type: 3}
+  finalKnockoutAudio: {fileID: 8300000, guid: b4f3d2d0af2e59045abe2767e49646fe, type: 3}
+  respawnSound: {fileID: 8300000, guid: c9c97f402d411f54cbcc13d957b9abf7, type: 3}
 --- !u!114 &-3607917493966997157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,50 +652,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8662308468722781475}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8337959270239993725
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4473548539779677393}
-  - component: {fileID: 6810515505721848115}
-  m_Layer: 0
-  m_Name: 'PlayerAudio '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4473548539779677393
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8337959270239993725}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7622843068330808108}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6810515505721848115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8337959270239993725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c8cb0bfc41ea534cb2fc0d877715266, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8928148523287482898
 GameObject:
   m_ObjectHideFlags: 0

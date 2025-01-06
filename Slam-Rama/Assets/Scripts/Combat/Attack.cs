@@ -33,9 +33,9 @@ public class Attack : MonoBehaviour
     // The rumble script
     [SerializeField] Rumble rumble;
 
-    public AudioSource lightAttack;
-    public AudioSource heavyAttack;
-    public AudioSource heavyAttackCharge;
+    public AudioClip lightAttack;
+    public AudioClip heavyAttack;
+    public AudioClip heavyAttackCharge;
 
     private void Start()
     {
@@ -131,7 +131,7 @@ public class Attack : MonoBehaviour
             chargeParticles.Play();
 
             //Plays charging noise 
-            heavyAttackCharge.Play();
+            PlayerSoundManager.Instance.PlaySound(heavyAttackCharge);
         }
         else if (isCharging)
         {
@@ -174,7 +174,7 @@ public class Attack : MonoBehaviour
             attackTargets[i].GetComponent<Damage>().DamagePlayer(1);
 
             //Plays the light attack sound
-            lightAttack.Play();
+            PlayerSoundManager.Instance.PlaySound(lightAttack);
 
             // Calls the knockback function and feeds it a direction and multiplier
             attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, 0.01f);
@@ -200,7 +200,7 @@ public class Attack : MonoBehaviour
             attackTargets[i].GetComponent<Damage>().DamagePlayer(Mathf.RoundToInt(power * 5f));
 
             //Plays the heavy attack sound
-            heavyAttack.Play();
+            PlayerSoundManager.Instance.PlaySound(heavyAttack);
 
             // Calls the knockback function and feeds it a direction and multiplier
             attackTargets[i].GetComponent<Knockback>().RunKnockback(this.transform.forward, power);
