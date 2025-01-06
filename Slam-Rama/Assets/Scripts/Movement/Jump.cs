@@ -8,6 +8,8 @@ public class Jump
     // The multiplier determining how powerful the jump should be
     private float jumpForce;
 
+    public AudioSource jumpSound;
+
     // A class for the jump attributes
     public Jump(Rigidbody rb, float jumpForce)
     {
@@ -24,6 +26,8 @@ public class Jump
             // Adds upward force to the player
             playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             //playerRB.AddRelativeForce(Vector3.forward * jumpForce / 1.5f, ForceMode.Impulse);
+            //Plays the sound
+            jumpSound.Play();
         }
     }
 }
