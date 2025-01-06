@@ -22,11 +22,11 @@ public class LoadingSceneController : MonoBehaviour
                 roundData.PreviousRound = RoundData.RoundType.Clock;
                 break;
             case RoundData.RoundType.Castle:
-                asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                asyncOperation = SceneManager.LoadSceneAsync("Castle");
                 roundData.PreviousRound = RoundData.RoundType.Castle;
                 break;
             case RoundData.RoundType.Witch:
-                asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                asyncOperation = SceneManager.LoadSceneAsync("Couldren");
                 roundData.PreviousRound = RoundData.RoundType.Witch;
                 break;
             case RoundData.RoundType.Boxing:
@@ -35,6 +35,7 @@ public class LoadingSceneController : MonoBehaviour
                 break;
 
         }
+
         if (roundData.RandomRounds)
         {
             int scene = Random.Range(1, 5);

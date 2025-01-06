@@ -40,7 +40,7 @@ public class PickUp : MonoBehaviour
         }
         else if (itemID == 6)
         {
-            transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one *  0.5f;
         }
 
     }
