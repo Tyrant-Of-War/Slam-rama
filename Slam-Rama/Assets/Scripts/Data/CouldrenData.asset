@@ -19,7 +19,7 @@ MonoBehaviour:
   - {x: 7, y: 26, z: 22}
   - {x: 15, y: 26, z: 5}
   - {x: 6, y: 26, z: -21}
-  maxPositivePosition: {x: -17, y: 26, z: -17}
+  maxPositivePosition: {x: 17, y: 26, z: 17}
   minNegativePosition: {x: -17, y: 26, z: -17}
   itemAmount: 0
   itemHeight: 26
