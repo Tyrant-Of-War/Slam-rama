@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,8 +6,8 @@ public class PlayerCosmeticInput : MonoBehaviour
 {
     CosmeticController Head, Body;
     public GameObject[] head, body;
-    //private Color[] colors;
-    //private int currentColorIndex = 0;
+    private Color[] colors;
+    private int currentColorIndex = 0;
     private enum navigationPos
     {
         Head,
@@ -21,121 +22,140 @@ public class PlayerCosmeticInput : MonoBehaviour
         Body = new CosmeticController(body);
         Head.Next();
         Body.Next();
-        //colors = new Color[]
-        //{
-        //    Color.white,
-        //    Color.red,
-        //    Color.green,
-        //    Color.blue,
-        //    Color.yellow,
-        //    Color.magenta,
-        //    Color.cyan,
-        //    new Color(1f, 0.5f, 0f), // Orange
-        //    new Color(0.5f, 0f, 0.5f) // Purple
-        //};
-        //ApplyColor(colors[0]);
+        colors = new Color[]
+        {
+            Color.white,
+            Color.red,
+            Color.green,
+            Color.blue,
+            Color.yellow,
+            Color.magenta,
+            Color.cyan,
+            new Color(1f, 0.5f, 0f), // Orange
+            new Color(0.5f, 0f, 0.5f) // Purple
+        };
+        ApplyColor(colors[0]);
     }
-    private bool IsDPadInput(InputValue inputValue)
+    private bool IsDPadInput(InputAction.CallbackContext? context)
     {
-        // Access the control associated with the input value
-        var control = inputValue.isPressed;
+        // Check if the control triggered by the input has a path related to the D-pad
+        var controlPath = context.Value.control.path;
 
-        // Check if the control is a D-pad
-        return control;
+        if (string.IsNullOrEmpty(controlPath)) return false;
+
+        // Check if the path contains "dpad"
+        return controlPath.Contains("dpad", System.StringComparison.OrdinalIgnoreCase);
     }
+
     public void OnNavigate(InputValue inputValue)
     {
+        var contextField = typeof(InputValue).GetField("m_Context", BindingFlags.NonPublic | BindingFlags.Instance);
+        var callbackContext = contextField?.GetValue(inputValue) as InputAction.CallbackContext?;
         if (this.enabled)
         {
-            if (!IsDPadInput(inputValue)) return;
-            Vector2 Direction = inputValue.Get<Vector2>();
-            Direction = Direction.normalized;
-            int horizontalDirection = Direction.x > 0 ? 1 : Direction.x < 0 ? -1 : 0; // weird if statment BS. thanks google
-            int verticleDirection = Direction.y > 0 ? 1 : Direction.y < 0 ? -1 : 0;
-            switch (horizontalDirection)
+            if (callbackContext.HasValue)
             {
-                case 1:
-                    switch (navigationPosition)
+                var action = callbackContext.Value.action; // Access the associated action
+                if (this.enabled)
+                {
+                    // Replace IsDPadInput with your own validation logic
+                    if (!IsDPadInput(callbackContext))
                     {
-                        case navigationPos.Head:
-                            Head.Next();
-                            break;
-                        case navigationPos.Body:
-                            Body.Next();
-                            break;
-                        case navigationPos.Colours:
-                            //UpdateColour(true);
-                            break;
+                        Debug.LogWarning("Input is not from the DPad.");
+                        return;
                     }
-                    break;
-                case -1:
-                    switch (navigationPosition)
+                    Vector2 Direction = action.ReadValue<Vector2>().normalized;
+                    Direction = Direction.normalized;
+                    int horizontalDirection = Direction.x > 0 ? 1 : Direction.x < 0 ? -1 : 0; // weird if statment BS. thanks google
+                    int verticleDirection = Direction.y > 0 ? 1 : Direction.y < 0 ? -1 : 0;
+                    switch (horizontalDirection)
                     {
-                        case navigationPos.Head:
-                            Head.Previous();
+                        case 1:
+                            switch (navigationPosition)
+                            {
+                                case navigationPos.Head:
+                                    Head.Next();
+                                    break;
+                                case navigationPos.Body:
+                                    Body.Next();
+                                    break;
+                                case navigationPos.Colours:
+                                    UpdateColour(true);
+                                    break;
+                            }
                             break;
-                        case navigationPos.Body:
-                            Body.Previous();
-                            break;
-                        case navigationPos.Colours:
-                            //UpdateColour(false);
-                            break;
+                        case -1:
+                            switch (navigationPosition)
+                            {
+                                case navigationPos.Head:
+                                    Head.Previous();
+                                    break;
+                                case navigationPos.Body:
+                                    Body.Previous();
+                                    break;
+                                case navigationPos.Colours:
+                                    UpdateColour(false);
+                                    break;
 
+                            }
+                            break;
                     }
-                    break;
-            }
-            switch (verticleDirection)
-            {
-                case 1:
-                    switch (navigationPosition)
+                    if (IsDPadInput(callbackContext))
                     {
-                        case navigationPos.Head:
-                            navigationPosition = navigationPos.Colours;
-                            break;
-                        case navigationPos.Body:
-                            navigationPosition = navigationPos.Head;
-                            break;
-                        case navigationPos.Colours:
-                            navigationPosition = navigationPos.Body;
-                            break;
+                        switch (verticleDirection)
+                        {
+                            case 1:
+                                switch (navigationPosition)
+                                {
+                                    case navigationPos.Head:
+                                        navigationPosition = navigationPos.Colours;
+                                        break;
+                                    case navigationPos.Body:
+                                        navigationPosition = navigationPos.Head;
+                                        break;
+                                    case navigationPos.Colours:
+                                        navigationPosition = navigationPos.Body;
+                                        break;
+                                }
+                                break;
+                            case -1:
+                                switch (navigationPosition)
+                                {
+                                    case navigationPos.Head:
+                                        navigationPosition = navigationPos.Body;
+                                        break;
+                                    case navigationPos.Body:
+                                        navigationPosition = navigationPos.Colours;
+                                        break;
+                                    case navigationPos.Colours:
+                                        navigationPosition = navigationPos.Head;
+                                        break;
+                                }
+                                break;
+                        }
                     }
-                    break;
-                case -1:
-                    switch (navigationPosition)
-                    {
-                        case navigationPos.Head:
-                            navigationPosition = navigationPos.Body;
-                            break;
-                        case navigationPos.Body:
-                            navigationPosition = navigationPos.Colours;
-                            break;
-                        case navigationPos.Colours:
-                            navigationPosition = navigationPos.Head;
-                            break;
-                    }
-                    break;
-
+                }
             }
         }
     }
-    //public void UpdateColour(bool direction)
-    //{
-    //    // Increment or decrement the color index based on the direction
-    //    if (direction)
-    //    {
-    //        currentColorIndex = (currentColorIndex + 1) % colors.Length; // Move forward, loop back if at the end
-    //    }
-    //    else
-    //    {
-    //        currentColorIndex = (currentColorIndex - 1 + colors.Length) % colors.Length; // Move backward, loop back if at the start
-    //    }
+    public void UpdateColour(bool direction)
+    {
+        // Increment or decrement the color index based on the direction
+        if (direction)
+        {
+            currentColorIndex = (currentColorIndex + 1) % colors.Length; // Move forward, loop back if at the end
+        }
+        else
+        {
+            currentColorIndex = (currentColorIndex - 1 + colors.Length) % colors.Length; // Move backward, loop back if at the start
+        }
 
-    //    // Apply the current color
-    //    ApplyColor(colors[currentColorIndex]);
-    //}
+        // Apply the current color
+        ApplyColor(colors[currentColorIndex]);
+    }
 
-    //public void ApplyColor(Color color)
-    //{
-    //    this.GetComponent<PlayerMovement>().playerData.playerMaterial.color = color;
-    //}
+    public void ApplyColor(Color color)
+    {
+        this.GetComponent<PlayerMovement>().playerData.playerMaterial.color = color;
+    }
 }
