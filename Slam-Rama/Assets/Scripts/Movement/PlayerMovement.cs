@@ -86,14 +86,12 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = targetRotation;
         }
 
-        
-
-        // Why this here?
-        playerRB.drag = groundDrag;
-
         // Checks if movement is being recorded, if the player is grounded, if the player is not stunned
         if (ActiveMovement && playerGrounded)
         {
+            playerRB.drag = groundDrag;
+            speed = groundSpeed;
+
             // Checks if player is currently attacking or not
             if ((!playerData.isAttacking && !isSlippery) || (playerData.isAttacking && isSlippery))
             {
@@ -117,6 +115,18 @@ public class PlayerMovement : MonoBehaviour
             // Switches to air drag values if player is not grounded
             playerRB.drag = airDrag;
             speed = airSpeed;
+
+            // Checks if player is currently attacking or not
+            if ((!playerData.isAttacking && !isSlippery) || (playerData.isAttacking && isSlippery))
+            {
+                // Applies the movement data
+                playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            }
+            else if (playerData.isAttacking)
+            {
+                // Applies the movement data halved if they are attacking
+                playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 0.25f, ForceMode.VelocityChange);
+            }
         }
 
         // Animates

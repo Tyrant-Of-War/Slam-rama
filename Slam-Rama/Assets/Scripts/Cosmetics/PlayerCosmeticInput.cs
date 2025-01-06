@@ -6,13 +6,11 @@ public class PlayerCosmeticInput : MonoBehaviour
 {
     CosmeticController Head, Body;
     public GameObject[] head, body;
-    private Color[] colors;
-    private int currentColorIndex = 0;
     private enum navigationPos
     {
         Head,
         Body,
-        Colours
+        Colours,
     }
     navigationPos navigationPosition;
     void Start()
@@ -22,19 +20,6 @@ public class PlayerCosmeticInput : MonoBehaviour
         Body = new CosmeticController(body);
         Head.Next();
         Body.Next();
-        colors = new Color[]
-        {
-            Color.white,
-            Color.red,
-            Color.green,
-            Color.blue,
-            Color.yellow,
-            Color.magenta,
-            Color.cyan,
-            new Color(1f, 0.5f, 0f), // Orange
-            new Color(0.5f, 0f, 0.5f) // Purple
-        };
-        ApplyColor(colors[0]);
     }
     private bool IsDPadInput(InputAction.CallbackContext? context)
     {
@@ -80,7 +65,7 @@ public class PlayerCosmeticInput : MonoBehaviour
                                     Body.Next();
                                     break;
                                 case navigationPos.Colours:
-                                    UpdateColour(true);
+                                    //UpdateColour(true);
                                     break;
                             }
                             break;
@@ -94,7 +79,7 @@ public class PlayerCosmeticInput : MonoBehaviour
                                     Body.Previous();
                                     break;
                                 case navigationPos.Colours:
-                                    UpdateColour(false);
+                                    //UpdateColour(false);
                                     break;
 
                             }
@@ -137,25 +122,5 @@ public class PlayerCosmeticInput : MonoBehaviour
                 }
             }
         }
-    }
-    public void UpdateColour(bool direction)
-    {
-        // Increment or decrement the color index based on the direction
-        if (direction)
-        {
-            currentColorIndex = (currentColorIndex + 1) % colors.Length; // Move forward, loop back if at the end
-        }
-        else
-        {
-            currentColorIndex = (currentColorIndex - 1 + colors.Length) % colors.Length; // Move backward, loop back if at the start
-        }
-
-        // Apply the current color
-        ApplyColor(colors[currentColorIndex]);
-    }
-
-    public void ApplyColor(Color color)
-    {
-        this.GetComponent<PlayerMovement>().playerData.playerMaterial.color = color;
     }
 }

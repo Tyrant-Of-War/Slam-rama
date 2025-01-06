@@ -40,74 +40,74 @@ public class InGameUI : MonoBehaviour
     }
     public void ReducePlayer1Life()
     {
-        if (CurrentLife = null)
+        foreach (var life in Player1Lives)
         {
-            foreach (var life in Player1Lives)
+            if (life.activeInHierarchy)
             {
-                if (life.activeInHierarchy)
-                {
-                    CurrentLife = life;
-                }
+                CurrentLife = life;
             }
-            if (CurrentLife != null)
-            {
-                CurrentLife.SetActive(false);
-            }
+        }
+
+        if (CurrentLife != null)
+        {
+            CurrentLife.SetActive(false);
+
+            CurrentLife = null;
         }
     }
     public void IncreasePlayer1Life() { }
 
     public void ReducePlayer2Life()
     {
-        if (CurrentLife = null)
+        foreach (var life in Player2Lives)
         {
-            foreach (var life in Player2Lives)
+            if (life.activeInHierarchy)
             {
-                if (life.activeInHierarchy)
-                {
-                    CurrentLife = life;
-                }
+                CurrentLife = life;
             }
-            if (CurrentLife != null)
-            {
-                CurrentLife.SetActive(false);
-            }
+        }
+
+        if (CurrentLife != null)
+        {
+            CurrentLife.SetActive(false);
+
+            CurrentLife = null;
         }
     }
     public void IncreasePlayer2Life() { }
     public void ReducePlayer3Life()
     {
-        if (CurrentLife = null)
+        foreach (var life in Player3Lives)
         {
-            foreach (var life in Player3Lives)
+            if (life.activeInHierarchy)
             {
-                if (life.activeInHierarchy)
-                {
-                    CurrentLife = life;
-                }
+                CurrentLife = life;
             }
-            if (CurrentLife != null)
-            {
-                CurrentLife.SetActive(false);
-            }
+        }
+
+        if (CurrentLife != null)
+        {
+            CurrentLife.SetActive(false);
+
+            CurrentLife = null;
         }
     }
     public void IncreasePlayer3Life() { }
     public void ReducePlayer4Life()
     {
-        if (CurrentLife = null)
+        foreach (var life in Player4Lives)
         {
-            foreach (var life in Player4Lives)
+            if (life.activeInHierarchy)
             {
-                if (life.activeInHierarchy)
-                {
-                    CurrentLife = life;
-                }
+                CurrentLife = life;
             }
-            if (CurrentLife != null)
-            {
-                CurrentLife.SetActive(false);
-            }
+        }
+
+        if (CurrentLife != null)
+        {
+            CurrentLife.SetActive(false);
+
+            CurrentLife = null;
         }
     }
     public void IncreasePlayer4Life()
