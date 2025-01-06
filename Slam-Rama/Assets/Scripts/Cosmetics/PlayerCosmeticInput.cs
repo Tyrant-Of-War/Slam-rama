@@ -35,11 +35,19 @@ public class PlayerCosmeticInput : MonoBehaviour
         };
         ApplyColor(colors[0]);
     }
+    private bool IsDPadInput(InputValue inputValue)
+    {
+        // Access the control associated with the input value
+        var control = inputValue.isPressed;
 
+        // Check if the control is a D-pad
+        return control;
+    }
     public void OnNavigate(InputValue inputValue)
     {
         if (this.enabled)
         {
+            if (!IsDPadInput(inputValue)) return;
             Vector2 Direction = inputValue.Get<Vector2>();
             Direction = Direction.normalized;
             int horizontalDirection = Direction.x > 0 ? 1 : Direction.x < 0 ? -1 : 0; // weird if statment BS. thanks google
