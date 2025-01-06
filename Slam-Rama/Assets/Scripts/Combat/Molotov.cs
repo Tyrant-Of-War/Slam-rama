@@ -58,8 +58,6 @@ public class Molotov : MonoBehaviour
         // Adds a force in the supplied direction
         moloRB.AddForce(((Vector3.up * 2f) + direction) * launchPower, ForceMode.Impulse);
 
-        //Plays the throwing sound
-        mollyThrow.Play();
     }
 
     // Update is called once per frame
@@ -92,6 +90,8 @@ public class Molotov : MonoBehaviour
         if (collision.gameObject.layer == 3)
         {
             Explode();
+            //Plays the throwing sound
+            mollyThrow.Play();
             mollyFire.Play();
         }
     }
@@ -103,6 +103,8 @@ public class Molotov : MonoBehaviour
 
         // Plays the visual
         fireParticles.Play();
+
+        mollyFire.Play();
 
         // Freeze the physics of the molotov
         moloRB.constraints = RigidbodyConstraints.FreezeAll;
