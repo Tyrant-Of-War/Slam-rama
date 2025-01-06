@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92ca47044695bd549b2fb3ca4ada9ef6, type: 3}
-  m_Name: ClockData
+  m_Name: CastleData
   m_EditorClassIdentifier: 
-  ID: 2
-  killHeight: -8
+  ID: 3
+  killHeight: -10
   SpawnLocation:
-  - {x: 0, y: 4, z: 15}
-  - {x: 0, y: 4, z: -15}
-  - {x: 15, y: 4, z: 1.5}
-  - {x: -15, y: 4, z: 1.5}
-  maxPositivePosition: {x: 13.16, y: 1.5, z: 12.01}
-  minNegativePosition: {x: -13.34, y: 1.5, z: -12.18}
+  - {x: 15, y: 4, z: 15}
+  - {x: -15, y: 4, z: 15}
+  - {x: -15, y: 4, z: -15}
+  - {x: 15, y: 4, z: -15}
+  maxPositivePosition: {x: 15, y: 1.5, z: 15}
+  minNegativePosition: {x: -15, y: 1.5, z: -15}
   itemAmount: 0
-  itemHeight: 2
+  itemHeight: 4

@@ -503,7 +503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   animator: {fileID: 8997223964410533896}
-  chargeParticles: {fileID: 0}
+  chargeParticles: {fileID: 1435605877930500509}
   rumble: {fileID: 5220054069808073294}
   lightAttack: {fileID: 0}
   heavyAttack: {fileID: 0}
@@ -586,7 +586,8 @@ MonoBehaviour:
   - {fileID: 3652176024920637812, guid: 1b764c00b8c295643a7ef27baf796428, type: 3}
   - {fileID: 3485460956201975594, guid: c15f4ad0cf7a2474c80caaa6e963d013, type: 3}
   - {fileID: 2475510270043400969, guid: 6efa4a855ccac5148adb2a2c5ba2da7e, type: 3}
-  shield: {fileID: 0}
+  - {fileID: 4517880976038783882, guid: a2bb969d40da07043b3ff34f36b7d971, type: 3}
+  shield: {fileID: 4515095427018090357, guid: 11d576332f1381146a0187ef5463b3b2, type: 3}
 --- !u!114 &5220054069808073294
 MonoBehaviour:
   m_ObjectHideFlags: 0
