@@ -14,7 +14,7 @@ public class RoundData : ScriptableObject
     ///na Shit works fine :)
 
     public int roundsLeft;
-
+    public int roundsMax;
     public bool RandomRounds;
 
     [SerializeField] private PlayerData firstPlayerOut;
@@ -26,7 +26,8 @@ public class RoundData : ScriptableObject
 
     public AudioSource roundWinner;
 
-    List<List<bool>> PlayerWin;
+    public List<List<bool>> PlayerWin;
+    public List<List<int>> Order;
 
     [Serializable]
     public enum RoundType
@@ -42,7 +43,7 @@ public class RoundData : ScriptableObject
 
     private void Awake()
     {
-        roundsLeft = 3; lastPlayerStanding = null;
+        roundsLeft = 3; lastPlayerStanding = null; roundsMax = 3;
         RandomRounds = true;
         roundType = RoundType.Random;
         PlayerWin = new List<List<bool>>();
@@ -50,6 +51,11 @@ public class RoundData : ScriptableObject
         PlayerWin.Add(new List<bool>());
         PlayerWin.Add(new List<bool>());
         PlayerWin.Add(new List<bool>());
+        Order = new List<List<int>>();
+        for (int i = 0; i < roundsLeft; i++)
+        {
+            Order.Add(new List<int>());
+        }
     }
     // Resets the tracker data for each new round
     public void ResetData()
@@ -57,7 +63,25 @@ public class RoundData : ScriptableObject
         firstPlayerOut = null;
         lastPlayerStanding = null;
     }
-
+    public void AddLosingPlayer(PlayerInput playerInput, int Position)
+    {
+        if (PlayerInput.all[0] == playerInput)
+        {
+            Order[0][roundsMax - roundsLeft] = Position;
+        }
+        else if (PlayerInput.all[1] == playerInput)
+        {
+            Order[1][roundsMax - roundsLeft] = Position;
+        }
+        else if (PlayerInput.all[2] == playerInput)
+        {
+            Order[2][roundsMax - roundsLeft] = Position;
+        }
+        else if (PlayerInput.all[3] == playerInput)
+        {
+            Order[3][roundsMax - roundsLeft] = Position;
+        }
+    }
     // Updates the tracker data based on current player data
     public void UpdateData(List<PlayerData> playerData)
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Knockout : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class Knockout : MonoBehaviour
 
     // Sets the respawn sound
     public AudioClip respawnSound;
+
+    public RoundData roundData;
 
     private void Start()
     {
@@ -78,6 +81,15 @@ public class Knockout : MonoBehaviour
                     //play the final knockout sound
                     PlayerSoundManager.Instance.PlaySound(finalKnockoutAudio);
                     // Moves the player to the bottom of the map and freezes their moving until the next round
+                    int fallen = PlayerInput.all.Count;
+                    foreach (var input in PlayerInput.all)
+                    {
+                        if (input.gameObject.GetComponent<PlayerMovement>().playerData.isDead)
+                        {
+                            fallen -= 1;
+                        }
+                    }
+                    roundData.AddLosingPlayer(gameObject.GetComponent<PlayerInput>(), fallen);
                     GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
                     GetComponent<PlayerMovement>().enabled = false;

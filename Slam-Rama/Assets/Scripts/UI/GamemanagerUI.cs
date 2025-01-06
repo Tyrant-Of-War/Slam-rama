@@ -155,24 +155,28 @@ public class GamemanagerUI : MonoBehaviour
             roundText.text = "3";
 
             roundData.roundsLeft = 3;
+            roundData.roundsMax = 3;
         }
         else if (roundText.text == "3")
         {
             roundText.text = "5";
 
             roundData.roundsLeft = 5;
+            roundData.roundsMax = 5;
         }
         else if (roundText.text == "5")
         {
             roundText.text = "7";
 
             roundData.roundsLeft = 7;
+            roundData.roundsMax = 7;
         }
         else if (roundText.text == "7")
         {
             roundText.text = "1";
 
             roundData.roundsLeft = 1;
+            roundData.roundsMax = 1;
         }
     }
 
