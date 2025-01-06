@@ -7,7 +7,7 @@ public class ItemMagnet : MonoBehaviour
     [SerializeField] SphereCollider sphereCollider;
     [SerializeField] float dragSpeed;
     Vector3 direction;
-  private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Item") && GetComponentInParent<PlayerMovement>().playerData.itemID == 0)
         {
