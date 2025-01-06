@@ -12,6 +12,11 @@ public class LoadingSceneController : MonoBehaviour
 
     void Start()
     {
+        if (roundData.roundsLeft == 0)
+        {
+            SceneManager.LoadScene("Results");
+            return;
+        }
         switch (roundData.roundType)
         {
             case RoundData.RoundType.Random:

@@ -26,6 +26,8 @@ public class RoundData : ScriptableObject
 
     public AudioSource roundWinner;
 
+    List<List<bool>> PlayerWin;
+
     [Serializable]
     public enum RoundType
     {
@@ -43,6 +45,11 @@ public class RoundData : ScriptableObject
         roundsLeft = 3; lastPlayerStanding = null;
         RandomRounds = true;
         roundType = RoundType.Random;
+        PlayerWin = new List<List<bool>>();
+        PlayerWin.Add(new List<bool>());
+        PlayerWin.Add(new List<bool>());
+        PlayerWin.Add(new List<bool>());
+        PlayerWin.Add(new List<bool>());
     }
     // Resets the tracker data for each new round
     public void ResetData()
@@ -103,5 +110,36 @@ public class RoundData : ScriptableObject
     public void SetLastPlayer(PlayerInput player)
     {
         lastPlayerStanding = player;
+    }
+    public void PlayerWinUpdate()
+    {
+        switch (lastPlayerStanding)
+        {
+            case var Player when Player == PlayerInput.all[0]:
+                PlayerWin[0].Add(true);
+                PlayerWin[1].Add(false);
+                PlayerWin[2].Add(false);
+                PlayerWin[3].Add(false);
+                break;
+            case var Player when Player == PlayerInput.all[1]:
+                PlayerWin[0].Add(false);
+                PlayerWin[1].Add(true);
+                PlayerWin[2].Add(false);
+                PlayerWin[3].Add(false);
+                break;
+            case var Player when Player == PlayerInput.all[2]:
+                PlayerWin[0].Add(false);
+                PlayerWin[1].Add(false);
+                PlayerWin[2].Add(true);
+                PlayerWin[3].Add(false);
+                break;
+            case var Player when Player == PlayerInput.all[3]:
+                PlayerWin[0].Add(false);
+                PlayerWin[1].Add(false);
+                PlayerWin[2].Add(false);
+                PlayerWin[3].Add(true);
+                break;
+
+        }
     }
 }

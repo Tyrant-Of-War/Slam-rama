@@ -45,10 +45,10 @@ public class PlayerMovement : MonoBehaviour
     bool ActiveMovement;
 
     //Sound for the jump
-    public AudioSource jumpSound;
+    public AudioClip jumpSound;
 
     //dash noise setter
-    public AudioSource dashNoise;
+    public AudioClip dashNoise;
 
     Quaternion targetRotation;
 
@@ -175,7 +175,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerJump.ExecuteJump(playerGrounded);
             //plays the jump sound
-            jumpSound.Play();
+            PlayerSoundManager.Instance.PlaySound(jumpSound);
 
             // Needs fixing will test
             animator.SetBool("jump", true);
@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
         // Calls dash function
         playerDash.ExecuteDash(movementData, playerGrounded, stickData.x, stickData.y);
         // plays the dash noise
-        dashNoise.Play();
+        PlayerSoundManager.Instance.PlaySound(dashNoise);
     }
 
 }

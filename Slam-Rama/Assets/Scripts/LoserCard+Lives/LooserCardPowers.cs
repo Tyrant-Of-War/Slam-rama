@@ -1,12 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LooserCardPowers : MonoBehaviour
 {
     public enum PowerUpType { ItemMagnet, AttackRangeBuff, RecoveryJump, DamageBuff, MovementBuff, DashDamage }
     // List of all possible power-ups (6 of them)
-    public PowerUpType[] powerUps = { PowerUpType.ItemMagnet, PowerUpType.AttackRangeBuff, PowerUpType.RecoveryJump, PowerUpType.DamageBuff, PowerUpType.MovementBuff, PowerUpType.DashDamage };
+    public struct PowerUp
+    {
+        public PowerUpType Type { get; set; }
+
+        public PowerUp(PowerUpType type)
+        {
+            Type = type;
+        }
+    }
+
+    // List of all possible power-ups
+    public PowerUp[] powerUps =
+    {
+    new PowerUp(PowerUpType.ItemMagnet),
+    new PowerUp(PowerUpType.AttackRangeBuff),
+    new PowerUp(PowerUpType.RecoveryJump),
+    new PowerUp(PowerUpType.DamageBuff),
+    new PowerUp(PowerUpType.MovementBuff),
+    new PowerUp(PowerUpType.DashDamage)
+};
     // An array that holds all the powerups to pick :3
     // Can easily loop through when needed
     public PowerUpType[] offeredPowerUps;
@@ -23,10 +40,11 @@ public class LooserCardPowers : MonoBehaviour
         }
         // These power-ups would then be shown to the player in the UI (handled elsewhere)
     }
-    public void GrantPowerUp(PowerUpType chosenPowerUp)
+    public void GrantPowerUp(int chosenPowerUp)
     {
         // Apply the powerup the player picked
-        gameManager.ApplyPowerUp(chosenPowerUp);
+        PowerUpType selected = powerUps[chosenPowerUp].Type;
+        gameManager.ApplyPowerUp(selected);
     }
 
 
