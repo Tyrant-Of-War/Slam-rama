@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 184393879}
   - component: {fileID: 184393878}
   - component: {fileID: 184393882}
+  - component: {fileID: 184393883}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -539,6 +540,19 @@ MonoBehaviour:
   Player2Text: {fileID: 1449500961}
   Player3Text: {fileID: 595445496}
   Player4Text: {fileID: 771559813}
+--- !u!114 &184393883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 184393877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06342cf7cad5e3846af288cf22f7fac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Button: {fileID: 1005856840}
 --- !u!1 &242540379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,15 +2217,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2cd82c15d0c178b4689d761646c2a5fb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: af2516715e339bd4e82269f8bea2781a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.928
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 191
+  Priority: 117
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 738.9933
