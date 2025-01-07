@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GamemanagerUI : MonoBehaviour
 {
@@ -61,6 +62,9 @@ public class GamemanagerUI : MonoBehaviour
         PlayerSelectCanvas.SetActive(true);
         GameSettingsCanvas.SetActive(false);
         UpdateRoundAmount();
+
+        PlayerPrefs.SetInt("Spawn_Items", 1);
+        PlayerPrefs.SetInt("Hazards_On", 1);
     }
 
     private void FixedUpdate()
@@ -186,6 +190,30 @@ public class GamemanagerUI : MonoBehaviour
 
             roundData.roundsLeft = 1;
             roundData.roundsMax = 1;
+        }
+    }
+
+    public void UpdateHazards()
+    {
+        if (PlayerPrefs.GetInt("Hazards_On") == 0)
+        {
+            PlayerPrefs.SetInt("Hazards_On", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Hazards_On", 0);
+        }
+    }
+
+    public void UpdateItemSpawning()
+    {
+        if (PlayerPrefs.GetInt("Spawn_Items") == 0)
+        {
+            PlayerPrefs.SetInt("Spawn_Items", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Spawn_Items", 0);
         }
     }
 

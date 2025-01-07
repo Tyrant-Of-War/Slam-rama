@@ -15,7 +15,7 @@ public class Couldren : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Hazards_On") == 0)
         {
-            Destroy(gameObject);
+            enabled = false;
         }
     }
 

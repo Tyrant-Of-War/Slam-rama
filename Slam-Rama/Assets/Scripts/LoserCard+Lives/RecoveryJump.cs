@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RecoveryJump : MonoBehaviour
+public class RecoveryJump
 {
     private Rigidbody playerRB;
     private float jumpForce;
@@ -10,9 +10,6 @@ public class RecoveryJump : MonoBehaviour
     bool hasJumped = false;
 
     public AudioClip jumpSound;
-
-    // 
-    float cooldown;
 
     public RecoveryJump(Rigidbody rb, float jumpForce)
     {

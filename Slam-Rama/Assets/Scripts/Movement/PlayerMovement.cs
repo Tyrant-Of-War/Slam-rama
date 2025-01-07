@@ -205,8 +205,12 @@ public class PlayerMovement : MonoBehaviour
     {
         // Calls dash function
         playerDash.ExecuteDash(movementData, playerGrounded, stickData.x, stickData.y);
-        // plays the dash noise
-        PlayerSoundManager.Instance.PlaySound(dashNoise);
+
+        if(stickData.x > 0 || stickData.y > 0)
+        {
+            // plays the dash noise
+            PlayerSoundManager.Instance.PlaySound(dashNoise);
+        }
     }
 
 }
