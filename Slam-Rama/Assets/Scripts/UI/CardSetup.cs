@@ -8,6 +8,7 @@ public class CardSetup : MonoBehaviour
     public List<GameObject> currentCards;
     private void Awake()
     {
+        currentCards = new List<GameObject>();
         SetCurrentCards();
         Setup();
     }
@@ -21,6 +22,8 @@ public class CardSetup : MonoBehaviour
     }
     public void SetCurrentCards()
     {
+        if (currentCards.Count > 0) { foreach (var card in currentCards) { card.gameObject.SetActive(false); } }
+        currentCards.Clear();
         List<int> avalableIndex = new List<int>();
         for (int i = 0; i < Cards.Length; i++)
         {

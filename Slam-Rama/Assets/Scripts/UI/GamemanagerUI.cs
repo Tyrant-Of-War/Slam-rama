@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
@@ -88,10 +89,17 @@ public class GamemanagerUI : MonoBehaviour
             // Checks if the count of ready players is equal to the count of players who exist and that inMenu is true
             if (readycount == AllReady.Count && AllReady.Count != 0 && inMenu != false)
             {
-                // Calls the ready function
-                Ready();
-                // Sets in menu to false
-                inMenu = false;
+                if (PlayerInput.all.Count < 2)
+                {
+
+                }
+                else
+                {
+                    // Calls the ready function
+                    Ready();
+                    // Sets in menu to false
+                    inMenu = false;
+                }
             }
             else // if not clears the player ready list and the ready player count
             {
@@ -182,6 +190,9 @@ public class GamemanagerUI : MonoBehaviour
 
     public void ToloadNextScene()
     {
-        SceneManager.LoadScene("LoadingScreen");
+        if (PlayerInput.all.Count < 2)
+        { return; }
+        else
+            SceneManager.LoadScene("LoadingScreen");
     }
 }
