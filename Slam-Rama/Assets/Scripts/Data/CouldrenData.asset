@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: CouldrenData
   m_EditorClassIdentifier: 
   ID: 4
-  killHeight: 15
+  killHeight: -10
   SpawnLocation:
-  - {x: -17, y: 26, z: -13}
-  - {x: 7, y: 26, z: 22}
-  - {x: 15, y: 26, z: 5}
-  - {x: 6, y: 26, z: -21}
-  maxPositivePosition: {x: 17, y: 26, z: 17}
-  minNegativePosition: {x: -17, y: 26, z: -17}
+  - {x: -17, y: 3, z: -13}
+  - {x: 7, y: 3, z: 22}
+  - {x: 15, y: 3, z: 5}
+  - {x: 6, y: 3, z: -21}
+  maxPositivePosition: {x: 17, y: 0, z: 17}
+  minNegativePosition: {x: -17, y: 0, z: -17}
   itemAmount: 0
-  itemHeight: 26
+  itemHeight: 3

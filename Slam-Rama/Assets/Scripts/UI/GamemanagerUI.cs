@@ -221,7 +221,14 @@ public class GamemanagerUI : MonoBehaviour
     {
         if (PlayerInput.all.Count < 2)
         { return; }
-        else
+        else if (PlayerPrefs.GetInt("Tutorial_Completed") == 1)
+        {
             SceneManager.LoadScene("LoadingScreen");
+        }
+        else if (PlayerPrefs.GetInt("Tutorial_Completed") == 0)
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
+
     }
 }

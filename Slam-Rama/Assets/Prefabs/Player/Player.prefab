@@ -163,7 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RootCanvas: {fileID: 0}
   ready: 0
-  readyUp: {fileID: 0}
   HeadArrows: []
   BodyArrows: []
   legArrows: []
@@ -439,7 +438,6 @@ MonoBehaviour:
   jumpSound: {fileID: 8300000, guid: 69c7575e0e0bdf44ea4a1f0507807299, type: 3}
   dashNoise: {fileID: 8300000, guid: f27a1d47b275c27459e3367d555c72cc, type: 3}
   animator: {fileID: 8997223964410533896}
-  isSlippery: 0
   levelData: {fileID: 0}
 --- !u!114 &5943737662571242067
 MonoBehaviour:

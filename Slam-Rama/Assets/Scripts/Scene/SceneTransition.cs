@@ -32,4 +32,9 @@ public class SceneTransition : MonoBehaviour
     {
         start = true;
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }

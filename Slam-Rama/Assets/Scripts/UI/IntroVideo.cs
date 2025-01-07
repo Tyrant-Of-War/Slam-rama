@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class IntroVideo : MonoBehaviour
@@ -9,6 +11,10 @@ public class IntroVideo : MonoBehaviour
     [SerializeField] VideoPlayer videoPlayer;
 
     [SerializeField] GameObject videoUI;
+
+    [SerializeField] EventSystem eventSystem;
+
+    [SerializeField] GameObject startButton;
 
     private void Start()
     {
@@ -23,6 +29,8 @@ public class IntroVideo : MonoBehaviour
             videoPlayer.Stop();
 
             videoUI.SetActive(false);
+
+            eventSystem.SetSelectedGameObject(startButton);
         }
     }
 
@@ -31,5 +39,7 @@ public class IntroVideo : MonoBehaviour
         videoPlayer.Stop();
 
         videoUI.SetActive(false);
+
+        eventSystem.SetSelectedGameObject(startButton);
     }
 }

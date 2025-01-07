@@ -161,9 +161,6 @@ public class Molotov : MonoBehaviour
         {
             ignitedPlayers[i].isIgnited = false;
         }
-
-        Destroy(transform.GetChild(1).gameObject);
-        Destroy(transform.GetChild(2).gameObject);
     }
 
 }

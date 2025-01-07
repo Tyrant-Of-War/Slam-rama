@@ -55,6 +55,9 @@ public class Bomb : MonoBehaviour
             // Plays the explosion effect
             explosionParticles.Play();
 
+            // Unparents particle effects
+            transform.GetChild(0).parent = null;
+
             //Plays the explode sound
             bombExplode.Play();
 
@@ -108,11 +111,5 @@ public class Bomb : MonoBehaviour
             // Removes the player from the list
             explodeTargets.Remove(other.gameObject);
         }
-    }
-
-    private void OnDestroy()
-    {
-        Destroy(transform.GetChild(1).gameObject);
-        Destroy(transform.GetChild(2).gameObject);
     }
 }

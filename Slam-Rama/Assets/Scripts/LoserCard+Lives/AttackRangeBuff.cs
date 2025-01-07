@@ -18,11 +18,13 @@ public class AttackRangeBuff : MonoBehaviour
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
-        if (GetComponent<PlayerMovement>().playerData.loserCardID == 2 && attackCollider.size.z == 3)
+        Debug.Log("Scene change read by attack range buff");
+
+        if (GetComponent<UseItem>().playerData.loserCardID == 2 && attackCollider.size.z == 3)
         {
             IncreaseAttackRange();
         }
-        else if (attackCollider.size.z == 6)
+        else if (GetComponent<UseItem>().playerData.loserCardID != 2 && attackCollider.size.z == 6)
         {
             DecreaseAttackRange();
         }
@@ -32,11 +34,15 @@ public class AttackRangeBuff : MonoBehaviour
     {
         attackCollider.size = new Vector3(attackCollider.size.x, attackCollider.size.y, attackCollider.size.z * 2); // Double the size 
         attackCollider.center = new Vector3(attackCollider.center.x, attackCollider.center.y, attackCollider.center.z * 2); // Adjust the center 
+
+        Debug.Log("Range has been multiplied");
     }
 
     public void DecreaseAttackRange()
     {
         attackCollider.size = new Vector3(attackCollider.size.x, attackCollider.size.y, attackCollider.size.z / 2); // half the size 
         attackCollider.center = new Vector3(attackCollider.center.x, attackCollider.center.y, attackCollider.center.z / 2); // Adjust the center 
+
+        Debug.Log("Range has been unmultiplied");
     }
 }

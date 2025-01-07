@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ResultsSelect : MonoBehaviour
 {
-    [SerializeField] Button Button;
-    void Start()
+
+    public void ReturnToLobby()
     {
-        PlayerInput.all[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject = Button.gameObject;
-        Button.Select();
+        SceneManager.LoadScene("MainMenu");
     }
 
 }

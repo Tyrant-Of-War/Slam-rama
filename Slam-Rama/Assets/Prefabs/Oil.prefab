@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oilDuration: 15
-  oilSpill: {fileID: 0}
+  oilSpill: {fileID: 541398395468167799}
 --- !u!1 &6130176363734489988
 GameObject:
   m_ObjectHideFlags: 0

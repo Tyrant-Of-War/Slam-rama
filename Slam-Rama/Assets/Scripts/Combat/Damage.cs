@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Damage : MonoBehaviour
@@ -41,6 +38,13 @@ public class Damage : MonoBehaviour
 
         // Sets the delay ready for if the player becomes ignited
         fireDelay = 0.5f;
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+    }
+
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+    {
+        shield.SetActive(false);
     }
 
     private void Update()

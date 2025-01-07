@@ -84,7 +84,5 @@ public class Oil : MonoBehaviour
         {
             slipperyPlayers[i].isSlippery = false;
         }
-
-        Destroy(transform.GetChild(0).gameObject);
     }
 }

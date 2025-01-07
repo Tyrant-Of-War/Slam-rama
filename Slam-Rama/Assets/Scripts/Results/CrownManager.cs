@@ -29,6 +29,16 @@ public class CrownManager : MonoBehaviour
         RemoveNonPlayers();
         OrderByDeaths();
         SetCrowns();
+
+        int loopFor = PlayerInput.all.Count;
+
+        for (int i = 0; i < loopFor; i++)
+        {
+            if (PlayerInput.all.Count != 0)
+            {
+                Destroy(PlayerInput.all[0].gameObject);
+            }
+        }
     }
 
     public void OrderByDeaths()

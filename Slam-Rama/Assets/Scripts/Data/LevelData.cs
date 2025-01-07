@@ -25,7 +25,7 @@ public class LevelData : ScriptableObject
     public int itemHeight;
 
     // Resets values that shouldn't carry through scenes
-    private void OnEnable()
+    public void ResetData()
     {
         itemAmount = 0;
     }

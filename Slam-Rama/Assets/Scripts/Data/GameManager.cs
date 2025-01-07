@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
         }
+
+        levelData.ResetData();
     }
 
     private void LateUpdate()
@@ -150,6 +152,7 @@ public class GameManager : MonoBehaviour
         input.GetComponent<CapsuleCollider>().enabled = true;
 
         // Sets the players spawn location
+        input.GetComponent<Rigidbody>().velocity = Vector3.zero;
         input.GetComponent<Rigidbody>().position = levelData.SpawnLocation[playerData.ID - 1];
         input.GetComponent<Rigidbody>().velocity = Vector3.zero;
 

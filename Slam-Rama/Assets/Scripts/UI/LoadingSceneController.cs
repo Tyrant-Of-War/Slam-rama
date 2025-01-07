@@ -55,11 +55,11 @@ public class LoadingSceneController : MonoBehaviour
                     roundData.PreviousRound = RoundData.RoundType.Clock;
                     break;
                 case 3:
-                    asyncOperation = SceneManager.LoadSceneAsync("Boxing");
+                    asyncOperation = SceneManager.LoadSceneAsync("Castle");
                     roundData.PreviousRound = RoundData.RoundType.Castle;
                     break;
                 case 4:
-                    asyncOperation = SceneManager.LoadSceneAsync("Clock");
+                    asyncOperation = SceneManager.LoadSceneAsync("Couldren");
                     roundData.PreviousRound = RoundData.RoundType.Witch;
                     break;
 

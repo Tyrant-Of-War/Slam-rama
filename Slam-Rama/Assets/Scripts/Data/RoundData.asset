@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f155bd6e58ff1e14198ecdb209c38895, type: 3}
   m_Name: RoundData
   m_EditorClassIdentifier: 
-  roundsLeft: 3
-  roundsMax: 3
+  roundsLeft: 1
+  roundsMax: 5
   RandomRounds: 1
   firstPlayerOut: {fileID: 0}
   lastPlayerStanding: {fileID: 0}
   roundWinner: {fileID: 0}
-  roundType: 1
-  PreviousRound: 5
+  roundType: 4
+  PreviousRound: 1
