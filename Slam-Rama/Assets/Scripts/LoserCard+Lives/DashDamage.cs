@@ -15,8 +15,6 @@ public class DashDamage : MonoBehaviour
 
     private void Start()
     {
-        playerMovement = GetComponent<PlayerMovement>(); //calls the player movement script 
-
         SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
     }
 

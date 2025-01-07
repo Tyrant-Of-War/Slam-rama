@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: -3607917493966997157}
   - component: {fileID: 5220054069808073294}
   - component: {fileID: 5931948053944656136}
+  - component: {fileID: 5690187712298137244}
   - component: {fileID: 451090599234243214}
   m_Layer: 0
   m_Name: Player
@@ -521,6 +522,7 @@ MonoBehaviour:
   knockoutSound: {fileID: 8300000, guid: 2c45b71e28d4dad4bb3bb41bf1dd0fd4, type: 3}
   finalKnockoutAudio: {fileID: 8300000, guid: b4f3d2d0af2e59045abe2767e49646fe, type: 3}
   respawnSound: {fileID: 8300000, guid: c9c97f402d411f54cbcc13d957b9abf7, type: 3}
+  roundData: {fileID: 11400000, guid: e94778f5e7c626642bb52be526c1499a, type: 2}
 --- !u!114 &-3607917493966997157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -565,6 +567,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21564f5e54f5f2640a557d2a8124714d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5690187712298137244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190298267786525639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2f9877b25c2b14d986306851343d1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 6026409003079307071}
 --- !u!114 &451090599234243214
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 using static LooserCardPowers;
 
 public class LoserCardsUiManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class LoserCardsUiManager : MonoBehaviour
     [SerializeField] GameObject[] BGGraphic;
     [SerializeField] RoundData RoundData;
     public CardSetup Cards;
+    int index = 0;
 
     public enum PowerUp
     {
@@ -25,40 +27,36 @@ public class LoserCardsUiManager : MonoBehaviour
         Powerups = 6
     };
 
-    List<PlayerInput> playerInputs = new List<PlayerInput>(); // Changed to List<PlayerInput
-    List<PlayerData> playerDatas = new List<PlayerData>();
-
-
     private void Start()
     {
+        index = 0;
         PreviousRound = RoundData.PreviousRound;
         SetBGGraphic();
 
-        // Add all PlayerInput instances except the last player standing
-        foreach (PlayerInput input in PlayerInput.all)
-        {
-            if (input != RoundData.LastPlayerStanding)
-            {
-                playerInputs.Add(input);
-
-                playerDatas.Add(input.gameObject.GetComponent<UseItem>().playerData);
-            }
-            else
-            {
-                input.GetComponent<UseItem>().playerData.loserCardID = 64;
-            }
-        }
-
         // Switch all player inputs to the "UI" action map
-        foreach (PlayerInput input in playerInputs)
+        foreach (PlayerInput input in PlayerInput.all)
         {
             input.SwitchCurrentActionMap("UI");
         }
 
-        // Set the first selected game object for the first player's event system
-        playerInputs[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().playerRoot = Canvas;
-        playerInputs[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject = Cards.currentCards[0];
-        playerInputs[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject.GetComponent<Button>().Select();
+        SetCurrentPlayer();
+    }
+
+    void SetCurrentPlayer()
+    {
+        if (PlayerInput.all[index] != RoundData.LastPlayerStanding)
+        {
+            // Set the first selected game object for the first player's event system
+            PlayerInput.all[index].gameObject.GetComponentInChildren<MultiplayerEventSystem>().playerRoot = Canvas;
+            PlayerInput.all[index].gameObject.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject = Cards.currentCards[0];
+            PlayerInput.all[index].gameObject.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject.GetComponent<Button>().Select();
+        }
+        else
+        {
+            index++;
+
+            SetCurrentPlayer();
+        }
     }
 
     public void SetBGGraphic()
@@ -82,20 +80,18 @@ public class LoserCardsUiManager : MonoBehaviour
 
     public void NextPlayer()
     {
-        if (playerInputs.Count > 0)
+        if (index < PlayerInput.all.Count - 1)
         {
-            playerInputs.RemoveAt(0); // Remove the first player
-            playerDatas.RemoveAt(0);
-            if (playerInputs.Count > 1)
-            {
-                playerInputs[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().playerRoot = Canvas;
-                playerInputs[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject = Cards.currentCards[0];
-                playerInputs[0].gameObject.GetComponentInChildren<MultiplayerEventSystem>().firstSelectedGameObject.GetComponent<Button>().Select();
-            }
-            else
-            {
-                SceneManager.LoadScene("LoadingScreen");
-            }
+            index++;
+
+            Cards.SetCurrentCards();
+            Cards.Setup();
+
+            SetCurrentPlayer();
+        }
+        else
+        {
+            SceneManager.LoadScene("LoadingScreen");
         }
 
     }
@@ -104,23 +100,23 @@ public class LoserCardsUiManager : MonoBehaviour
         switch ((PowerUp)powerUp)
         {
             case PowerUp.Magnetism:
-                playerDatas[0].loserCardID = (int)PowerUp.Magnetism;
+                PlayerInput.all[index].gameObject.GetComponent<UseItem>().playerData.loserCardID = (int)PowerUp.Magnetism;
                 break;
             case PowerUp.LongArms:
-                playerDatas[0].loserCardID = (int)PowerUp.LongArms;
+                PlayerInput.all[index].gameObject.GetComponent<UseItem>().playerData.loserCardID = (int)PowerUp.LongArms;
                 break;
             case PowerUp.RecoveryJump:
-                playerDatas[0].loserCardID = (int)PowerUp.RecoveryJump;
+                PlayerInput.all[index].gameObject.GetComponent<UseItem>().playerData.loserCardID = (int)PowerUp.RecoveryJump;
                 break;
             case PowerUp.DamageBuff:
-                playerDatas[0].loserCardID = (int)PowerUp.DamageBuff;
+                PlayerInput.all[index].gameObject.GetComponent<UseItem>().playerData.loserCardID = (int)PowerUp.DamageBuff;
                 break;
             case PowerUp.DashDamage:
-                playerDatas[0].loserCardID = (int)PowerUp.DashDamage;
+                PlayerInput.all[index].gameObject.GetComponent<UseItem>().playerData.loserCardID = (int)PowerUp.DashDamage;
                 break;
             case PowerUp.Powerups:
-                playerDatas[0].loserCardID = (int)PowerUp.Powerups;
-                playerDatas[0].itemID = Random.Range(1, 7);
+                PlayerInput.all[index].gameObject.GetComponent<UseItem>().playerData.loserCardID = (int)PowerUp.Powerups;
+                PlayerInput.all[index].gameObject.GetComponent<UseItem>().playerData.itemID = Random.Range(1, 7);
                 break;
         }
         NextPlayer();
