@@ -52,6 +52,9 @@ public class PlayerData : ScriptableObject
     // Used to read the current loser card the player has (64 is defualt / no card)
     public int loserCardID;
 
+    // USed to check if the player is under the effects of an oil spill
+    public bool isSlippery;
+
     // Resets everything
     public void ResetData()
     {
@@ -78,6 +81,8 @@ public class PlayerData : ScriptableObject
         isShielded = false;
 
         loserCardID = 64;
+
+        isSlippery = false;
     }
 
     // Resets stuff between rounds
@@ -98,6 +103,8 @@ public class PlayerData : ScriptableObject
         isShielded = false;
 
         loserCardID = 64;
+
+        isSlippery = false;
     }
 
     // Resets things between lives
@@ -112,5 +119,7 @@ public class PlayerData : ScriptableObject
         isAttacking = false;
 
         isShielded = false;
+
+        isSlippery = false;
     }
 }

@@ -34,8 +34,6 @@ public class Damage : MonoBehaviour
 
     public AudioClip shieldBreak;
 
-    float damageBuffMultiplier;
-
     private void Start()
     {
         // Gets rigid body
@@ -43,20 +41,6 @@ public class Damage : MonoBehaviour
 
         // Sets the delay ready for if the player becomes ignited
         fireDelay = 0.5f;
-
-        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
-    }
-
-    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
-    {
-        if (playerData.loserCardID == 4)
-        {
-            damageBuffMultiplier = 1.5f;
-        }
-        else
-        {
-            damageBuffMultiplier = 1f;
-        }
     }
 
     private void Update()
@@ -86,7 +70,7 @@ public class Damage : MonoBehaviour
             }
             else
             {
-                DamagePlayer(1f);
+                DamagePlayer(3f);
 
                 fireDelay = 0.5f;
             }

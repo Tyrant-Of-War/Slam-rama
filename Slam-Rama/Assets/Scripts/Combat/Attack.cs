@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.SceneManagement;
 
 
 public class Attack : MonoBehaviour
@@ -37,12 +38,28 @@ public class Attack : MonoBehaviour
     public AudioClip heavyAttack;
     public AudioClip heavyAttackCharge;
 
+    float damageBuffMultiplier;
+
     private void Start()
     {
         // Gets the attack hitbox
         attackHitbox = GetComponent<BoxCollider>();
         // Gets the animator
         animator = GetComponentInChildren<Animator>();
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+    }
+
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+    {
+        if (playerData.loserCardID == 4)
+        {
+            damageBuffMultiplier = 1.5f;
+        }
+        else
+        {
+            damageBuffMultiplier = 1f;
+        }
     }
 
     private void Update()
@@ -171,7 +188,7 @@ public class Attack : MonoBehaviour
             //Debug.Log(attackTargets[i].name);
 
             // Calls the damage function and feeds it the single point of damage to be applied by a light attack
-            attackTargets[i].GetComponent<Damage>().DamagePlayer(1);
+            attackTargets[i].GetComponent<Damage>().DamagePlayer(1 * damageBuffMultiplier);
 
             //Plays the light attack sound
             PlayerSoundManager.Instance.PlaySound(lightAttack);
@@ -197,7 +214,7 @@ public class Attack : MonoBehaviour
             //Debug.Log(attackTargets[i].name);
 
             // Calls the damage function and feeds it the ten points of damage to be applied by a heavy attack
-            attackTargets[i].GetComponent<Damage>().DamagePlayer(Mathf.RoundToInt(power * 5f));
+            attackTargets[i].GetComponent<Damage>().DamagePlayer(Mathf.RoundToInt(power * 5f * damageBuffMultiplier));
 
             //Plays the heavy attack sound
             PlayerSoundManager.Instance.PlaySound(heavyAttack);

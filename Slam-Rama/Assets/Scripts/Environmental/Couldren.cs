@@ -12,6 +12,11 @@ public class Couldren : MonoBehaviour
     void Start()
     {
         platformDelay = 15f;
+
+        if (PlayerPrefs.GetInt("Hazards_On") == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame

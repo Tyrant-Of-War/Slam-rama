@@ -58,11 +58,6 @@ public class Bomb : MonoBehaviour
             //Plays the explode sound
             bombExplode.Play();
 
-            // Removes the particle system from the bomb so it can continue to play after the bomb dissapears
-            transform.DetachChildren();
-
-            //explosionParticles = null;
-
             // Runs through each player in the collider radius and applies an explosion force
             for (int i = 0; i < explodeTargets.Count; ++i)
             {
@@ -113,5 +108,11 @@ public class Bomb : MonoBehaviour
             // Removes the player from the list
             explodeTargets.Remove(other.gameObject);
         }
+    }
+
+    private void OnDestroy()
+    {
+        Destroy(transform.GetChild(1).gameObject);
+        Destroy(transform.GetChild(2).gameObject);
     }
 }

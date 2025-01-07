@@ -18,7 +18,7 @@ public class AttackRangeBuff : MonoBehaviour
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
-        if (GetComponentInParent<PlayerMovement>().playerData.loserCardID == 2 && attackCollider.size.z == 3)
+        if (GetComponent<PlayerMovement>().playerData.loserCardID == 2 && attackCollider.size.z == 3)
         {
             IncreaseAttackRange();
         }

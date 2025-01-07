@@ -523,6 +523,7 @@ MonoBehaviour:
   finalKnockoutAudio: {fileID: 8300000, guid: b4f3d2d0af2e59045abe2767e49646fe, type: 3}
   respawnSound: {fileID: 8300000, guid: c9c97f402d411f54cbcc13d957b9abf7, type: 3}
   roundData: {fileID: 11400000, guid: e94778f5e7c626642bb52be526c1499a, type: 2}
+  sheild: {fileID: 2157710118929132510}
 --- !u!114 &-3607917493966997157
 MonoBehaviour:
   m_ObjectHideFlags: 0
