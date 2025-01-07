@@ -10,7 +10,6 @@ public class PlayerCosmeticInput : MonoBehaviour
     {
         Head,
         Body,
-        Colours,
     }
     navigationPos navigationPosition;
     void Start()
@@ -64,9 +63,6 @@ public class PlayerCosmeticInput : MonoBehaviour
                                 case navigationPos.Body:
                                     Body.Next();
                                     break;
-                                case navigationPos.Colours:
-                                    //UpdateColour(true);
-                                    break;
                             }
                             break;
                         case -1:
@@ -78,10 +74,6 @@ public class PlayerCosmeticInput : MonoBehaviour
                                 case navigationPos.Body:
                                     Body.Previous();
                                     break;
-                                case navigationPos.Colours:
-                                    //UpdateColour(false);
-                                    break;
-
                             }
                             break;
                     }
@@ -93,13 +85,10 @@ public class PlayerCosmeticInput : MonoBehaviour
                                 switch (navigationPosition)
                                 {
                                     case navigationPos.Head:
-                                        navigationPosition = navigationPos.Colours;
+                                        navigationPosition = navigationPos.Body;
                                         break;
                                     case navigationPos.Body:
                                         navigationPosition = navigationPos.Head;
-                                        break;
-                                    case navigationPos.Colours:
-                                        navigationPosition = navigationPos.Body;
                                         break;
                                 }
                                 break;
@@ -110,9 +99,6 @@ public class PlayerCosmeticInput : MonoBehaviour
                                         navigationPosition = navigationPos.Body;
                                         break;
                                     case navigationPos.Body:
-                                        navigationPosition = navigationPos.Colours;
-                                        break;
-                                    case navigationPos.Colours:
                                         navigationPosition = navigationPos.Head;
                                         break;
                                 }
