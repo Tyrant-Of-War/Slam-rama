@@ -18,6 +18,11 @@ public class ClockSlowMo : MonoBehaviour
     private void Start()
     {
         slowDelay = Random.Range(10, 20);
+
+        if (PlayerPrefs.GetInt("Hazards_On") == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Update()

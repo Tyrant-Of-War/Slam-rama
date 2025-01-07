@@ -34,4 +34,9 @@ public class Icicle : MonoBehaviour
             other.GetComponent<Damage>().FreezePlayer();
         }
     }
+
+    private void OnDestroy()
+    {
+        Destroy(transform.GetChild(1).gameObject);
+    }
 }

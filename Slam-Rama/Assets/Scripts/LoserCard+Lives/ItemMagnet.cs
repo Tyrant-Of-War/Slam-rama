@@ -28,7 +28,7 @@ public class ItemMagnet : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Item") && GetComponentInParent<PlayerMovement>().playerData.itemID == 0)
+        if (other.CompareTag("Item") && GetComponentInParent<PlayerMovement>().playerData.itemID == 0 && GetComponentInParent<PlayerMovement>().playerData.isDead == false)
         {
             direction = (transform.position - other.transform.position).normalized;
             other.transform.position += direction * Mathf.Pow(dragSpeed * Time.deltaTime, Vector3.Distance(transform.position, other.transform.position));  
