@@ -11,7 +11,7 @@ public class Oil : MonoBehaviour
     BoxCollider boxCollider;
 
     // The list of all players ignited so they can be extinguished when this object is destroyed
-    List<PlayerMovement> slipperyPlayers = new List<PlayerMovement>();
+    List<PlayerData> slipperyPlayers = new List<PlayerData>();
 
     public AudioSource oilSpill;
 
@@ -47,13 +47,13 @@ public class Oil : MonoBehaviour
             //Debug.Log("Collision Entry Detected");
 
             // Sets the player to the ignited state
-            other.GetComponent<PlayerMovement>().isSlippery = true;
+            other.GetComponent<PlayerMovement>().playerData.isSlippery = true;
 
             //Plays the oil spill sound
             oilSpill.Play();
 
             // Adds the player to list of players ignited
-            slipperyPlayers.Add(other.GetComponent<PlayerMovement>());
+            slipperyPlayers.Add(other.GetComponent<PlayerMovement>().playerData);
 
             //for (int i = 0; i < attackTargets.Count; i++)
             //{
@@ -70,10 +70,10 @@ public class Oil : MonoBehaviour
             //Debug.Log(other.name + " Has Exited Collision");
 
             // Extinguishes the player
-            other.GetComponent<PlayerMovement>().isSlippery = false;
+            other.GetComponent<PlayerMovement>().playerData.isSlippery = false;
 
             // Adds the player to list of players ignited
-            slipperyPlayers.Remove(other.GetComponent<PlayerMovement>());
+            slipperyPlayers.Remove(other.GetComponent<PlayerMovement>().playerData);
         }
     }
 
@@ -84,5 +84,7 @@ public class Oil : MonoBehaviour
         {
             slipperyPlayers[i].isSlippery = false;
         }
+
+        Destroy(transform.GetChild(0).gameObject);
     }
 }

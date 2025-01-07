@@ -56,8 +56,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Animator animator;
 
-    public bool isSlippery;
-
     public LevelData levelData;
 
     void Start()
@@ -68,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Initialize the Jump and Dash components
         playerJump = new Jump(playerRB, jumpForce);
-        playerDash = new Dash(playerRB, dashCooldown, speed * 5, this);  // Pass 'this' for coroutine use
+        playerDash = new Dash(playerRB, dashCooldown, speed * 2, this);  // Pass 'this' for coroutine use
         recoveryJump = new RecoveryJump(playerRB, jumpForce);
 
         playerJump.jumpSound = jumpSound;
@@ -101,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
             speed = groundSpeed;
 
             // Checks if player is currently attacking or not
-            if ((!playerData.isAttacking && !isSlippery) || (playerData.isAttacking && isSlippery))
+            if ((!playerData.isAttacking && !playerData.isSlippery) || (playerData.isAttacking && playerData.isSlippery))
             {
                 // Applies the movement data
                 playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);
@@ -111,10 +109,10 @@ public class PlayerMovement : MonoBehaviour
                 // Applies the movement data halved if they are attacking
                 playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 0.25f, ForceMode.VelocityChange);
             }
-            else if (isSlippery)
+            else if (playerData.isSlippery)
             {
                 // Applies the movement data halved if they are attacking
-                playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 10f, ForceMode.VelocityChange);
+                playerRB.AddForce((movementData * speed * Time.fixedDeltaTime) * 5f, ForceMode.VelocityChange);
             }
 
         }
@@ -125,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
             speed = airSpeed;
 
             // Checks if player is currently attacking or not
-            if ((!playerData.isAttacking && !isSlippery) || (playerData.isAttacking && isSlippery))
+            if (!playerData.isAttacking)
             {
                 // Applies the movement data
                 playerRB.AddForce(movementData * speed * Time.fixedDeltaTime, ForceMode.VelocityChange);

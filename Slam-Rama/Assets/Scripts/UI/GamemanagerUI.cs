@@ -26,7 +26,7 @@ public class GamemanagerUI : MonoBehaviour
     public GameObject GameSettingsCanvas;
     public GameObject canvasFirstSelect;
 
-    // Unsure??????
+    // Stops people from spawning when they're not supposed to as game knows its in the menu
     private bool inMenu;
 
     private void Awake()
@@ -92,7 +92,7 @@ public class GamemanagerUI : MonoBehaviour
             {
                 if (PlayerInput.all.Count < 2)
                 {
-
+                    
                 }
                 else
                 {

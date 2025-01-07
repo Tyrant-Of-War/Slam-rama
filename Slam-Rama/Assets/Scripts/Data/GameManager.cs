@@ -41,6 +41,11 @@ public class GameManager : MonoBehaviour
                 AssignPlayerData(UnityEngine.InputSystem.PlayerInput.all[i], UnityEngine.InputSystem.PlayerInput.all[i].gameObject.GetComponent<Damage>().playerData, true);
             }
         }
+
+        if (Time.timeScale < 1)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     private void LateUpdate()

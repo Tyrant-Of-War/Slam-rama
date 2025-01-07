@@ -36,6 +36,11 @@ public class ItemManager : MonoBehaviour
     {
         // Sets the initial delay
         delay = Random.Range(delayMin, delayMax);
+
+        if (PlayerPrefs.GetInt("Spawn_Items") == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame

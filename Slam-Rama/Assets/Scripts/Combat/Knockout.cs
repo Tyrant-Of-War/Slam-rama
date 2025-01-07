@@ -28,6 +28,8 @@ public class Knockout : MonoBehaviour
 
     public RoundData roundData;
 
+    [SerializeField] GameObject sheild;
+
     private void Start()
     {
         // Sets default true
@@ -64,6 +66,7 @@ public class Knockout : MonoBehaviour
 
                     // Reset some of the player data ready for when the player respawns
                     playerData.ResetLifeData();
+                    sheild.SetActive(false);
 
                     // Sets them to the respawning state
                     isRespawning = true;
@@ -78,6 +81,8 @@ public class Knockout : MonoBehaviour
                     playerData.falls++;
                     playerData.damage = 1;
                     playerData.isDead = true;
+
+                    sheild.SetActive(false);
                     //play the final knockout sound
                     PlayerSoundManager.Instance.PlaySound(finalKnockoutAudio);
                     // Moves the player to the bottom of the map and freezes their moving until the next round
