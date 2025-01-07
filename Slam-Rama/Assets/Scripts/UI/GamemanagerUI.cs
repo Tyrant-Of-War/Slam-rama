@@ -31,6 +31,7 @@ public class GamemanagerUI : MonoBehaviour
 
     private void Awake()
     {
+        roundData.Initialize();
         inMenu = true;
         // deletes preexisting players 
         if (UnityEngine.InputSystem.PlayerInput.all.Count > 0)

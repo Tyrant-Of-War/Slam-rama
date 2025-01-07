@@ -16,6 +16,10 @@ public class CrownManager : MonoBehaviour
     public GameObject[] Player2GO;
     public GameObject[] Player3GO;
     public GameObject[] Player4GO;
+    public GameObject[] Player1GO_1;
+    public GameObject[] Player2GO_1;
+    public GameObject[] Player3GO_1;
+    public GameObject[] Player4GO_1;
     public GameObject Player1Text;
     public GameObject Player2Text;
     public GameObject Player3Text;
@@ -24,6 +28,7 @@ public class CrownManager : MonoBehaviour
     {
         RemoveNonPlayers();
         OrderByDeaths();
+        SetCrowns();
     }
 
     public void OrderByDeaths()
@@ -58,29 +63,29 @@ public class CrownManager : MonoBehaviour
                 break;
             case 1:
                 Player2Deaths = -1;
-                foreach (var Gameobjects in Player2GO)
+                foreach (var Gameobjects in Player2GO_1)
                 {
                     Gameobjects.SetActive(false);
                 }
                 Player3Deaths = -1;
-                foreach (var Gameobjects in Player3GO)
+                foreach (var Gameobjects in Player3GO_1)
                 {
                     Gameobjects.SetActive(false);
                 }
                 Player4Deaths = -1;
-                foreach (var Gameobjects in Player4GO)
+                foreach (var Gameobjects in Player4GO_1)
                 {
                     Gameobjects.SetActive(false);
                 }
                 break;
             case 2:
-                Player3Deaths -= 1;
-                foreach (var Gameobjects in Player3GO)
+                Player3Deaths = -1;
+                foreach (var Gameobjects in Player3GO_1)
                 {
                     Gameobjects.SetActive(false);
                 }
                 Player4Deaths -= 1;
-                foreach (var Gameobjects in Player4GO)
+                foreach (var Gameobjects in Player4GO_1)
                 {
                     Gameobjects.SetActive(false);
                 }
@@ -173,16 +178,16 @@ public class CrownManager : MonoBehaviour
         switch (playerIndex)
         {
             case 0:
-                Player1Text.GetComponent<TextMeshProUGUI>().text = $"Rank: {rank}";
+                Player1Text.GetComponent<TextMeshProUGUI>().text = $"{rank}";
                 break;
             case 1:
-                Player2Text.GetComponent<TextMeshProUGUI>().text = $"Rank: {rank}";
+                Player2Text.GetComponent<TextMeshProUGUI>().text = $"{rank}";
                 break;
             case 2:
-                Player3Text.GetComponent<TextMeshProUGUI>().text = $"Rank: {rank}";
+                Player3Text.GetComponent<TextMeshProUGUI>().text = $"{rank}";
                 break;
             case 3:
-                Player4Text.GetComponent<TextMeshProUGUI>().text = $"Rank: {rank}";
+                Player4Text.GetComponent<TextMeshProUGUI>().text = $"{rank}";
                 break;
         }
     }

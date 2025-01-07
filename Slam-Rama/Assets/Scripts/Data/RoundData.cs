@@ -6,13 +6,6 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu]
 public class RoundData : ScriptableObject
 {
-    //////////////
-
-    // Should probably rework this entire thing
-
-    //////////////
-    ///na Shit works fine :)
-
     public int roundsLeft;
     public int roundsMax;
     public bool RandomRounds;
@@ -41,28 +34,39 @@ public class RoundData : ScriptableObject
     public RoundType roundType;
     public RoundType PreviousRound;
 
-    private void Awake()
+    // Initialization method to replace Awake
+    public void Initialize()
     {
-        roundsLeft = 3; lastPlayerStanding = null; roundsMax = 3;
+        roundsLeft = 3;
+        roundsMax = 3;
         RandomRounds = true;
         roundType = RoundType.Random;
+        lastPlayerStanding = null;
+
         PlayerWin = new List<List<bool>>();
-        PlayerWin.Add(new List<bool>());
-        PlayerWin.Add(new List<bool>());
-        PlayerWin.Add(new List<bool>());
-        PlayerWin.Add(new List<bool>());
+        for (int i = 0; i < 4; i++)
+        {
+            PlayerWin.Add(new List<bool>());
+        }
+
         Order = new List<List<int>>();
-        for (int i = 0; i < roundsLeft; i++)
+        for (int k = 0; k < 4; k++) // Support for up to 4 players
         {
             Order.Add(new List<int>());
+            for (int i = 0; i < roundsLeft; i++)
+            {
+                Order[k].Add(0);
+            }
         }
     }
+
     // Resets the tracker data for each new round
     public void ResetData()
     {
         firstPlayerOut = null;
         lastPlayerStanding = null;
     }
+
     public void AddLosingPlayer(PlayerInput playerInput, int Position)
     {
         if (PlayerInput.all[0] == playerInput)
@@ -82,7 +86,7 @@ public class RoundData : ScriptableObject
             Order[3][roundsMax - roundsLeft] = Position;
         }
     }
-    // Updates the tracker data based on current player data
+
     public void UpdateData(List<PlayerData> playerData)
     {
         int playersWithLives = 0;
@@ -102,39 +106,22 @@ public class RoundData : ScriptableObject
             }
         }
     }
+
     public void SwitchRoundType(int Value)
     {
-        switch ((RoundType)Value)
-        {
-            case RoundType.Clock:
-                roundType = RoundType.Clock;
-                break;
-            case RoundType.Castle:
-                roundType = RoundType.Castle;
-                break;
-            case RoundType.Random:
-                roundType = RoundType.Random;
-                break;
-            case RoundType.Witch:
-                roundType = RoundType.Witch;
-                break;
-            case RoundType.Boxing:
-                roundType = RoundType.Boxing;
-                break;
-
-        }
+        roundType = (RoundType)Value;
     }
 
-    // Checks if the round should end (only one player with lives left)
     public bool IsRoundOver()
     {
         return lastPlayerStanding != null && firstPlayerOut != null;
-
     }
+
     public void SetLastPlayer(PlayerInput player)
     {
         lastPlayerStanding = player;
     }
+
     public void PlayerWinUpdate()
     {
         switch (lastPlayerStanding)
@@ -163,7 +150,6 @@ public class RoundData : ScriptableObject
                 PlayerWin[2].Add(false);
                 PlayerWin[3].Add(true);
                 break;
-
         }
     }
 }

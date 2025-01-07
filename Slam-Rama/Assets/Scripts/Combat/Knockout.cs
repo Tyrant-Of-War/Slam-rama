@@ -89,7 +89,7 @@ public class Knockout : MonoBehaviour
                             fallen -= 1;
                         }
                     }
-                    //roundData.AddLosingPlayer(gameObject.GetComponent<PlayerInput>(), fallen);
+                    roundData.AddLosingPlayer(gameObject.GetComponent<PlayerInput>(), fallen);
                     GetComponent<Rigidbody>().position = new Vector3(0, -2.5f, 0);
                     GetComponent<Rigidbody>().velocity = Vector3.zero;
                     GetComponent<PlayerMovement>().enabled = false;

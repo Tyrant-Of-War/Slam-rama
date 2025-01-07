@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -181,7 +180,7 @@ public class GameManager : MonoBehaviour
                 player.ResetData();
             }
 
-            SceneManager.LoadScene("Lobby");
+            SceneManager.LoadScene("Results");
         }
         else
         {
