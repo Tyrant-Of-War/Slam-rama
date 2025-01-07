@@ -1,12 +1,10 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InGameUI : MonoBehaviour
 {
-
-    [SerializeField] GameObject PlayerBust;
-    [SerializeField] GameObject WinnerScreen;
     [SerializeField] GameObject MainUI;
     [SerializeField] GameObject[] Player1Lives;
     [SerializeField] GameObject[] Player2Lives;
@@ -17,6 +15,10 @@ public class InGameUI : MonoBehaviour
     [SerializeField] List<PlayerData> playerDatas = new List<PlayerData>();
 
     [SerializeField] List<TextMeshProUGUI> damageNumbers = new List<TextMeshProUGUI>();
+
+    [SerializeField] List<Image> playerPowerUps = new List<Image>();
+
+    [SerializeField] List<Sprite> powerUpSprites = new List<Sprite>();
 
     string playerDamage;
 
@@ -131,6 +133,47 @@ public class InGameUI : MonoBehaviour
             }
 
             damageNumbers[i].text = playerDamage;
+        }
+    }
+
+    public void UpdatePowerUp()
+    {
+        for (int i = 0; i < playerDatas.Count; i++)
+        {
+            if (playerDatas[i].itemID == 0) 
+            {
+                playerPowerUps[i].enabled = false;
+            }
+            else if (playerDatas[i].itemID == 1)
+            {
+                playerPowerUps[i].enabled = true;
+                playerPowerUps[i].sprite = powerUpSprites[0];
+            }
+            else if (playerDatas[i].itemID == 2)
+            {
+                playerPowerUps[i].enabled = true;
+                playerPowerUps[i].sprite = powerUpSprites[1];
+            }
+            else if (playerDatas[i].itemID == 3)
+            {
+                playerPowerUps[i].enabled = true;
+                playerPowerUps[i].sprite = powerUpSprites[2];
+            }
+            else if (playerDatas[i].itemID == 4)
+            {
+                playerPowerUps[i].enabled = true;
+                playerPowerUps[i].sprite = powerUpSprites[3];
+            }
+            else if (playerDatas[i].itemID == 5)
+            {
+                playerPowerUps[i].enabled = true;
+                playerPowerUps[i].sprite = powerUpSprites[4];
+            }
+            else if (playerDatas[i].itemID == 6)
+            {
+                playerPowerUps[i].enabled = true;
+                playerPowerUps[i].sprite = powerUpSprites[5];
+            }
         }
     }
 

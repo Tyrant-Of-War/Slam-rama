@@ -52,6 +52,8 @@ public class PickUp : MonoBehaviour
             // Gives the ID to the player data
             other.GetComponent<PlayerMovement>().playerData.itemID = itemID;
 
+            other.GetComponent<Knockout>().gameUI.UpdatePowerUp();
+
             // Updates the amount of items in existance
             levelData.itemAmount--;
 

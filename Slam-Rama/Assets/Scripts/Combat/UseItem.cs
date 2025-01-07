@@ -33,13 +33,13 @@ public class UseItem : MonoBehaviour
         {
             Instantiate(powerUps[2], transform.position + transform.forward, Quaternion.identity).GetComponent<Molotov>().direction = transform.forward;
         }
-        else if (playerData.itemID == 5)
+        else if (playerData.itemID == 5) // Shield
         {
             shield.SetActive(true);
 
             playerData.isShielded = true;
         }
-        else if (playerData.itemID == 6)
+        else if (playerData.itemID == 6) // Oil Spill
         {
             Instantiate(powerUps[3], transform.position, Quaternion.identity);
         }
@@ -48,5 +48,7 @@ public class UseItem : MonoBehaviour
 
         // Clears the players item slot
         playerData.itemID = 0;
+
+        GetComponent<Knockout>().gameUI.UpdatePowerUp();
     }
 }
